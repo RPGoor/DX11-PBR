@@ -5,18 +5,19 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Windows">
+    <Filter Include="windows">
       <UniqueIdentifier>{472fee26-38ef-417f-a61b-d75f76517252}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="windows\public">
+      <UniqueIdentifier>{b187f155-7d13-4493-86fe-49d621080237}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="windows\private">
+      <UniqueIdentifier>{367bc88b-922e-435d-92b6-fd5eebc6e0cd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Windows\MinWindows.h">
-      <Filter>Windows</Filter>
+    <ClInclude Include="windows\public\MinWindows.h">
+      <Filter>windows\public</Filter>
     </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="test.cpp">
-      <Filter>Windows</Filter>
-    </ClCompile>
   </ItemGroup>
 </Project>

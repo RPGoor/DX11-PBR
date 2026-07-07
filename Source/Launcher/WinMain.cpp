@@ -1,4 +1,4 @@
-#include <Engine.Platform/Windows/MinWindows.h>
+#include <MinWindows.h>
 
 int CALLBACK WinMain(
     _In_ HINSTANCE hInstance,
