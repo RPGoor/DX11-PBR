@@ -5,5 +5,24 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Exceptions">
+      <UniqueIdentifier>{6d80d872-1ddb-4ffb-beae-d690ab81fb21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exceptions\public">
+      <UniqueIdentifier>{a7fda183-f8fe-4a9c-a009-4edaed6cce44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Exceptions\private">
+      <UniqueIdentifier>{fff06d2f-5042-4dbf-8bef-d1161b06df0d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Exceptions\BaseException.h">
+      <Filter>Exceptions\public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Exceptions\BaseException.cpp">
+      <Filter>Exceptions\private</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
