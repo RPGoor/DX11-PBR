@@ -1,4 +1,7 @@
 #include "Window.h"
+#include "../resource.h"
+
+Window::WindowClass Window::WindowClass::wndClass;
 
 Window::Window(int width, int height, LPCWSTR name)
     :width(width), height(height)
@@ -61,7 +64,7 @@ std::optional<int> Window::ProcessMessagePump()
     {
         if (msg.message == WM_QUIT)
         {
-            return msg.wParam;
+            return static_cast<int>(msg.wParam);
         }
 
         TranslateMessage(&msg);
