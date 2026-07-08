@@ -124,3 +124,29 @@ std::string DX11InfoException::GetErrorInfo() const noexcept
 {
     return info;
 }
+
+
+DX11SurfaceException::DX11SurfaceException(int line, const char* file, std::string note) noexcept
+    :
+    BaseException(line, file),
+    note(std::move(note))
+{}
+
+const char* DX11SurfaceException::what() const noexcept
+{
+    std::ostringstream oss;
+    oss << BaseException::what() << std::endl
+        << "[Note] " << GetNote();
+    WhatBuffer = oss.str();
+    return WhatBuffer.c_str();
+}
+
+const char* DX11SurfaceException::GetType() const noexcept
+{
+    return "Surface Graphics Exception";
+}
+
+const std::string& DX11SurfaceException::GetNote() const noexcept
+{
+    return note;
+}

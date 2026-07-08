@@ -147,13 +147,43 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Drawable.cpp" />
+    <ClCompile Include="DX11\Bindings\Bindable.cpp" />
+    <ClCompile Include="DX11\Bindings\BindableCodex.cpp" />
+    <ClCompile Include="DX11\Bindings\IndexBuffer.cpp" />
+    <ClCompile Include="DX11\Bindings\InputLayout.cpp" />
+    <ClCompile Include="DX11\Bindings\PixelShader.cpp" />
+    <ClCompile Include="DX11\Bindings\Sampler.cpp" />
+    <ClCompile Include="DX11\Bindings\Texture.cpp" />
+    <ClCompile Include="DX11\Bindings\Topology.cpp" />
+    <ClCompile Include="DX11\Bindings\TransformCbuf.cpp" />
+    <ClCompile Include="DX11\Bindings\VertexBuffer.cpp" />
+    <ClCompile Include="DX11\Bindings\VertexShader.cpp" />
     <ClCompile Include="DX11\DX11Exceptions.cpp" />
+    <ClCompile Include="DX11\GDIPlusManager.cpp" />
     <ClCompile Include="DX11\Graphics.cpp" />
+    <ClCompile Include="DX11\Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Drawable.h" />
+    <ClInclude Include="Core\Vertex.h" />
+    <ClInclude Include="DX11\Bindings\Bindable.h" />
+    <ClInclude Include="DX11\Bindings\BindableCodex.h" />
+    <ClInclude Include="DX11\Bindings\ConstantBuffers.h" />
+    <ClInclude Include="DX11\Bindings\IndexBuffer.h" />
+    <ClInclude Include="DX11\Bindings\InputLayout.h" />
+    <ClInclude Include="DX11\Bindings\PixelShader.h" />
+    <ClInclude Include="DX11\Bindings\Sampler.h" />
+    <ClInclude Include="DX11\Bindings\Texture.h" />
+    <ClInclude Include="DX11\Bindings\Topology.h" />
+    <ClInclude Include="DX11\Bindings\TransformCbuf.h" />
+    <ClInclude Include="DX11\Bindings\VertexBuffer.h" />
+    <ClInclude Include="DX11\Bindings\VertexShader.h" />
     <ClInclude Include="DX11\DX11Exceptions.h" />
+    <ClInclude Include="DX11\GDIPlusManager.h" />
     <ClInclude Include="DX11\Graphics.h" />
     <ClInclude Include="DX11\GraphicsExceptionsMacros.h" />
+    <ClInclude Include="DX11\Surface.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine.Common\Engine.Common.vcxproj">

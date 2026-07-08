@@ -11,6 +11,7 @@ using namespace Microsoft::WRL;
 
 class Graphics
 {
+    friend class Bindable;
 public:
     Graphics(HWND hWnd);
     Graphics(const Graphics&) = delete;

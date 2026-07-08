@@ -10,12 +10,72 @@
     <Filter Include="DX11\private">
       <UniqueIdentifier>{7ff77e64-afe5-4ed7-9820-b0d9fb35b59c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{23bb6807-8d0f-492a-8a3d-1ead76c2ac28}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\public">
+      <UniqueIdentifier>{35389ad5-35f5-4559-9822-e30127b3025d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\private">
+      <UniqueIdentifier>{dc94cceb-a719-45bf-8901-6fc689d8a747}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX11\Bindings">
+      <UniqueIdentifier>{8708fa61-3d56-4896-8814-3bad8acdd7fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX11\Bindings\public">
+      <UniqueIdentifier>{649b76cf-1996-4df6-99db-ef9fbfc07fc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX11\Bindings\private">
+      <UniqueIdentifier>{b87ded74-0cbe-449f-981a-302eeb5eb99a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11\Graphics.cpp">
       <Filter>DX11\private</Filter>
     </ClCompile>
     <ClCompile Include="DX11\DX11Exceptions.cpp">
+      <Filter>DX11\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\Bindable.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Drawable.cpp">
+      <Filter>Core\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\IndexBuffer.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\InputLayout.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\PixelShader.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\Sampler.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\Texture.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\Topology.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\TransformCbuf.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\VertexBuffer.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\VertexShader.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\BindableCodex.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Surface.cpp">
+      <Filter>DX11\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\GDIPlusManager.cpp">
       <Filter>DX11\private</Filter>
     </ClCompile>
   </ItemGroup>
@@ -28,6 +88,54 @@
     </ClInclude>
     <ClInclude Include="DX11\GraphicsExceptionsMacros.h">
       <Filter>DX11\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\Bindable.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Drawable.h">
+      <Filter>Core\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\IndexBuffer.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\InputLayout.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\PixelShader.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\Sampler.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\Texture.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\Topology.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\TransformCbuf.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\VertexBuffer.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\VertexShader.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\BindableCodex.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Vertex.h">
+      <Filter>Core\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Surface.h">
+      <Filter>DX11\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\GDIPlusManager.h">
+      <Filter>DX11\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\ConstantBuffers.h">
+      <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

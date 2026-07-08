@@ -33,3 +33,4 @@ packages/
 *.cso
 !Models/**/*.obj
 Intermediate/
+*.ini
