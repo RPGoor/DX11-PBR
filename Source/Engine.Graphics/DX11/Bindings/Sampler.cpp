@@ -1,5 +1,6 @@
 #include "Sampler.h"
 #include "../GraphicsExceptionsMacros.h"
+#include "BindableCodex.h"
 
 Sampler::Sampler(Graphics& gfx)
 {
@@ -14,7 +15,19 @@ Sampler::Sampler(Graphics& gfx)
     GFX_THROW_INFO(GetDevice(gfx)->CreateSamplerState(&samplerDesc, &pSampler));
 }
 
-void Sampler::Bind(Graphics & gfx) noexcept
+void Sampler::Bind(Graphics& gfx) noexcept
 {
-    GetContext(gfx)->PSSetSamplers(0u, 1u, pSampler.GetAddressOf());
+    GetContext(gfx)->PSSetSamplers(0, 1, pSampler.GetAddressOf());
+}
+std::shared_ptr<Sampler> Sampler::Resolve(Graphics& gfx)
+{
+    return Codex::Resolve<Sampler>(gfx);
+}
+std::string Sampler::GenerateUID()
+{
+    return typeid(Sampler).name();
+}
+std::string Sampler::GetUID() const noexcept
+{
+    return GenerateUID();
 }

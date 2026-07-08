@@ -78,6 +78,21 @@
     <ClCompile Include="DX11\GDIPlusManager.cpp">
       <Filter>DX11\private</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Mesh.cpp">
+      <Filter>Core\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Model.cpp">
+      <Filter>Core\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Node.cpp">
+      <Filter>Core\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ModelException.cpp">
+      <Filter>Core\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Vertex.cpp">
+      <Filter>Core\private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11\Graphics.h">
@@ -137,5 +152,23 @@
     <ClInclude Include="DX11\Bindings\ConstantBuffers.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Mesh.h">
+      <Filter>Core\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Model.h">
+      <Filter>Core\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Node.h">
+      <Filter>Core\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ModelException.h">
+      <Filter>Core\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Color.h">
+      <Filter>Core\public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
 </Project>

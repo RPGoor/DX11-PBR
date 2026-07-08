@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\..\packages\vcpkg.C.Development.vcpkg.1.0.0\build\native\vcpkg.C.Development.vcpkg.props" Condition="Exists('..\..\packages\vcpkg.C.Development.vcpkg.1.0.0\build\native\vcpkg.C.Development.vcpkg.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
       <Configuration>Debug</Configuration>
@@ -148,6 +149,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Core\Drawable.cpp" />
+    <ClCompile Include="Core\Mesh.cpp" />
+    <ClCompile Include="Core\Model.cpp" />
+    <ClCompile Include="Core\ModelException.cpp" />
+    <ClCompile Include="Core\Node.cpp" />
+    <ClCompile Include="Core\Vertex.cpp" />
     <ClCompile Include="DX11\Bindings\Bindable.cpp" />
     <ClCompile Include="DX11\Bindings\BindableCodex.cpp" />
     <ClCompile Include="DX11\Bindings\IndexBuffer.cpp" />
@@ -165,7 +171,12 @@
     <ClCompile Include="DX11\Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Core\Color.h" />
     <ClInclude Include="Core\Drawable.h" />
+    <ClInclude Include="Core\Mesh.h" />
+    <ClInclude Include="Core\Model.h" />
+    <ClInclude Include="Core\ModelException.h" />
+    <ClInclude Include="Core\Node.h" />
     <ClInclude Include="Core\Vertex.h" />
     <ClInclude Include="DX11\Bindings\Bindable.h" />
     <ClInclude Include="DX11\Bindings\BindableCodex.h" />
@@ -190,7 +201,18 @@
       <Project>{36a65e5f-8e1f-4769-a322-ce3370d419e2}</Project>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
+    <Import Project="..\..\packages\vcpkg.C.Development.vcpkg.1.0.0\build\native\vcpkg.C.Development.vcpkg.targets" Condition="Exists('..\..\packages\vcpkg.C.Development.vcpkg.1.0.0\build\native\vcpkg.C.Development.vcpkg.targets')" />
   </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\..\packages\vcpkg.C.Development.vcpkg.1.0.0\build\native\vcpkg.C.Development.vcpkg.props')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\vcpkg.C.Development.vcpkg.1.0.0\build\native\vcpkg.C.Development.vcpkg.props'))" />
+    <Error Condition="!Exists('..\..\packages\vcpkg.C.Development.vcpkg.1.0.0\build\native\vcpkg.C.Development.vcpkg.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\vcpkg.C.Development.vcpkg.1.0.0\build\native\vcpkg.C.Development.vcpkg.targets'))" />
+  </Target>
 </Project>

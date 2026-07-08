@@ -6,6 +6,7 @@
 #include <wrl.h>
 #include <ConditionalNoexcept.h>
 #include "DxgiInfoManager.h"
+#include <memory>
 
 using namespace Microsoft::WRL;
 
