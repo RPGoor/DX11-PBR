@@ -12,13 +12,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="windows\MinWindows.h">
-      <Filter>windows\public</Filter>
-    </ClInclude>
     <ClInclude Include="windows\Window.h">
       <Filter>windows\public</Filter>
     </ClInclude>
     <ClInclude Include="windows\Win32Exceptions.h">
+      <Filter>windows\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Engine.Graphics\DX11\DxgiInfoManager.h">
       <Filter>windows\public</Filter>
     </ClInclude>
     <ClInclude Include="windows\WindowExceptionsMacros.h">
@@ -30,6 +30,9 @@
       <Filter>windows\private</Filter>
     </ClCompile>
     <ClCompile Include="windows\Win32Exceptions.cpp">
+      <Filter>windows\private</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Engine.Graphics\DX11\DxgiInfoManager.cpp">
       <Filter>windows\private</Filter>
     </ClCompile>
   </ItemGroup>

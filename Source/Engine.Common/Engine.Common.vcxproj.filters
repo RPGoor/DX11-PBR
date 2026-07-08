@@ -19,6 +19,12 @@
     <Filter Include="Time\private">
       <UniqueIdentifier>{ad67092e-743d-4740-a2c5-141d0599dee0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Win32">
+      <UniqueIdentifier>{eb8410e3-15d3-46c3-b679-69a5e3a6fb27}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Win32\public">
+      <UniqueIdentifier>{01a31e3f-840b-4372-b855-d01fe4cd4bdc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exceptions\BaseException.h">
@@ -26,6 +32,12 @@
     </ClInclude>
     <ClInclude Include="Time\Timer.h">
       <Filter>Time\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Win32\MinWindows.h">
+      <Filter>Win32\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Exceptions\ConditionalNoexcept.h">
+      <Filter>Exceptions\public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

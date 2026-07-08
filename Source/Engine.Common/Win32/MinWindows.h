@@ -39,8 +39,13 @@
 #define NOTAPE
 #endif
 
-#define NOMINMAX
 
+#ifndef NOMINMAX
+#define NOMINMAX
+#endif
+
+#ifndef STRICT
 #define STRICT
+#endif
 
 #include <Windows.h>

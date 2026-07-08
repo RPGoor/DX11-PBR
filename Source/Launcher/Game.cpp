@@ -6,6 +6,7 @@
 Game::Game()
     : wnd(800, 600, L"Solorn Engine Window")
 {
+    gfx = std::make_unique<Graphics>(wnd.GetHWND());
 }
 
 Game::~Game()
@@ -26,4 +27,7 @@ int Game::Go()
 void Game::DoFrame()
 {
     const auto dt = timer.Mark();
+    gfx->BeginFrame(0.2f, 0.4f, 0.9f);
+    ImGui::ShowDemoWindow();
+    gfx->EndFrame();
 }

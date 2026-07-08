@@ -1,2 +1,33 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DX11">
+      <UniqueIdentifier>{e754c46d-1243-418f-add2-74172b6bba92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX11\public">
+      <UniqueIdentifier>{00ed1334-be4d-46b4-8523-f09db54820e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DX11\private">
+      <UniqueIdentifier>{7ff77e64-afe5-4ed7-9820-b0d9fb35b59c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DX11\Graphics.cpp">
+      <Filter>DX11\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\DX11Exceptions.cpp">
+      <Filter>DX11\private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="DX11\Graphics.h">
+      <Filter>DX11\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\DX11Exceptions.h">
+      <Filter>DX11\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\GraphicsExceptionsMacros.h">
+      <Filter>DX11\public</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

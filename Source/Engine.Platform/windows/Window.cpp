@@ -5,6 +5,8 @@
 
 #define IDI_ENGINE_ICON 101
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
+
 Window::WindowClass Window::WindowClass::wndClass;
 
 Window::Window(int width, int height, LPCWSTR name)
@@ -78,6 +80,11 @@ std::optional<int> Window::ProcessMessagePump()
     return {};
 }
 
+HWND Window::GetHWND() const
+{
+    return hWnd;
+}
+
 LRESULT Window::SetupMessageHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
     if (msg == WM_NCCREATE)
@@ -99,11 +106,11 @@ LRESULT Window::PassMessageHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lP
 
 LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
-    /*if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+    if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
     {
         return true;
     }
-    const auto imio = ImGui::GetIO();*/
+    const auto imio = ImGui::GetIO();
 
     switch (msg)
     {

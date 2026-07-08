@@ -1,5 +1,5 @@
 #pragma once 
-#include "MinWindows.h"
+#include <MinWindows.h>
 #include <string>
 #include <optional>
 
@@ -14,7 +14,7 @@ public:
 public:
     void SetTitle(const std::string& title);
     static std::optional<int> ProcessMessagePump();
-
+    HWND GetHWND() const;
 
     //Graphics& Gfx();
     //Keyboard kbd;
