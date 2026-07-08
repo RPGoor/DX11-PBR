@@ -1,5 +1,7 @@
 #include "Window.h"
 #include "WindowExceptionsMacros.h"
+#include "imgui_impl_dx11.h"
+#include "imgui_impl_win32.h"
 
 #define IDI_ENGINE_ICON 101
 
@@ -15,7 +17,7 @@ Window::Window(int width, int height, LPCWSTR name)
     wr.bottom = height + wr.top;
     if (!(AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE)))
     {
-        throw ASOLE_WND_LAST_EXCEPT();
+        throw WND_LAST_EXCEPT();
     }
 
 
@@ -35,19 +37,19 @@ Window::Window(int width, int height, LPCWSTR name)
 
     if (hWnd == nullptr)
     {
-        throw ASOLE_WND_LAST_EXCEPT();
+        throw WND_LAST_EXCEPT();
     }
 
     ShowWindow(hWnd, SW_SHOWDEFAULT);
 
-    //ImGui_ImplWin32_Init(hWnd);
+    ImGui_ImplWin32_Init(hWnd);
 
     //pGfx = std::make_unique<Graphics>(hWnd);
 }
 
 Window::~Window()
 {
-    // ImGui_ImplWin32_Shutdown();
+     ImGui_ImplWin32_Shutdown();
     DestroyWindow(hWnd);
 }
 
@@ -55,7 +57,7 @@ void Window::SetTitle(const std::string& title)
 {
     if (SetWindowTextA(hWnd, title.c_str()) == 0)
     {
-        // throw WND_EXCEPT_LAST();
+        throw WND_LAST_EXCEPT();
     }
 }
 
@@ -226,7 +228,8 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 }
 
 #pragma region Window Class
-Window::WindowClass::WindowClass() noexcept : hInst(GetModuleHandle(nullptr))
+Window::WindowClass::WindowClass() noexcept
+    : hInst(GetModuleHandle(nullptr))
 {
     WNDCLASSEX wc = { 0 };
     wc.cbSize = sizeof(wc);

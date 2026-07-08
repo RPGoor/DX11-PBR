@@ -21,10 +21,9 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{695e5120-3c07-4e49-b28e-95e191e0baa5}</ProjectGuid>
-    <RootNamespace>VeilEngine</RootNamespace>
+    <ProjectGuid>{5cff1cb4-7337-4aeb-abcf-b4f58d8e56dc}</ProjectGuid>
+    <RootNamespace>EngineImGui</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Launcher</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -41,13 +40,13 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v145</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -118,10 +117,10 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\Engine.Platform\windows;$(SolutionDir)Source\Engine.Common;$(SolutionDir)Libraries\ImGui;$(SolutionDir)Source\Engine.ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Manifest>
@@ -137,7 +136,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\Engine.Platform\windows;$(SolutionDir)Source\Engine.Common;$(SolutionDir)Libraries\ImGui;$(SolutionDir)Source\Engine.ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Libraries\ImGui;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,29 +147,25 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="WinMain.cpp" />
+    <ClInclude Include="..\..\Libraries\ImGui\imconfig.h" />
+    <ClInclude Include="..\..\Libraries\ImGui\imgui.h" />
+    <ClInclude Include="..\..\Libraries\ImGui\imgui_impl_dx11.h" />
+    <ClInclude Include="..\..\Libraries\ImGui\imgui_impl_win32.h" />
+    <ClInclude Include="..\..\Libraries\ImGui\imgui_internal.h" />
+    <ClInclude Include="..\..\Libraries\ImGui\imstb_rectpack.h" />
+    <ClInclude Include="..\..\Libraries\ImGui\imstb_textedit.h" />
+    <ClInclude Include="..\..\Libraries\ImGui\imstb_truetype.h" />
+    <ClInclude Include="ImGuiManager.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Engine.Common\Engine.Common.vcxproj">
-      <Project>{36a65e5f-8e1f-4769-a322-ce3370d419e2}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine.ImGui\Engine.ImGui.vcxproj">
-      <Project>{5cff1cb4-7337-4aeb-abcf-b4f58d8e56dc}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Engine.Platform\Engine.Platform.vcxproj">
-      <Project>{cd886ff3-1735-435c-8df9-8cb5542d6e2e}</Project>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="resource.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Launcher.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\Assets\Icons\Asole.ico" />
+    <ClCompile Include="..\..\Libraries\ImGui\imgui.cpp" />
+    <ClCompile Include="..\..\Libraries\ImGui\imgui_demo.cpp" />
+    <ClCompile Include="..\..\Libraries\ImGui\imgui_draw.cpp" />
+    <ClCompile Include="..\..\Libraries\ImGui\imgui_impl_dx11.cpp" />
+    <ClCompile Include="..\..\Libraries\ImGui\imgui_impl_win32.cpp" />
+    <ClCompile Include="..\..\Libraries\ImGui\imgui_tables.cpp" />
+    <ClCompile Include="..\..\Libraries\ImGui\imgui_widgets.cpp" />
+    <ClCompile Include="ImGuiManager.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -1,7 +1,10 @@
 #include "Game.h"
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
 
 Game::Game()
-    : wnd(800, 600, L"Asole Engine Window")
+    : wnd(800, 600, L"Solorn Engine Window")
 {
 }
 
