@@ -20,9 +20,11 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Exceptions\BaseException.cpp" />
+    <ClCompile Include="Time\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exceptions\BaseException.h" />
+    <ClInclude Include="Time\Timer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>

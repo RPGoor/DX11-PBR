@@ -1,5 +1,7 @@
 #include "Window.h"
-#include "../resource.h"
+#include "WindowExceptionsMacros.h"
+
+#define IDI_ENGINE_ICON 101
 
 Window::WindowClass Window::WindowClass::wndClass;
 
@@ -13,7 +15,7 @@ Window::Window(int width, int height, LPCWSTR name)
     wr.bottom = height + wr.top;
     if (!(AdjustWindowRect(&wr, WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU, FALSE)))
     {
-        //throw WND_EXCEPT_LAST();
+        throw ASOLE_WND_LAST_EXCEPT();
     }
 
 
@@ -33,7 +35,7 @@ Window::Window(int width, int height, LPCWSTR name)
 
     if (hWnd == nullptr)
     {
-        //throw WND_EXCEPT_LAST();
+        throw ASOLE_WND_LAST_EXCEPT();
     }
 
     ShowWindow(hWnd, SW_SHOWDEFAULT);
@@ -95,11 +97,136 @@ LRESULT Window::PassMessageHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lP
 
 LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
+    /*if (ImGui_ImplWin32_WndProcHandler(hWnd, msg, wParam, lParam))
+    {
+        return true;
+    }
+    const auto imio = ImGui::GetIO();*/
+
+    switch (msg)
+    {
+    case WM_CLOSE:
+        PostQuitMessage(0);
+        return 0;
+    /*case WM_KILLFOCUS:
+        kbd.ClearState();
+        break;
+    case WM_KEYDOWN:
+    case WM_SYSKEYDOWN:
+        if (imio.WantCaptureKeyboard)
+        {
+            break;
+        }
+        if (!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled())
+        {
+            kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+        }
+        break;
+    case WM_KEYUP:
+    case WM_SYSKEYUP:
+        if (imio.WantCaptureKeyboard)
+        {
+            break;
+        }
+        kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
+        break;
+    case WM_CHAR:
+        if (imio.WantCaptureKeyboard)
+        {
+            break;
+        }
+        kbd.OnChar(static_cast<unsigned char>(wParam));
+        break;
+
+    case WM_MOUSEMOVE:
+    {
+        if (imio.WantCaptureKeyboard)
+        {
+            break;
+        }
+        const POINTS pt = MAKEPOINTS(lParam);
+        if (pt.x >= 0 && pt.x < width && pt.y >= 0 && pt.y < height)
+        {
+            mouse.OnMouseMove(pt.x, pt.y);
+            if (!mouse.IsInWindow())
+            {
+                SetCapture(hWnd);
+                mouse.OnMouseEnter();
+            }
+        }
+        else
+        {
+            if (wParam & (MK_LBUTTON | MK_RBUTTON))
+            {
+                mouse.OnMouseMove(pt.x, pt.y);
+            }
+            else
+            {
+                ReleaseCapture();
+                mouse.OnMouseLeave();
+            }
+        }
+        break;
+    }
+    case WM_LBUTTONDOWN:
+    {
+        if (imio.WantCaptureKeyboard)
+        {
+            break;
+        }
+        const POINTS pt = MAKEPOINTS(lParam);
+        mouse.OnLeftPressed(pt.x, pt.y);
+        break;
+    }
+    case WM_RBUTTONDOWN:
+    {
+        if (imio.WantCaptureKeyboard)
+        {
+            break;
+        }
+        const POINTS pt = MAKEPOINTS(lParam);
+        mouse.OnRightPressed(pt.x, pt.y);
+        break;
+    }
+    case WM_LBUTTONUP:
+    {
+        if (imio.WantCaptureKeyboard)
+        {
+            break;
+        }
+        const POINTS pt = MAKEPOINTS(lParam);
+        mouse.OnLeftReleased(pt.x, pt.y);
+        break;
+    }
+    case WM_RBUTTONUP:
+    {
+        if (imio.WantCaptureKeyboard)
+        {
+            break;
+        }
+        const POINTS pt = MAKEPOINTS(lParam);
+        mouse.OnRightReleased(pt.x, pt.y);
+        break;
+    }
+    case WM_MOUSEWHEEL:
+    {
+        if (imio.WantCaptureKeyboard)
+        {
+            break;
+        }
+        const POINTS pt = MAKEPOINTS(lParam);
+        mouse.OnWheelDelta(pt.x, pt.y, GET_WHEEL_DELTA_WPARAM(wParam));
+        break;
+    }*/
+    default:
+        break;
+    }
+
     return DefWindowProc(hWnd, msg, wParam, lParam);
 }
 
 #pragma region Window Class
-Window::WindowClass::WindowClass() noexcept
+Window::WindowClass::WindowClass() noexcept : hInst(GetModuleHandle(nullptr))
 {
     WNDCLASSEX wc = { 0 };
     wc.cbSize = sizeof(wc);
@@ -108,11 +235,11 @@ Window::WindowClass::WindowClass() noexcept
     wc.cbClsExtra = 0;
     wc.cbWndExtra = 0;
     wc.hInstance = GetInstance();
-    wc.hIcon = static_cast<HICON>(LoadImage(hInst, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 32, 32, 0));
+    wc.hIcon = static_cast<HICON>(LoadImage(hInst, MAKEINTRESOURCE(IDI_ENGINE_ICON), IMAGE_ICON, 32, 32, 0));
     wc.hbrBackground = nullptr;
     wc.lpszMenuName = nullptr;
     wc.lpszClassName = GetName();
-    wc.hIconSm = static_cast<HICON>(LoadImage(hInst, MAKEINTRESOURCE(IDI_ICON1), IMAGE_ICON, 16, 16, 0));
+    wc.hIconSm = static_cast<HICON>(LoadImage(hInst, MAKEINTRESOURCE(IDI_ENGINE_ICON), IMAGE_ICON, 16, 16, 0));
     RegisterClassEx(&wc);
 }
 

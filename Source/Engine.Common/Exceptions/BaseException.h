@@ -11,8 +11,10 @@ public:
     int GetLine() const noexcept;
     const std::string& GetFile() const noexcept;
     std::string GetOriginString() const noexcept;
+
 protected:
     mutable std::string WhatBuffer;
+
 private:
     int line;
     std::string file;

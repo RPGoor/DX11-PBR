@@ -19,18 +19,19 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h" />
     <ClInclude Include="windows\MinWindows.h" />
     <ClInclude Include="windows\Window.h" />
+    <ClInclude Include="windows\WindowExceptionsMacros.h" />
+    <ClInclude Include="windows\Win32Exceptions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windows\Window.cpp" />
+    <ClCompile Include="windows\Win32Exceptions.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Engine.Platform.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="..\..\Assets\Icons\Asole.ico" />
+    <ProjectReference Include="..\Engine.Common\Engine.Common.vcxproj">
+      <Project>{36a65e5f-8e1f-4769-a322-ce3370d419e2}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>18.0</VCProjectVersion>
@@ -131,6 +132,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\Engine.Common\Exceptions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>NotSet</SubSystem>
@@ -149,6 +151,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\Engine.Common\Exceptions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

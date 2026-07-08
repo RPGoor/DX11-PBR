@@ -43,7 +43,7 @@ private:
         static HINSTANCE GetInstance() noexcept;
 
     private:
-        static constexpr const wchar_t* wndClassName = L"Veil Engine Window";
+        static constexpr const wchar_t* wndClassName = L"Asole Engine Window";
         static WindowClass wndClass;
         HINSTANCE hInst;
     };

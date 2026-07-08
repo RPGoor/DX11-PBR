@@ -14,15 +14,30 @@
     <Filter Include="Exceptions\private">
       <UniqueIdentifier>{fff06d2f-5042-4dbf-8bef-d1161b06df0d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{f4bb40bb-3b07-438e-91a7-b83c2b73acc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time\public">
+      <UniqueIdentifier>{54be1ffd-7851-4c3c-b9c5-a9674acab4e2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Time\private">
+      <UniqueIdentifier>{ad67092e-743d-4740-a2c5-141d0599dee0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exceptions\BaseException.h">
       <Filter>Exceptions\public</Filter>
     </ClInclude>
+    <ClInclude Include="Time\Timer.h">
+      <Filter>Time\public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Exceptions\BaseException.cpp">
       <Filter>Exceptions\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Time\Timer.cpp">
+      <Filter>Time\private</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
