@@ -118,7 +118,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\Engine.Platform\windows;$(SolutionDir)Source\Engine.Common;$(SolutionDir)Libraries\ImGui;$(SolutionDir)Source\Engine.ImGui;$(SolutionDir)Source\Engine.Common\Win32;$(SolutionDir)Source\Engine.Graphics\DX11;$(SolutionDir)Source\Engine.Common\Exceptions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\Engine.Platform\windows;$(SolutionDir)Source\Engine.Common;$(SolutionDir)Libraries\ImGui;$(SolutionDir)Source\Engine.ImGui;$(SolutionDir)Source\Engine.Common\Win32;$(SolutionDir)Source\Engine.Graphics\DX11;$(SolutionDir)Source\Engine.Common\Exceptions;$(SolutionDir)Source\Engine.Graphics\Core;$(SolutionDir)Source\Engine.Platform\Input;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -137,7 +137,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Source\Engine.Platform\windows;$(SolutionDir)Source\Engine.Common;$(SolutionDir)Libraries\ImGui;$(SolutionDir)Source\Engine.ImGui;$(SolutionDir)Source\Engine.Common\Win32;$(SolutionDir)Source\Engine.Graphics\DX11;$(SolutionDir)Source\Engine.Common\Exceptions;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Source\Engine.Platform\windows;$(SolutionDir)Source\Engine.Common;$(SolutionDir)Libraries\ImGui;$(SolutionDir)Source\Engine.ImGui;$(SolutionDir)Source\Engine.Common\Win32;$(SolutionDir)Source\Engine.Graphics\DX11;$(SolutionDir)Source\Engine.Common\Exceptions;$(SolutionDir)Source\Engine.Graphics\Core;$(SolutionDir)Source\Engine.Platform\Input;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

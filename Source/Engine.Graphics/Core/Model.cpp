@@ -1,6 +1,4 @@
 #include "Model.h"
-#include <assimp/postprocess.h>
-#include <assimp/Importer.hpp>
 #include <ConditionalNoexcept.h>
 #include "imgui.h"
 #include <unordered_map>
@@ -147,7 +145,7 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
     std::vector<std::shared_ptr<Bindable>> bindablePtrs;
 
     using namespace std::string_literals;
-    const auto base = "Models\\nano_textured\\"s;
+    const auto base = "..\\..\\Assets\\Models\\nano_textured\\"s;
 
     bool hasSpecularMap = false;
     float shininess = 35.0f;

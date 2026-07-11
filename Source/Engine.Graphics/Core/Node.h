@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../DX11/Graphics.h"
 #include <ConditionalNoexcept.h>
 #include <optional>

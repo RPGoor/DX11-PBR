@@ -10,6 +10,15 @@
     <Filter Include="windows\private">
       <UniqueIdentifier>{367bc88b-922e-435d-92b6-fd5eebc6e0cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{33c8d6cf-9b33-4fc1-879f-472b2d1dfecc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\public">
+      <UniqueIdentifier>{c3c1179f-c863-4f55-964c-fc4db95d0898}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\private">
+      <UniqueIdentifier>{ac1d62cf-e6f6-4f35-bc5f-5bc610063ed8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="windows\Window.h">
@@ -24,6 +33,12 @@
     <ClInclude Include="windows\WindowExceptionsMacros.h">
       <Filter>windows\public</Filter>
     </ClInclude>
+    <ClInclude Include="Input\Keyboard.h">
+      <Filter>Input\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Input\Mouse.h">
+      <Filter>Input\public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windows\Window.cpp">
@@ -34,6 +49,12 @@
     </ClCompile>
     <ClCompile Include="..\Engine.Graphics\DX11\DxgiInfoManager.cpp">
       <Filter>windows\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Keyboard.cpp">
+      <Filter>Input\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Input\Mouse.cpp">
+      <Filter>Input\private</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

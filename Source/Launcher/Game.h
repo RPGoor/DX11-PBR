@@ -3,6 +3,9 @@
 #include <Time/Timer.h>
 #include <ImGuiManager.h>
 #include <Graphics.h>
+#include <Model.h>
+#include <Camera.h>
+#include <PointLight.h>
 
 class Game
 {
@@ -16,8 +19,10 @@ private:
 private:
     ImGuiManager imgui;
     Window wnd;
-    std::unique_ptr<Graphics> gfx;
-
+    Graphics gfx;
     Engine::Timer timer;
-};
+    Camera cam;
+    PointLight pointLight;
 
+    Model nano{ gfx,"..\\..\\Assets\\Models\\nano_textured\\nanosuit.obj" };
+};

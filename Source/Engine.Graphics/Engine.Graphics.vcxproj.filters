@@ -28,6 +28,9 @@
     <Filter Include="DX11\Bindings\private">
       <UniqueIdentifier>{b87ded74-0cbe-449f-981a-302eeb5eb99a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders">
+      <UniqueIdentifier>{e6d4c464-92a2-46be-afe8-8a7d7d12e690}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11\Graphics.cpp">
@@ -91,6 +94,12 @@
       <Filter>Core\private</Filter>
     </ClCompile>
     <ClCompile Include="Core\Vertex.cpp">
+      <Filter>Core\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Camera.cpp">
+      <Filter>Core\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PointLight.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,8 +176,22 @@
     <ClInclude Include="Core\Color.h">
       <Filter>Core\public</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Camera.h">
+      <Filter>Core\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PointLight.h">
+      <Filter>Core\public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <FxCompile Include="Shaders\PhongPS.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\PhongVS.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\PhongPSSpecMap.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

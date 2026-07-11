@@ -1,9 +1,13 @@
+#pragma once 
+
+#include <assimp/postprocess.h>
+#include <assimp/Importer.hpp>
+#include <assimp/scene.h>
 #include "../DX11/Graphics.h"
 #include <ConditionalNoexcept.h>
 #include "Mesh.h"
 #include "Node.h"
 #include <memory>
-#include <assimp/scene.h>
 
 class Model
 {

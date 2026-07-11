@@ -2,6 +2,8 @@
 #include <MinWindows.h>
 #include <string>
 #include <optional>
+#include "../Input/Keyboard.h"
+#include "../Input/Mouse.h"
 
 class Window
 {
@@ -15,20 +17,31 @@ public:
     void SetTitle(const std::string& title);
     static std::optional<int> ProcessMessagePump();
     HWND GetHWND() const;
+    void EnableCursor() noexcept;
+    void DisableCursor() noexcept;
+    bool CursorEnabled() const noexcept;
 
-    //Graphics& Gfx();
-    //Keyboard kbd;
-    //Mouse mouse;
-    //std::unique_ptr<Graphics> pGfx;
+public:
+    Mouse mouse;
+    Keyboard kbd;
+
 private:
     int width;
     int height;
     HWND hWnd;
+    bool cursorEnabled = true;
+    std::vector<BYTE> rawBuffer;
 
     static LRESULT CALLBACK SetupMessageHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
     static LRESULT CALLBACK PassMessageHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
     LRESULT HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
 
+    void ConfineCursor() noexcept;
+    void FreeCursor() noexcept;
+    void ShowCursor() noexcept;
+    void HideCursor() noexcept;
+    void EnableImGuiMouse() noexcept;
+    void DisableImGuiMouse() noexcept;
 private:
     class WindowClass
     {
