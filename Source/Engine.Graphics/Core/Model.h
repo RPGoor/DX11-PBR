@@ -13,7 +13,7 @@ class Model
 {
 public:
     Model(Graphics& gfx, const std::string fileName);
-    void Draw(Graphics& gfx) const conexcept;
+    void Draw(Graphics& gfx, DirectX::XMMATRIX position) const conexcept;
     void ShowWindow(const char* windowName = nullptr) noexcept;
     ~Model() noexcept;
 private:

@@ -11,6 +11,7 @@
 #include "../DX11/Bindings/Texture.h"
 #include "../DX11/Bindings/Sampler.h"
 #include "Vertex.h"
+#include <random>
 
 class ModelWindow
 {
@@ -94,13 +95,15 @@ Model::Model(Graphics& gfx, const std::string fileName)
     pRoot = ParseNode(nextId, *pScene->mRootNode);
 }
 
-void Model::Draw(Graphics& gfx) const conexcept
+void Model::Draw(Graphics& gfx, DirectX::XMMATRIX position) const conexcept
 {
     if (auto node = pWindow->GetSelectedNode())
     {
         node->SetAppliedTransform(pWindow->GetTransform());
     }
-    pRoot->Draw(gfx, DirectX::XMMatrixIdentity());
+
+    pRoot->Draw(gfx, position);
+    //pRoot->Draw(gfx, DirectX::XMMatrixIdentity());
 }
 
 void Model::ShowWindow(const char* windowName) noexcept
@@ -149,14 +152,14 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 
     bool hasSpecularMap = false;
     float shininess = 35.0f;
-    if (mesh.mMaterialIndex >= 0)
+    if (mesh.mMaterialIndex > 0)
     {
         auto& material = *pMaterials[mesh.mMaterialIndex];
 
         aiString texFileName;
 
         material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName);
-        bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str()));
+        //bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str()));
 
         if (material.GetTexture(aiTextureType_SPECULAR, 0, &texFileName) == aiReturn_SUCCESS)
         {

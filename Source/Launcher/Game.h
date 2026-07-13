@@ -24,5 +24,9 @@ private:
     Camera cam;
     PointLight pointLight;
 
-    Model nano{ gfx,"..\\..\\Assets\\Models\\nano_textured\\nanosuit.obj" };
+    //Model nano{ gfx,"..\\..\\Assets\\Models\\nano_textured\\nanosuit.obj" };
+    Model grid{ gfx, "..\\..\\Assets\\Models\\grid.obj" };
+    Model grass{ gfx, "..\\..\\Assets\\Models\\grass.obj" };
+
+    std::vector<DirectX::XMFLOAT4X4> grassTransforms;
 };
