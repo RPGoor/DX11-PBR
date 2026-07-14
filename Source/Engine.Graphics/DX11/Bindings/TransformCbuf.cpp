@@ -6,23 +6,26 @@ TransformCbuf::TransformCbuf(Graphics& gfx, const Drawable& parent, UINT slot)
 {
     if (!pVcbuf)
     {
-        pVcbuf = std::make_unique<VertexConstantBuffer<Transforms>>(gfx, slot);
+        pVcbuf = std::make_unique<VertexConstantBuffer<ObjectConstants>>(gfx, slot);
     }
 }
 
 void TransformCbuf::Bind(Graphics& gfx) noexcept
 {
-    const auto modelView = parent.GetTransformXM() * gfx.GetCamera();
-    const Transforms tf =
+    const DirectX::XMMATRIX model =
+        parent.GetTransformXM();
+
+    const DirectX::XMMATRIX inverseModel =
+        DirectX::XMMatrixInverse(nullptr, model);
+
+    const ObjectConstants tf =
     {
-        DirectX::XMMatrixTranspose(modelView),
-        DirectX::XMMatrixTranspose(
-            modelView *
-            gfx.GetProjection()
-        )
+        model,
+        DirectX::XMMatrixTranspose(inverseModel)
     };
+
     pVcbuf->Update(gfx, tf);
     pVcbuf->Bind(gfx);
 }
 
-std::unique_ptr<VertexConstantBuffer<TransformCbuf::Transforms>> TransformCbuf::pVcbuf;
+std::unique_ptr<VertexConstantBuffer<TransformCbuf::ObjectConstants>> TransformCbuf::pVcbuf;

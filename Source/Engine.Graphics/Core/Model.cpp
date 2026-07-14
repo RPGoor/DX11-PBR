@@ -152,27 +152,6 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 
     bool hasSpecularMap = false;
     float shininess = 35.0f;
-    if (mesh.mMaterialIndex > 0)
-    {
-        auto& material = *pMaterials[mesh.mMaterialIndex];
-
-        aiString texFileName;
-
-        material.GetTexture(aiTextureType_DIFFUSE, 0, &texFileName);
-        //bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str()));
-
-        if (material.GetTexture(aiTextureType_SPECULAR, 0, &texFileName) == aiReturn_SUCCESS)
-        {
-            bindablePtrs.push_back(Texture::Resolve(gfx, base + texFileName.C_Str(), 1));
-            hasSpecularMap = true;
-        }
-        else
-        {
-            material.Get(AI_MATKEY_SHININESS, shininess);
-        }
-
-        bindablePtrs.push_back(Sampler::Resolve(gfx));
-    }
 
     auto meshTag = base + "%" + mesh.mName.C_Str();
 
@@ -180,33 +159,51 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 
     bindablePtrs.push_back(IndexBuffer::Resolve(gfx, meshTag, indices));
 
-    auto pvs = VertexShader::Resolve(gfx, "PhongVS.cso");
+    auto pvs = VertexShader::Resolve(gfx, "StandardVS.cso");
     auto pvsbc = pvs->GetBytecode();
     bindablePtrs.push_back(std::move(pvs));
 
     bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));
 
-    if (hasSpecularMap)
-    {
-        bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPSSpecMap.cso"));
-    }
-    else
-    {
-        bindablePtrs.push_back(PixelShader::Resolve(gfx, "PhongPS.cso"));
+    bindablePtrs.push_back(PixelShader::Resolve(gfx, "StandardPS.cso"));
 
-        struct PSMaterialConstant
-        {
-            float specularIntensity = 0.8f;
-            float specularPower;
-            float padding[2];
-        } pmc;
-        pmc.specularPower = shininess;
-        // this is CLEARLY an issue... all meshes will share same mat const, but may have different
-        // Ns (specular power) specified for each in the material properties... bad conflict
-        bindablePtrs.push_back(PixelConstantBuffer<PSMaterialConstant>::Resolve(gfx, pmc, 1u));
-    }
+  // ---------------------------------------------------------
+  // PBR material constants
+  // ---------------------------------------------------------
 
-    return std::make_unique<Mesh>(gfx, std::move(bindablePtrs));
+    struct alignas(16) MaterialConstants
+    {
+        DirectX::XMFLOAT3 baseColor;
+        float metallic;
+
+        float roughness;
+        DirectX::XMFLOAT3 padding;
+    };
+
+    static_assert(
+        sizeof(MaterialConstants) == 32u,
+        "MaterialConstants must match the HLSL constant buffer."
+        );
+
+    MaterialConstants materialConstants{};
+
+    materialConstants.baseColor = {
+        0.8f,
+        0.1f,
+        0.05f
+    };
+
+    materialConstants.metallic = 0.0f;
+    materialConstants.roughness = 0.5f;
+
+    // Do not use Resolve here unless the buffer UID also includes
+    // all material values. Different meshes may need different data.
+    bindablePtrs.push_back(PixelConstantBuffer<MaterialConstants>::Resolve(gfx,materialConstants,2u));
+
+    return std::make_unique<Mesh>(
+        gfx,
+        std::move(bindablePtrs)
+    );
 }
 
 std::unique_ptr<Node> Model::ParseNode(int& nextId, const aiNode& node) noexcept

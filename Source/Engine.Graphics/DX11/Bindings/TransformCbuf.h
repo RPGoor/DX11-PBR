@@ -6,15 +6,15 @@
 class TransformCbuf : public Bindable
 {
 private:
-    struct Transforms
+    struct alignas(16) ObjectConstants
     {
-        DirectX::XMMATRIX modelViewProj;
         DirectX::XMMATRIX model;
+        DirectX::XMMATRIX modelInverseTranspose;
     };
 public:
-    TransformCbuf(Graphics& gfx, const Drawable& parent, UINT slot = 0u);
+    TransformCbuf(Graphics& gfx, const Drawable& parent, UINT slot = 1u);
     void Bind(Graphics& gfx) noexcept override;
 private:
-    static std::unique_ptr<VertexConstantBuffer<Transforms>> pVcbuf;
+    static std::unique_ptr<VertexConstantBuffer<ObjectConstants>> pVcbuf;
     const Drawable& parent;
 };

@@ -8,7 +8,7 @@
 GDIPlusManager gdipm;
 
 Game::Game()
-    : wnd(800, 600, L"Solorn Engine Window"), gfx(Graphics(wnd.GetHWND())), pointLight(gfx)
+    : wnd(800, 600, L"Solorn Engine Window"), gfx(Graphics(wnd.GetHWND())), pointLight(gfx), frameBuffer(gfx)
 {
     gfx.SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
 
@@ -52,9 +52,21 @@ int Game::Go()
 void Game::DoFrame()
 {
     const auto dt = timer.Mark();
+    const auto view = cam.GetMatrix();
+    const auto projection = gfx.GetProjection();
+    frameBuffer.Update(
+        gfx,
+        view,
+        projection,
+        cam.pos,
+        timer.Peek()
+    );
+    frameBuffer.Bind(gfx);
+
+    pointLight.Bind(gfx, cam.GetMatrix());
+
     gfx.BeginFrame(0.2f, 0.4f, 0.9f);
     gfx.SetCamera(cam.GetMatrix());
-    pointLight.Bind(gfx, cam.GetMatrix());
 
     grid.Draw(gfx, DirectX::XMMatrixIdentity());
 

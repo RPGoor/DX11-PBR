@@ -11,17 +11,16 @@ public:
 	void Reset() noexcept;
 	void Bind( Graphics& gfx,DirectX::FXMMATRIX view ) const noexcept;
 private:
-	struct PointLightCBuf
-	{
-		alignas(16) DirectX::XMFLOAT3 pos;
-		alignas(16) DirectX::XMFLOAT3 ambient;
-		alignas(16) DirectX::XMFLOAT3 diffuseColor;
-		float diffuseIntensity;
-		float attConst;
-		float attLin;
-		float attQuad;
-	};
+    struct alignas(16) DirectionalLightConstants
+    {
+        DirectX::XMFLOAT3 directionWS;
+        float intensity;
+
+        DirectX::XMFLOAT3 color;
+        float padding;
+    };
+
 private:
-	PointLightCBuf cbData;
-	mutable PixelConstantBuffer<PointLightCBuf> cbuf;
+    DirectionalLightConstants cbData;
+	mutable PixelConstantBuffer<DirectionalLightConstants> cbuf;
 };

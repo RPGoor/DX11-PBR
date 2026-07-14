@@ -31,6 +31,12 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{e6d4c464-92a2-46be-afe8-8a7d7d12e690}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shaders\public">
+      <UniqueIdentifier>{dad1afd3-aa44-46b0-9e2b-52c7960c2880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shaders\private">
+      <UniqueIdentifier>{acd0480d-b273-4c2d-82be-0c2cc72c373d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DX11\Graphics.cpp">
@@ -101,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="Core\PointLight.cpp">
       <Filter>Core\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\FrameCBuf.cpp">
+      <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -182,16 +191,30 @@
     <ClInclude Include="Core\PointLight.h">
       <Filter>Core\public</Filter>
     </ClInclude>
+    <ClInclude Include="DX11\Bindings\FrameCBuf.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shaders\PhongPS.hlsl">
-      <Filter>Shaders</Filter>
+    <FxCompile Include="Shaders\StandardPS.hlsl">
+      <Filter>Shaders\private</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\PhongVS.hlsl">
-      <Filter>Shaders</Filter>
+    <FxCompile Include="Shaders\StandardVS.hlsl">
+      <Filter>Shaders\private</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\PhongPSSpecMap.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\ConstantBuffers.hlsli">
+      <Filter>Shaders\public</Filter>
+    </None>
+    <None Include="Shaders\DirectionalLight.hlsli">
+      <Filter>Shaders\public</Filter>
+    </None>
+    <None Include="Shaders\PBR.hlsli">
+      <Filter>Shaders\public</Filter>
+    </None>
+    <None Include="Shaders\ShaderStructures.hlsli">
+      <Filter>Shaders\public</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -96,6 +96,7 @@
     <ClCompile Include="Core\Vertex.cpp" />
     <ClCompile Include="DX11\Bindings\Bindable.cpp" />
     <ClCompile Include="DX11\Bindings\BindableCodex.cpp" />
+    <ClCompile Include="DX11\Bindings\FrameCBuf.cpp" />
     <ClCompile Include="DX11\Bindings\IndexBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\InputLayout.cpp" />
     <ClCompile Include="DX11\Bindings\PixelShader.cpp" />
@@ -123,6 +124,7 @@
     <ClInclude Include="DX11\Bindings\Bindable.h" />
     <ClInclude Include="DX11\Bindings\BindableCodex.h" />
     <ClInclude Include="DX11\Bindings\ConstantBuffers.h" />
+    <ClInclude Include="DX11\Bindings\FrameCBuf.h" />
     <ClInclude Include="DX11\Bindings\IndexBuffer.h" />
     <ClInclude Include="DX11\Bindings\InputLayout.h" />
     <ClInclude Include="DX11\Bindings\PixelShader.h" />
@@ -144,18 +146,24 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <FxCompile Include="Shaders\PhongPS.hlsl">
+    <FxCompile Include="Shaders\StandardPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
-    <FxCompile Include="Shaders\PhongPSSpecMap.hlsl">
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
-      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
-    </FxCompile>
-    <FxCompile Include="Shaders\PhongVS.hlsl">
+    <FxCompile Include="Shaders\StandardVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Shaders\ConstantBuffers.hlsli" />
+    <None Include="Shaders\DirectionalLight.hlsli" />
+    <None Include="Shaders\PBR.hlsli" />
+    <None Include="Shaders\ShaderStructures.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

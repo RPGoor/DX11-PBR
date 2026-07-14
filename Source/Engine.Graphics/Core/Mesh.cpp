@@ -11,7 +11,7 @@ Mesh::Mesh(Graphics& gfx, std::vector<std::shared_ptr<Bindable>> bindPtrs)
         AddBind(std::move(pb));
     }
 
-    AddBind(std::make_shared<TransformCbuf>(gfx, *this));
+    AddBind(std::make_shared<TransformCbuf>(gfx, *this, 1u));
 }
 
 void Mesh::Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const conexcept

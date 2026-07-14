@@ -6,6 +6,7 @@
 #include <Model.h>
 #include <Camera.h>
 #include <PointLight.h>
+#include <Bindings/FrameCBuf.h>
 
 class Game
 {
@@ -23,6 +24,7 @@ private:
     Engine::Timer timer;
     Camera cam;
     PointLight pointLight;
+    FrameCbuf frameBuffer;
 
     //Model nano{ gfx,"..\\..\\Assets\\Models\\nano_textured\\nanosuit.obj" };
     Model grid{ gfx, "..\\..\\Assets\\Models\\grid.obj" };
