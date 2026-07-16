@@ -88,6 +88,7 @@
   <ItemGroup>
     <ClCompile Include="Core\Camera.cpp" />
     <ClCompile Include="Core\Drawable.cpp" />
+    <ClCompile Include="Core\InstancedModel.cpp" />
     <ClCompile Include="Core\Mesh.cpp" />
     <ClCompile Include="Core\Model.cpp" />
     <ClCompile Include="Core\ModelException.cpp" />
@@ -99,6 +100,7 @@
     <ClCompile Include="DX11\Bindings\FrameCBuf.cpp" />
     <ClCompile Include="DX11\Bindings\IndexBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\InputLayout.cpp" />
+    <ClCompile Include="DX11\Bindings\InstanceBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\PixelShader.cpp" />
     <ClCompile Include="DX11\Bindings\Sampler.cpp" />
     <ClCompile Include="DX11\Bindings\Texture.cpp" />
@@ -115,6 +117,8 @@
     <ClInclude Include="Core\Camera.h" />
     <ClInclude Include="Core\Color.h" />
     <ClInclude Include="Core\Drawable.h" />
+    <ClInclude Include="Core\InstanceData.h" />
+    <ClInclude Include="Core\InstancedModel.h" />
     <ClInclude Include="Core\Mesh.h" />
     <ClInclude Include="Core\Model.h" />
     <ClInclude Include="Core\ModelException.h" />
@@ -127,6 +131,7 @@
     <ClInclude Include="DX11\Bindings\FrameCBuf.h" />
     <ClInclude Include="DX11\Bindings\IndexBuffer.h" />
     <ClInclude Include="DX11\Bindings\InputLayout.h" />
+    <ClInclude Include="DX11\Bindings\InstanceBuffer.h" />
     <ClInclude Include="DX11\Bindings\PixelShader.h" />
     <ClInclude Include="DX11\Bindings\Sampler.h" />
     <ClInclude Include="DX11\Bindings\Texture.h" />
@@ -146,6 +151,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shaders\GrassVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="Shaders\StandardPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
@@ -156,6 +167,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shaders\TestPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
   </ItemGroup>

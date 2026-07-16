@@ -19,6 +19,10 @@ namespace Dvtx
             Float3Color,
             Float4Color,
             BGRAColor,
+            InstanceTransform0,
+            InstanceTransform1,
+            InstanceTransform2,
+            InstanceTransform3,
             Count,
         };
         template<ElementType> struct Map;
@@ -27,6 +31,7 @@ namespace Dvtx
             using SysType = DirectX::XMFLOAT2;
             static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R32G32_FLOAT;
             static constexpr const char* semantic = "Position";
+            static constexpr UINT semanticIndex = 0u;
             static constexpr const char* code = "P2";
         };
         template<> struct Map<Position3D>
@@ -34,6 +39,7 @@ namespace Dvtx
             using SysType = DirectX::XMFLOAT3;
             static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R32G32B32_FLOAT;
             static constexpr const char* semantic = "Position";
+            static constexpr UINT semanticIndex = 0u;
             static constexpr const char* code = "P3";
         };
         template<> struct Map<Texture2D>
@@ -41,6 +47,7 @@ namespace Dvtx
             using SysType = DirectX::XMFLOAT2;
             static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R32G32_FLOAT;
             static constexpr const char* semantic = "Texcoord";
+            static constexpr UINT semanticIndex = 0u;
             static constexpr const char* code = "T2";
         };
         template<> struct Map<Normal>
@@ -48,6 +55,7 @@ namespace Dvtx
             using SysType = DirectX::XMFLOAT3;
             static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R32G32B32_FLOAT;
             static constexpr const char* semantic = "Normal";
+            static constexpr UINT semanticIndex = 0u;
             static constexpr const char* code = "N";
         };
         template<> struct Map<Float3Color>
@@ -55,6 +63,7 @@ namespace Dvtx
             using SysType = DirectX::XMFLOAT3;
             static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R32G32B32_FLOAT;
             static constexpr const char* semantic = "Color";
+            static constexpr UINT semanticIndex = 0u;
             static constexpr const char* code = "C3";
         };
         template<> struct Map<Float4Color>
@@ -62,6 +71,7 @@ namespace Dvtx
             using SysType = DirectX::XMFLOAT4;
             static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
             static constexpr const char* semantic = "Color";
+            static constexpr UINT semanticIndex = 0u;
             static constexpr const char* code = "C4";
         };
         template<> struct Map<BGRAColor>
@@ -69,13 +79,58 @@ namespace Dvtx
             using SysType = ::BGRAColor;
             static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R8G8B8A8_UNORM;
             static constexpr const char* semantic = "Color";
+            static constexpr UINT semanticIndex = 0u;
             static constexpr const char* code = "C8";
         };
+        template<>
+        struct Map<InstanceTransform0>
+        {
+            using SysType = DirectX::XMFLOAT4;
+            static constexpr DXGI_FORMAT dxgiFormat =
+                DXGI_FORMAT_R32G32B32A32_FLOAT;
+            static constexpr const char* semantic = "InstanceTransform";
+            static constexpr UINT semanticIndex = 0u;
+            static constexpr const char* code = "IT0";
+        };
 
+        template<>
+        struct Map<InstanceTransform1>
+        {
+            using SysType = DirectX::XMFLOAT4;
+            static constexpr DXGI_FORMAT dxgiFormat =
+                DXGI_FORMAT_R32G32B32A32_FLOAT;
+            static constexpr const char* semantic = "InstanceTransform";
+            static constexpr UINT semanticIndex = 1u;
+            static constexpr const char* code = "IT1";
+        };
+
+        template<>
+        struct Map<InstanceTransform2>
+        {
+            using SysType = DirectX::XMFLOAT4;
+            static constexpr DXGI_FORMAT dxgiFormat =
+                DXGI_FORMAT_R32G32B32A32_FLOAT;
+            static constexpr const char* semantic = "InstanceTransform";
+            static constexpr UINT semanticIndex = 2u;
+            static constexpr const char* code = "IT2";
+        };
+
+        template<>
+        struct Map<InstanceTransform3>
+        {
+            using SysType = DirectX::XMFLOAT4;
+            static constexpr DXGI_FORMAT dxgiFormat =
+                DXGI_FORMAT_R32G32B32A32_FLOAT;
+            static constexpr const char* semantic = "InstanceTransform";
+            static constexpr UINT semanticIndex = 3u;
+            static constexpr const char* code = "IT3";
+        };
         class Element
         {
         public:
-            Element(ElementType type, size_t offset);
+            Element(ElementType type, size_t offset, UINT inputSlot,
+                D3D11_INPUT_CLASSIFICATION classification,
+                UINT instanceStepRate);
             size_t GetOffsetAfter() const conexcept;
             size_t GetOffset() const;
             size_t Size() const conexcept;
@@ -85,13 +140,24 @@ namespace Dvtx
             const char* GetCode() const noexcept;
         private:
             template<ElementType type>
-            static constexpr D3D11_INPUT_ELEMENT_DESC GenerateDesc(size_t offset) noexcept
+            D3D11_INPUT_ELEMENT_DESC GenerateDesc() const noexcept
             {
-                return { Map<type>::semantic,0,Map<type>::dxgiFormat,0,(UINT)offset,D3D11_INPUT_PER_VERTEX_DATA,0 };
+                return D3D11_INPUT_ELEMENT_DESC{
+                    Map<type>::semantic,
+                    Map<type>::semanticIndex,
+                    Map<type>::dxgiFormat,
+                    inputSlot,
+                    static_cast<UINT>(offset),
+                    classification,
+                    instanceStepRate
+                };
             }
         private:
             ElementType type;
             size_t offset;
+            UINT inputSlot;
+            D3D11_INPUT_CLASSIFICATION classification;
+            UINT instanceStepRate;
         };
     public:
         template<ElementType Type>
@@ -109,6 +175,8 @@ namespace Dvtx
         }
         const Element& ResolveByIndex(size_t i) const conexcept;
         VertexLayout& Append(ElementType type) conexcept;
+        VertexLayout& AppendInstance(ElementType type) conexcept;
+
         size_t Size() const conexcept;
         size_t GetElementCount() const noexcept;
         std::vector<D3D11_INPUT_ELEMENT_DESC> GetD3DLayout() const conexcept;

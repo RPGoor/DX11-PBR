@@ -10,6 +10,15 @@ void Drawable::Draw(Graphics& gfx) const conexcept
     gfx.DrawIndexed(pIndexBuffer->GetCount());
 }
 
+void Drawable::DrawInstanced(Graphics& gfx, UINT instanceCount) const conexcept
+{
+    for (auto& b : binds)
+    {
+        b->Bind(gfx);
+    }
+    gfx.DrawIndexedInstanced(pIndexBuffer->GetCount(), instanceCount);
+}
+
 void Drawable::AddBind(std::shared_ptr<Bindable> bind) conexcept
 {
     if (typeid(*bind) == typeid(IndexBuffer))

@@ -15,7 +15,7 @@ public:
 public:
     virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
     void Draw(Graphics& gfx) const conexcept;
-
+    void DrawInstanced(Graphics& gfx, UINT instanceCount) const conexcept;
 protected:
     template<class T>
     T* QueryBindable() noexcept

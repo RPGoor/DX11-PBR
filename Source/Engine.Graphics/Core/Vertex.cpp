@@ -9,9 +9,25 @@ namespace Dvtx
     }
     VertexLayout& VertexLayout::Append(ElementType type) conexcept
     {
-        elements.emplace_back(type, Size());
+        elements.emplace_back(type, Size(), 0u,
+            D3D11_INPUT_PER_VERTEX_DATA,
+            0u);
         return *this;
     }
+
+    VertexLayout& VertexLayout::AppendInstance(ElementType type) conexcept
+    {
+        elements.emplace_back(
+            type,
+            Size(),
+            1u,
+            D3D11_INPUT_PER_INSTANCE_DATA,
+            1u
+        );
+
+        return *this;
+    }
+
     size_t VertexLayout::Size() const conexcept
     {
         return elements.empty() ? 0u : elements.back().GetOffsetAfter();
@@ -42,10 +58,16 @@ namespace Dvtx
 
 
     // VertexLayout::Element
-    VertexLayout::Element::Element(ElementType type, size_t offset)
+    VertexLayout::Element::Element(ElementType type, size_t offset,
+        UINT inputSlot,
+        D3D11_INPUT_CLASSIFICATION classification,
+        UINT instanceStepRate)
         :
         type(type),
-        offset(offset)
+        offset(offset),
+        inputSlot(inputSlot),
+        classification(classification),
+        instanceStepRate(instanceStepRate)
     {}
     size_t VertexLayout::Element::GetOffsetAfter() const conexcept
     {
@@ -77,6 +99,18 @@ namespace Dvtx
             return sizeof(Map<Float4Color>::SysType);
         case BGRAColor:
             return sizeof(Map<BGRAColor>::SysType);
+        case InstanceTransform0:
+            return sizeof(Map<InstanceTransform0>::SysType);
+
+        case InstanceTransform1:
+            return sizeof(Map<InstanceTransform1>::SysType);
+
+        case InstanceTransform2:
+            return sizeof(Map<InstanceTransform2>::SysType);
+
+        case InstanceTransform3:
+            return sizeof(Map<InstanceTransform3>::SysType);
+
         }
         assert("Invalid element type" && false);
         return 0u;
@@ -103,6 +137,17 @@ namespace Dvtx
             return Map<Float4Color>::code;
         case BGRAColor:
             return Map<BGRAColor>::code;
+        case InstanceTransform0:
+            return Map<InstanceTransform0>::code;
+
+        case InstanceTransform1:
+            return Map<InstanceTransform1>::code;
+
+        case InstanceTransform2:
+            return Map<InstanceTransform2>::code;
+
+        case InstanceTransform3:
+            return Map<InstanceTransform3>::code;
         }
         assert("Invalid element type" && false);
         return "Invalid";
@@ -112,19 +157,30 @@ namespace Dvtx
         switch (type)
         {
         case Position2D:
-            return GenerateDesc<Position2D>(GetOffset());
+            return GenerateDesc<Position2D>();
         case Position3D:
-            return GenerateDesc<Position3D>(GetOffset());
+            return GenerateDesc<Position3D>();
         case Texture2D:
-            return GenerateDesc<Texture2D>(GetOffset());
+            return GenerateDesc<Texture2D>();
         case Normal:
-            return GenerateDesc<Normal>(GetOffset());
+            return GenerateDesc<Normal>();
         case Float3Color:
-            return GenerateDesc<Float3Color>(GetOffset());
+            return GenerateDesc<Float3Color>();
         case Float4Color:
-            return GenerateDesc<Float4Color>(GetOffset());
+            return GenerateDesc<Float4Color>();
         case BGRAColor:
-            return GenerateDesc<BGRAColor>(GetOffset());
+            return GenerateDesc<BGRAColor>();
+        case InstanceTransform0:
+            return GenerateDesc<InstanceTransform0>();
+
+        case InstanceTransform1:
+            return GenerateDesc<InstanceTransform1>();
+
+        case InstanceTransform2:
+            return GenerateDesc<InstanceTransform2>();
+
+        case InstanceTransform3:
+            return GenerateDesc<InstanceTransform3>();
         }
         assert("Invalid element type" && false);
         return { "INVALID",0,DXGI_FORMAT_UNKNOWN,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 };

@@ -111,6 +111,12 @@
     <ClCompile Include="DX11\Bindings\FrameCBuf.cpp">
       <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
+    <ClCompile Include="Core\InstancedModel.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\InstanceBuffer.cpp">
+      <Filter>DX11\Bindings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11\Graphics.h">
@@ -194,12 +200,27 @@
     <ClInclude Include="DX11\Bindings\FrameCBuf.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
+    <ClInclude Include="Core\InstancedModel.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\InstanceBuffer.h">
+      <Filter>DX11\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\InstanceData.h">
+      <Filter>Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\StandardPS.hlsl">
       <Filter>Shaders\private</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\StandardVS.hlsl">
+      <Filter>Shaders\private</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\GrassVS.hlsl">
+      <Filter>Shaders\private</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\TestPS.hlsl">
       <Filter>Shaders\private</Filter>
     </FxCompile>
   </ItemGroup>

@@ -20,6 +20,14 @@ void Mesh::Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const co
     Drawable::Draw(gfx);
 }
 
+void Mesh::DrawInstanced(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform, UINT instanceCount) const conexcept
+{
+    DirectX::XMStoreFloat4x4(&transform, accumulatedTransform);
+
+    Drawable::DrawInstanced(gfx, instanceCount);
+}
+
+
 DirectX::XMMATRIX Mesh::GetTransformXM() const noexcept
 {
     return DirectX::XMLoadFloat4x4(&transform);

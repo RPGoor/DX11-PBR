@@ -14,23 +14,91 @@ Game::Game()
 
     std::random_device rd;
     std::mt19937 rng(rd());
-    std::uniform_real_distribution<float> dist(-10.0f, 10.0f);
 
-    grassTransforms.reserve(5000);
+    std::uniform_real_distribution<float> positionDist(
+        -10.0f,
+        10.0f
+    );
 
-    for (int i = 0; i < 5000; ++i)
+    std::uniform_real_distribution<float> rotationDist(
+        0.0f,
+        DirectX::XM_2PI
+    );
+
+    std::uniform_real_distribution<float> scaleDist(
+        0.8f,
+        1.2f
+    );
+
+    std::vector<InstanceData> instances;
+    instances.reserve(5000);
+
+    for (int i = 0; i < 1000000; ++i)
     {
-        const auto matrix = DirectX::XMMatrixTranslation(
-            dist(rng),
-            0.2f,
-            dist(rng)
-        );
+        const float x = positionDist(rng);
+        const float z = positionDist(rng);
+        const float rotation = rotationDist(rng);
+        const float scale = scaleDist(rng);
+
+        const DirectX::XMMATRIX matrix =
+            DirectX::XMMatrixScaling(
+                scale,
+                scale,
+                scale
+            )
+            *
+            DirectX::XMMatrixRotationY(rotation)
+            *
+            DirectX::XMMatrixTranslation(
+                x,
+                0.2f,
+                z
+            );
 
         DirectX::XMFLOAT4X4 storedMatrix;
-        DirectX::XMStoreFloat4x4(&storedMatrix, matrix);
+        DirectX::XMStoreFloat4x4(
+            &storedMatrix,
+            matrix
+        );
 
-        grassTransforms.push_back(storedMatrix);
+        InstanceData instance{};
+
+        instance.row0 = DirectX::XMFLOAT4(
+            storedMatrix._11,
+            storedMatrix._12,
+            storedMatrix._13,
+            storedMatrix._14
+        );
+
+        instance.row1 = DirectX::XMFLOAT4(
+            storedMatrix._21,
+            storedMatrix._22,
+            storedMatrix._23,
+            storedMatrix._24
+        );
+
+        instance.row2 = DirectX::XMFLOAT4(
+            storedMatrix._31,
+            storedMatrix._32,
+            storedMatrix._33,
+            storedMatrix._34
+        );
+
+        instance.row3 = DirectX::XMFLOAT4(
+            storedMatrix._41,
+            storedMatrix._42,
+            storedMatrix._43,
+            storedMatrix._44
+        );
+
+        instances.push_back(instance);
     }
+
+    grass = std::make_unique<InstancedModel>(
+        gfx,
+        "..\\..\\Assets\\Models\\grass.obj",
+        instances
+    );
 }
 
 Game::~Game()
@@ -70,10 +138,8 @@ void Game::DoFrame()
 
     grid.Draw(gfx, DirectX::XMMatrixIdentity());
 
-    for (auto& g : grassTransforms)
-    {
-        grass.Draw(gfx, DirectX::XMLoadFloat4x4(&g));
-    }
+    grass->Draw(gfx, DirectX::XMMatrixIdentity());
+
 
     while (const auto e = wnd.kbd.ReadKey())
     {

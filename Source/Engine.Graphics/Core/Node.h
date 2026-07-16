@@ -11,6 +11,8 @@ class Node
 public:
     Node(int id, const std::string& name, std::vector<Mesh*> meshPtrs, const DirectX::XMMATRIX& transform) conexcept;
     void Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const conexcept;
+    void DrawInstanced(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform, UINT instanceCount) const conexcept;
+
     void SetAppliedTransform(DirectX::FXMMATRIX transform) noexcept;
     int GetId() const noexcept;
     void ShowTree(Node*& pSelectedNode) const noexcept;

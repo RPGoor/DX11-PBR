@@ -12,6 +12,7 @@
 #include "../DX11/Bindings/Sampler.h"
 #include "Vertex.h"
 #include <random>
+#include "InstanceData.h"
 
 class ModelWindow
 {
@@ -69,9 +70,10 @@ private:
     std::unordered_map<int, TransformParameters> transforms;
 };
 
-Model::Model(Graphics& gfx, const std::string fileName)
+Model::Model(Graphics& gfx, const std::string fileName, bool isInstanced)
     :
-    pWindow(std::make_unique<ModelWindow>())
+    pWindow(std::make_unique<ModelWindow>()),
+    isInstanced(isInstanced)
 {
     Assimp::Importer imp;
     const auto pScene = imp.ReadFile(fileName.c_str(),
@@ -103,8 +105,18 @@ void Model::Draw(Graphics& gfx, DirectX::XMMATRIX position) const conexcept
     }
 
     pRoot->Draw(gfx, position);
-    //pRoot->Draw(gfx, DirectX::XMMatrixIdentity());
 }
+
+void Model::DrawInstanced(Graphics& gfx, DirectX::XMMATRIX position, UINT instanceCount) const conexcept
+{
+    if (auto node = pWindow->GetSelectedNode())
+    {
+        node->SetAppliedTransform(pWindow->GetTransform());
+    }
+
+    pRoot->DrawInstanced(gfx, position, instanceCount);
+}
+
 
 void Model::ShowWindow(const char* windowName) noexcept
 {
@@ -159,11 +171,27 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 
     bindablePtrs.push_back(IndexBuffer::Resolve(gfx, meshTag, indices));
 
-    auto pvs = VertexShader::Resolve(gfx, "StandardVS.cso");
-    auto pvsbc = pvs->GetBytecode();
-    bindablePtrs.push_back(std::move(pvs));
-
-    bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));
+    if (isInstanced)
+    {
+        auto pvs = VertexShader::Resolve(gfx, "GrassVS.cso");
+        auto pvsbc = pvs->GetBytecode();
+        bindablePtrs.push_back(std::move(pvs));
+        bindablePtrs.push_back(
+            InputLayout::ResolveInstanced(
+                gfx,
+                vbuf.GetLayout(),
+                InstanceData::GetLayout(),
+                pvsbc
+            )
+        );
+    }
+    else
+    {
+        auto pvs = VertexShader::Resolve(gfx, "StandardVS.cso");
+        auto pvsbc = pvs->GetBytecode();
+        bindablePtrs.push_back(std::move(pvs));
+        bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));
+    }
 
     bindablePtrs.push_back(PixelShader::Resolve(gfx, "StandardPS.cso"));
 

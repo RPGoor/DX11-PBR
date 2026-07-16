@@ -27,6 +27,22 @@ void Node::Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const co
     }
 }
 
+void Node::DrawInstanced(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform, UINT instanceCount) const conexcept
+{
+    const auto built =
+        DirectX::XMLoadFloat4x4(&appliedTransform) *
+        DirectX::XMLoadFloat4x4(&transform) *
+        accumulatedTransform;
+    for (const auto pm : meshPtrs)
+    {
+        pm->DrawInstanced(gfx, built, instanceCount);
+    }
+    for (const auto& pc : childPtrs)
+    {
+        pc->DrawInstanced(gfx, built, instanceCount);
+    }
+}
+
 void Node::AddChild(std::unique_ptr<Node> pChild) conexcept
 {
     assert(pChild);

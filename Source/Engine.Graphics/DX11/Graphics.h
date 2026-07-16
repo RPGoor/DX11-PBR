@@ -20,6 +20,8 @@ public:
     ~Graphics();
 
     void DrawIndexed(UINT count) conexcept;
+    void DrawIndexedInstanced(UINT count, UINT instanceCount) conexcept;
+
     void SetProjection(DirectX::FXMMATRIX proj) noexcept;
     DirectX::XMMATRIX GetProjection() const noexcept;
     void EndFrame();

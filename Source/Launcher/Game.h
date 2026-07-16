@@ -7,6 +7,7 @@
 #include <Camera.h>
 #include <PointLight.h>
 #include <Bindings/FrameCBuf.h>
+#include <InstancedModel.h>
 
 class Game
 {
@@ -28,7 +29,6 @@ private:
 
     //Model nano{ gfx,"..\\..\\Assets\\Models\\nano_textured\\nanosuit.obj" };
     Model grid{ gfx, "..\\..\\Assets\\Models\\grid.obj" };
-    Model grass{ gfx, "..\\..\\Assets\\Models\\grass.obj" };
 
-    std::vector<DirectX::XMFLOAT4X4> grassTransforms;
+    std::unique_ptr<InstancedModel> grass;
 };

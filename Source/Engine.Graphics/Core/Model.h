@@ -12,14 +12,18 @@
 class Model
 {
 public:
-    Model(Graphics& gfx, const std::string fileName);
+    Model(Graphics& gfx, const std::string fileName, bool isInstanced = 0);
     void Draw(Graphics& gfx, DirectX::XMMATRIX position) const conexcept;
+    void DrawInstanced(Graphics& gfx, DirectX::XMMATRIX position, UINT instanceCount) const conexcept;
+
     void ShowWindow(const char* windowName = nullptr) noexcept;
     ~Model() noexcept;
 private:
-    static std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials);
+    std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials);
     std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node) noexcept;
 private:
+    bool isInstanced;
+
     std::unique_ptr<Node> pRoot;
     std::vector<std::unique_ptr<Mesh>> meshPtrs;
     std::unique_ptr<class ModelWindow> pWindow;
