@@ -2,11 +2,12 @@
 
 #include "Model.h"
 #include "../DX11/Bindings/InstanceBuffer.h"
+#include "../Core/MaterialConstants.h"
 
 class InstancedModel
 {
 public:
-    InstancedModel(Graphics& gfx, const std::string fileName, std::vector<InstanceData> instances);
+    InstancedModel(Graphics& gfx, const std::string fileName, std::vector<InstanceData> instances, MaterialConstants material);
     ~InstancedModel() = default;
 
 

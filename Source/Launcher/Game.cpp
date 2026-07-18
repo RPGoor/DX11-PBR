@@ -10,7 +10,12 @@ GDIPlusManager gdipm;
 Game::Game()
     : wnd(800, 600, L"Solorn Engine Window"), gfx(Graphics(wnd.GetHWND())), pointLight(gfx), frameBuffer(gfx)
 {
-    gfx.SetProjection(DirectX::XMMatrixPerspectiveLH(1.0f, 9.0f / 16.0f, 0.5f, 40.0f));
+    gfx.SetProjection(DirectX::XMMatrixPerspectiveFovLH(
+        DirectX::XMConvertToRadians(60.0f),
+        16.0f / 9.0f,
+        0.1f,
+        100.0f
+    ));
 
     std::random_device rd;
     std::mt19937 rng(rd());
@@ -29,11 +34,27 @@ Game::Game()
         0.8f,
         1.2f
     );
+    std::uniform_real_distribution<float> heightDist(
+        0.3f,
+        1.5f
+    );
+
+    std::uniform_real_distribution<float> colorDistR(
+        0.75f,
+        1.4f
+    );
+    std::uniform_real_distribution<float> colorDistG(
+        0.8f,
+        1.2f
+    );
+    std::uniform_real_distribution<float> colorDistB(
+        0.85f,
+        1.4f
+    );
 
     std::vector<InstanceData> instances;
-    instances.reserve(5000);
 
-    for (int i = 0; i < 1000000; ++i)
+    for (int i = 0; i < 100000; ++i)
     {
         const float x = positionDist(rng);
         const float z = positionDist(rng);
@@ -43,7 +64,7 @@ Game::Game()
         const DirectX::XMMATRIX matrix =
             DirectX::XMMatrixScaling(
                 scale,
-                scale,
+                heightDist(rng),
                 scale
             )
             *
@@ -51,7 +72,7 @@ Game::Game()
             *
             DirectX::XMMatrixTranslation(
                 x,
-                0.2f,
+                0.25f,
                 z
             );
 
@@ -91,13 +112,21 @@ Game::Game()
             storedMatrix._44
         );
 
+        instance.row4 = DirectX::XMFLOAT4(
+            colorDistR(rng),
+            colorDistG(rng),
+            colorDistB(rng),
+            1.0f
+        );
+
         instances.push_back(instance);
     }
 
     grass = std::make_unique<InstancedModel>(
         gfx,
         "..\\..\\Assets\\Models\\grass.obj",
-        instances
+        instances,
+        MaterialConstants{ {0.15f, 0.63f, 0.23f}, 0.1, 0.5, {} }
     );
 }
 
@@ -122,15 +151,17 @@ void Game::DoFrame()
     const auto dt = timer.Mark();
     const auto view = cam.GetMatrix();
     const auto projection = gfx.GetProjection();
+
+    float test = timer.Elapsed();
+
     frameBuffer.Update(
         gfx,
         view,
         projection,
         cam.pos,
-        timer.Peek()
+        timer.Elapsed()
     );
     frameBuffer.Bind(gfx);
-
     pointLight.Bind(gfx, cam.GetMatrix());
 
     gfx.BeginFrame(0.2f, 0.4f, 0.9f);
@@ -198,6 +229,5 @@ void Game::DoFrame()
     }
 
     pointLight.SpawnControlWindow();
-    ImGui::ShowDemoWindow();
     gfx.EndFrame();
 }

@@ -8,6 +8,8 @@ namespace Engine
     Timer::Timer() noexcept
     {
         last = steady_clock::now();
+        start = steady_clock::now();
+
     }
 
     float Timer::Mark() noexcept
@@ -21,5 +23,10 @@ namespace Engine
     float Timer::Peek() const noexcept
     {
         return duration<float>(steady_clock::now() - last).count();
+    }
+
+    float Timer::Elapsed() const noexcept
+    {
+        return duration<float>(steady_clock::now() - start).count();
     }
 }

@@ -110,8 +110,10 @@ namespace Dvtx
 
         case InstanceTransform3:
             return sizeof(Map<InstanceTransform3>::SysType);
-
+        case InstanceTransform4:
+            return sizeof(Map<InstanceTransform4>::SysType);
         }
+
         assert("Invalid element type" && false);
         return 0u;
     }
@@ -148,6 +150,8 @@ namespace Dvtx
 
         case InstanceTransform3:
             return Map<InstanceTransform3>::code;
+        case InstanceTransform4:
+            return Map<InstanceTransform4>::code;
         }
         assert("Invalid element type" && false);
         return "Invalid";
@@ -181,6 +185,8 @@ namespace Dvtx
 
         case InstanceTransform3:
             return GenerateDesc<InstanceTransform3>();
+        case InstanceTransform4:
+            return GenerateDesc<InstanceTransform4>();
         }
         assert("Invalid element type" && false);
         return { "INVALID",0,DXGI_FORMAT_UNKNOWN,0,0,D3D11_INPUT_PER_VERTEX_DATA,0 };

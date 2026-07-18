@@ -9,6 +9,7 @@ struct InstanceData
     DirectX::XMFLOAT4 row1;
     DirectX::XMFLOAT4 row2;
     DirectX::XMFLOAT4 row3;
+    DirectX::XMFLOAT4 row4;
 
     static Dvtx::VertexLayout GetLayout()
     {
@@ -24,6 +25,9 @@ struct InstanceData
             )
             .AppendInstance(
                 Dvtx::VertexLayout::InstanceTransform3
-            );
+            )
+            .AppendInstance(
+                Dvtx::VertexLayout::InstanceTransform4
+            );;
     }
 };

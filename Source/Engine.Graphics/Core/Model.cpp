@@ -70,7 +70,7 @@ private:
     std::unordered_map<int, TransformParameters> transforms;
 };
 
-Model::Model(Graphics& gfx, const std::string fileName, bool isInstanced)
+Model::Model(Graphics& gfx, const std::string fileName, MaterialConstants material, bool isInstanced)
     :
     pWindow(std::make_unique<ModelWindow>()),
     isInstanced(isInstanced)
@@ -90,7 +90,7 @@ Model::Model(Graphics& gfx, const std::string fileName, bool isInstanced)
 
     for (size_t i = 0; i < pScene->mNumMeshes; i++)
     {
-        meshPtrs.push_back(ParseMesh(gfx, *pScene->mMeshes[i], pScene->mMaterials));
+        meshPtrs.push_back(ParseMesh(gfx, *pScene->mMeshes[i], pScene->mMaterials, material));
     }
 
     int nextId = 0;
@@ -126,7 +126,7 @@ void Model::ShowWindow(const char* windowName) noexcept
 Model::~Model() noexcept
 {}
 
-std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials)
+std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials, MaterialConstants material)
 {
     using Dvtx::VertexLayout;
 
@@ -171,6 +171,12 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
 
     bindablePtrs.push_back(IndexBuffer::Resolve(gfx, meshTag, indices));
 
+    bindablePtrs.push_back(std::make_unique<PixelConstantBuffer<MaterialConstants>>(
+        gfx,
+        material,
+        2u
+    ));
+
     if (isInstanced)
     {
         auto pvs = VertexShader::Resolve(gfx, "GrassVS.cso");
@@ -184,6 +190,7 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
                 pvsbc
             )
         );
+        bindablePtrs.push_back(PixelShader::Resolve(gfx, "GrassPS.cso"));
     }
     else
     {
@@ -191,42 +198,8 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
         auto pvsbc = pvs->GetBytecode();
         bindablePtrs.push_back(std::move(pvs));
         bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));
+        bindablePtrs.push_back(PixelShader::Resolve(gfx, "StandardPS.cso"));
     }
-
-    bindablePtrs.push_back(PixelShader::Resolve(gfx, "StandardPS.cso"));
-
-  // ---------------------------------------------------------
-  // PBR material constants
-  // ---------------------------------------------------------
-
-    struct alignas(16) MaterialConstants
-    {
-        DirectX::XMFLOAT3 baseColor;
-        float metallic;
-
-        float roughness;
-        DirectX::XMFLOAT3 padding;
-    };
-
-    static_assert(
-        sizeof(MaterialConstants) == 32u,
-        "MaterialConstants must match the HLSL constant buffer."
-        );
-
-    MaterialConstants materialConstants{};
-
-    materialConstants.baseColor = {
-        0.8f,
-        0.1f,
-        0.05f
-    };
-
-    materialConstants.metallic = 0.0f;
-    materialConstants.roughness = 0.5f;
-
-    // Do not use Resolve here unless the buffer UID also includes
-    // all material values. Different meshes may need different data.
-    bindablePtrs.push_back(PixelConstantBuffer<MaterialConstants>::Resolve(gfx,materialConstants,2u));
 
     return std::make_unique<Mesh>(
         gfx,

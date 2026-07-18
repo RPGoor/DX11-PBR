@@ -23,6 +23,7 @@ namespace Dvtx
             InstanceTransform1,
             InstanceTransform2,
             InstanceTransform3,
+            InstanceTransform4,
             Count,
         };
         template<ElementType> struct Map;
@@ -124,6 +125,17 @@ namespace Dvtx
             static constexpr const char* semantic = "InstanceTransform";
             static constexpr UINT semanticIndex = 3u;
             static constexpr const char* code = "IT3";
+        };
+
+        template<>
+        struct Map<InstanceTransform4>
+        {
+            using SysType = DirectX::XMFLOAT4;
+            static constexpr DXGI_FORMAT dxgiFormat =
+                DXGI_FORMAT_R32G32B32A32_FLOAT;
+            static constexpr const char* semantic = "InstanceTransform";
+            static constexpr UINT semanticIndex = 4u;
+            static constexpr const char* code = "IT4";
         };
         class Element
         {

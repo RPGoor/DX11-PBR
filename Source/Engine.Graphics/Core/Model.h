@@ -8,18 +8,19 @@
 #include "Mesh.h"
 #include "Node.h"
 #include <memory>
+#include "../Core/MaterialConstants.h"
 
 class Model
 {
 public:
-    Model(Graphics& gfx, const std::string fileName, bool isInstanced = 0);
+    Model(Graphics& gfx, const std::string fileName, MaterialConstants material, bool isInstanced = 0);
     void Draw(Graphics& gfx, DirectX::XMMATRIX position) const conexcept;
     void DrawInstanced(Graphics& gfx, DirectX::XMMATRIX position, UINT instanceCount) const conexcept;
 
     void ShowWindow(const char* windowName = nullptr) noexcept;
     ~Model() noexcept;
 private:
-    std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials);
+    std::unique_ptr<Mesh> ParseMesh(Graphics& gfx, const aiMesh& mesh, const aiMaterial* const* pMaterials, MaterialConstants material);
     std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node) noexcept;
 private:
     bool isInstanced;

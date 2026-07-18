@@ -112,9 +112,12 @@
       <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
     <ClCompile Include="Core\InstancedModel.cpp">
-      <Filter>Core</Filter>
+      <Filter>Core\private</Filter>
     </ClCompile>
     <ClCompile Include="DX11\Bindings\InstanceBuffer.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\MaterialBuffer.cpp">
       <Filter>DX11\Bindings</Filter>
     </ClCompile>
   </ItemGroup>
@@ -200,14 +203,20 @@
     <ClInclude Include="DX11\Bindings\FrameCBuf.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
+    <ClInclude Include="Core\InstanceData.h">
+      <Filter>Core\public</Filter>
+    </ClInclude>
     <ClInclude Include="Core\InstancedModel.h">
-      <Filter>Core</Filter>
+      <Filter>Core\public</Filter>
     </ClInclude>
     <ClInclude Include="DX11\Bindings\InstanceBuffer.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\MaterialBuffer.h">
       <Filter>DX11\Bindings</Filter>
     </ClInclude>
-    <ClInclude Include="Core\InstanceData.h">
-      <Filter>Core</Filter>
+    <ClInclude Include="Core\MaterialConstants.h">
+      <Filter>Core\public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -221,6 +230,9 @@
       <Filter>Shaders\private</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\TestPS.hlsl">
+      <Filter>Shaders\private</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\GrassPS.hlsl">
       <Filter>Shaders\private</Filter>
     </FxCompile>
   </ItemGroup>

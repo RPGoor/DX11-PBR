@@ -10,6 +10,8 @@ struct VSInput
     float4 instanceTransform1 : InstanceTransform1;
     float4 instanceTransform2 : InstanceTransform2;
     float4 instanceTransform3 : InstanceTransform3;
+    float4 instanceTransform4 : InstanceTransform4;
+
 };
 
 VertexToPixel main(VSInput input)
@@ -34,12 +36,23 @@ VertexToPixel main(VSInput input)
         1.0f
     );
 
-    const float4 positionWS = mul(
+    float heightMask = saturate(1 - input.texcoord.y);
+    const float bendMask = heightMask * heightMask;
+    float phase =
+    time * 1 +
+    input.position.x * 0.15f +
+    input.position.z * 0.12f;
+    float wave = sin(phase);
+    
+    float4 positionWS = mul(
         positionOS,
         modelToWorld
     );
 
+    positionWS.xz += bendMask * wave * 0.05;
+    
     output.positionWS = positionWS.xyz;
+
 
     output.positionCS = mul(
         positionWS,
@@ -54,5 +67,7 @@ VertexToPixel main(VSInput input)
         ).xyz
     );
 
+    output.uv = input.texcoord;
+    output.colorRand = input.instanceTransform4;
     return output;
 }

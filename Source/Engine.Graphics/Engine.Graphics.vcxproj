@@ -101,6 +101,7 @@
     <ClCompile Include="DX11\Bindings\IndexBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\InputLayout.cpp" />
     <ClCompile Include="DX11\Bindings\InstanceBuffer.cpp" />
+    <ClCompile Include="DX11\Bindings\MaterialBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\PixelShader.cpp" />
     <ClCompile Include="DX11\Bindings\Sampler.cpp" />
     <ClCompile Include="DX11\Bindings\Texture.cpp" />
@@ -119,6 +120,7 @@
     <ClInclude Include="Core\Drawable.h" />
     <ClInclude Include="Core\InstanceData.h" />
     <ClInclude Include="Core\InstancedModel.h" />
+    <ClInclude Include="Core\MaterialConstants.h" />
     <ClInclude Include="Core\Mesh.h" />
     <ClInclude Include="Core\Model.h" />
     <ClInclude Include="Core\ModelException.h" />
@@ -132,6 +134,7 @@
     <ClInclude Include="DX11\Bindings\IndexBuffer.h" />
     <ClInclude Include="DX11\Bindings\InputLayout.h" />
     <ClInclude Include="DX11\Bindings\InstanceBuffer.h" />
+    <ClInclude Include="DX11\Bindings\MaterialBuffer.h" />
     <ClInclude Include="DX11\Bindings\PixelShader.h" />
     <ClInclude Include="DX11\Bindings\Sampler.h" />
     <ClInclude Include="DX11\Bindings\Texture.h" />
@@ -151,6 +154,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shaders\GrassPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="Shaders\GrassVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>

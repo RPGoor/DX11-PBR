@@ -1,7 +1,7 @@
 #include "InstancedModel.h"
 
-InstancedModel::InstancedModel(Graphics& gfx, const std::string fileName, std::vector<InstanceData> instances)
-    : model(gfx, fileName, true), instanceBuffer(gfx, std::move(instances))
+InstancedModel::InstancedModel(Graphics& gfx, const std::string fileName, std::vector<InstanceData> instances, MaterialConstants material)
+    : model(gfx, fileName, material, true ), instanceBuffer(gfx, std::move(instances))
 {
 }
 
