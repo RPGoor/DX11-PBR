@@ -31,7 +31,7 @@ float4 main(
         input.positionWS,
         directionalLight
     );
-    
+
     color += ambient;
 
     color = saturate(color * (1 - input.uv.y) * input.colorRand.rgb);

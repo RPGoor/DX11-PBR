@@ -31,6 +31,6 @@ _ReSharper*/
 #Nuget packages folder
 packages/
 *.cso
-!Models/**/*.obj
+!Assets/**/*.obj
 Intermediate/
 *.ini

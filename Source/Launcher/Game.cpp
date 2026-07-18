@@ -31,11 +31,11 @@ Game::Game()
     );
 
     std::uniform_real_distribution<float> scaleDist(
-        0.8f,
-        1.2f
+        0.6f,
+        1.4f
     );
     std::uniform_real_distribution<float> heightDist(
-        0.3f,
+        0.6f,
         1.5f
     );
 
@@ -52,9 +52,14 @@ Game::Game()
         1.4f
     );
 
+    std::uniform_real_distribution<float> LeanDist(
+        -0.15f,
+        0.15f
+    );
+
     std::vector<InstanceData> instances;
 
-    for (int i = 0; i < 100000; ++i)
+    for (int i = 0; i < 1000000; ++i)
     {
         const float x = positionDist(rng);
         const float z = positionDist(rng);
@@ -70,9 +75,13 @@ Game::Game()
             *
             DirectX::XMMatrixRotationY(rotation)
             *
+            DirectX::XMMatrixRotationX(LeanDist(rng))
+            *
+            DirectX::XMMatrixRotationZ(LeanDist(rng))
+            *
             DirectX::XMMatrixTranslation(
                 x,
-                0.25f,
+                0.0f,
                 z
             );
 

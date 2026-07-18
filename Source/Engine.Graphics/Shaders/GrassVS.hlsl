@@ -39,7 +39,7 @@ VertexToPixel main(VSInput input)
     float heightMask = saturate(1 - input.texcoord.y);
     const float bendMask = heightMask * heightMask;
     float phase =
-    time * 1 +
+    time * 0.0f +
     input.position.x * 0.15f +
     input.position.z * 0.12f;
     float wave = sin(phase);
