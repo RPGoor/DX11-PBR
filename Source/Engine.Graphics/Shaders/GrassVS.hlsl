@@ -14,6 +14,10 @@ struct VSInput
 
 };
 
+
+Texture2D windNoise : register(t0);
+SamplerState windSampler : register(s0);
+
 VertexToPixel main(VSInput input)
 {
     VertexToPixel output;
@@ -38,8 +42,9 @@ VertexToPixel main(VSInput input)
 
     float heightMask = saturate(1 - input.texcoord.y);
     const float bendMask = heightMask * heightMask;
+    
     float phase =
-    time * 0.0f +
+    time * 2.0f +
     input.position.x * 0.15f +
     input.position.z * 0.12f;
     float wave = sin(phase);
@@ -49,10 +54,17 @@ VertexToPixel main(VSInput input)
         modelToWorld
     );
 
-    positionWS.xz += bendMask * wave * 0.05;
+    float3 bladeOriginWS = mul(
+        float4(0.0f, 0.0f, 0.0f, 1.0f),
+        modelToWorld
+    ).xyz;
     
-    output.positionWS = positionWS.xyz;
+    float2 noiseUV = (bladeOriginWS.xz - 10.0f) * 0.08 + time * 0.05;
+    const float noise = windNoise.SampleLevel(windSampler, noiseUV, 0.0f).r * 2.0f - 1.0f;
 
+    positionWS.xz += noise * bendMask * 0.3;
+
+    output.positionWS = positionWS.xyz;
 
     output.positionCS = mul(
         positionWS,

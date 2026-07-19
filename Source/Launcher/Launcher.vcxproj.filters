@@ -9,10 +9,12 @@
   <ItemGroup>
     <ClCompile Include="WinMain.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Grass.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="Grass.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Launcher.rc">

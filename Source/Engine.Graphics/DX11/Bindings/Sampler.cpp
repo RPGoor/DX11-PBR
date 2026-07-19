@@ -19,6 +19,12 @@ void Sampler::Bind(Graphics& gfx) noexcept
 {
     GetContext(gfx)->PSSetSamplers(0, 1, pSampler.GetAddressOf());
 }
+
+void Sampler::BindVS(Graphics& gfx) noexcept
+{
+    GetContext(gfx)->VSSetSamplers(0, 1, pSampler.GetAddressOf());
+}
+
 std::shared_ptr<Sampler> Sampler::Resolve(Graphics& gfx)
 {
     return Codex::Resolve<Sampler>(gfx);
