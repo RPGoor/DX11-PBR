@@ -53,49 +53,18 @@ Graphics::Graphics(HWND hWnd)
         nullptr,
         &pContext));
 
-    wrl::ComPtr<ID3D11Resource> pBackBuffer;
-    GFX_THROW_INFO(pSwap->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
-    GFX_THROW_INFO(pDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &pTarget));
-
+   
     D3D11_DEPTH_STENCIL_DESC dsDesc = {};
     dsDesc.DepthEnable = TRUE;
     dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
     dsDesc.DepthFunc = D3D11_COMPARISON_LESS;
+
     wrl::ComPtr<ID3D11DepthStencilState> pDSState;
     GFX_THROW_INFO(pDevice->CreateDepthStencilState(&dsDesc, &pDSState));
     pContext->OMSetDepthStencilState(pDSState.Get(), 1u);
 
-    wrl::ComPtr<ID3D11Texture2D> pDepthStencil;
-    D3D11_TEXTURE2D_DESC descDepth = {};
-    descDepth.Width = 2560u;
-    descDepth.Height = 1440u;
-    descDepth.MipLevels = 1u;
-    descDepth.ArraySize = 1u;
-    descDepth.Format = DXGI_FORMAT_D32_FLOAT;
-    descDepth.SampleDesc.Count = 1u;
-    descDepth.SampleDesc.Quality = 0u;
-    descDepth.Usage = D3D11_USAGE_DEFAULT;
-    descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-
-    GFX_THROW_INFO(pDevice->CreateTexture2D(&descDepth, nullptr, &pDepthStencil));
-
-    D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
-    descDSV.Format = DXGI_FORMAT_D32_FLOAT;
-    descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
-    descDSV.Texture2D.MipSlice = 0u;
-
-    GFX_THROW_INFO(pDevice->CreateDepthStencilView(pDepthStencil.Get(), &descDSV, &pDSV));
-
-    pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
-
-    D3D11_VIEWPORT vp;
-    vp.Width = 2560.0f;
-    vp.Height = 1440.0f;
-    vp.MinDepth = 0.0f;
-    vp.MaxDepth = 1.0f;
-    vp.TopLeftX = 0.0f;
-    vp.TopLeftY = 0.0f;
-    pContext->RSSetViewports(1u, &vp);
+    CreateTargetAndDepthStencil(1280u, 720u);
+    CreateViewport(1280u, 720u);
 
     ImGui_ImplDX11_Init(pDevice.Get(), pContext.Get());
 }
@@ -177,6 +146,34 @@ DirectX::XMMATRIX Graphics::GetCamera() const noexcept
     return camera;
 }
 
+void Graphics::Resize(unsigned int width, unsigned int height) noexcept
+{
+    HRESULT hr;
+
+    pContext->OMSetRenderTargets(
+        0u,
+        nullptr,
+        nullptr
+    );
+
+    pTarget.Reset();
+    pDSV.Reset();
+
+    GFX_THROW_INFO(
+        pSwap->ResizeBuffers(
+            0u,
+            width,
+            height,
+            DXGI_FORMAT_UNKNOWN,
+            0u
+        )
+    );
+
+    CreateTargetAndDepthStencil(width, height);
+    CreateViewport(width, height);
+}
+
+
 void Graphics::EnableImGui() noexcept
 {
     imGuiEnabled = true;
@@ -190,4 +187,48 @@ void Graphics::DisableImGui() noexcept
 bool Graphics::IsImGuiEnabled() const noexcept
 {
     return imGuiEnabled;
+}
+
+void Graphics::CreateViewport(unsigned int width, unsigned int height)
+{
+    D3D11_VIEWPORT vp;
+    vp.Width = width;
+    vp.Height = height;
+    vp.MinDepth = 0.0f;
+    vp.MaxDepth = 1.0f;
+    vp.TopLeftX = 0.0f;
+    vp.TopLeftY = 0.0f;
+    pContext->RSSetViewports(1u, &vp);
+}
+
+void Graphics::CreateTargetAndDepthStencil(unsigned int width, unsigned int height)
+{
+    HRESULT hr;
+    wrl::ComPtr<ID3D11Resource> pBackBuffer;
+    GFX_THROW_INFO(pSwap->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
+    GFX_THROW_INFO(pDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &pTarget));
+
+
+    wrl::ComPtr<ID3D11Texture2D> pDepthStencil;
+    D3D11_TEXTURE2D_DESC descDepth = {};
+    descDepth.Width = width;
+    descDepth.Height = height;
+    descDepth.MipLevels = 1u;
+    descDepth.ArraySize = 1u;
+    descDepth.Format = DXGI_FORMAT_D32_FLOAT;
+    descDepth.SampleDesc.Count = 1u;
+    descDepth.SampleDesc.Quality = 0u;
+    descDepth.Usage = D3D11_USAGE_DEFAULT;
+    descDepth.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+
+    GFX_THROW_INFO(pDevice->CreateTexture2D(&descDepth, nullptr, &pDepthStencil));
+
+    D3D11_DEPTH_STENCIL_VIEW_DESC descDSV = {};
+    descDSV.Format = DXGI_FORMAT_D32_FLOAT;
+    descDSV.ViewDimension = D3D11_DSV_DIMENSION_TEXTURE2D;
+    descDSV.Texture2D.MipSlice = 0u;
+
+    GFX_THROW_INFO(pDevice->CreateDepthStencilView(pDepthStencil.Get(), &descDSV, &pDSV));
+
+    pContext->OMSetRenderTargets(1u, pTarget.GetAddressOf(), pDSV.Get());
 }

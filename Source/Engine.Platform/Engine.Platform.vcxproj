@@ -16,6 +16,7 @@
     <ClInclude Include="Input\Mouse.h" />
     <ClInclude Include="windows\Window.h" />
     <ClInclude Include="windows\Win32Exceptions.h" />
+    <ClInclude Include="windows\WindowEvents.h" />
     <ClInclude Include="windows\WindowExceptionsMacros.h" />
   </ItemGroup>
   <ItemGroup>
@@ -24,6 +25,7 @@
     <ClCompile Include="Input\Mouse.cpp" />
     <ClCompile Include="windows\Window.cpp" />
     <ClCompile Include="windows\Win32Exceptions.cpp" />
+    <ClCompile Include="windows\WindowEvents.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine.Common\Engine.Common.vcxproj">

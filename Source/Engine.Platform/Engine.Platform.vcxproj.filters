@@ -39,6 +39,9 @@
     <ClInclude Include="Input\Mouse.h">
       <Filter>Input\public</Filter>
     </ClInclude>
+    <ClInclude Include="windows\WindowEvents.h">
+      <Filter>windows\public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windows\Window.cpp">
@@ -55,6 +58,9 @@
     </ClCompile>
     <ClCompile Include="Input\Mouse.cpp">
       <Filter>Input\private</Filter>
+    </ClCompile>
+    <ClCompile Include="windows\WindowEvents.cpp">
+      <Filter>windows\private</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

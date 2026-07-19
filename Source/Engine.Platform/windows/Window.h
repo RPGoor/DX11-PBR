@@ -4,6 +4,7 @@
 #include <optional>
 #include "../Input/Keyboard.h"
 #include "../Input/Mouse.h"
+#include "WindowEvents.h"
 
 class Window
 {
@@ -24,6 +25,7 @@ public:
 public:
     Mouse mouse;
     Keyboard kbd;
+    WindowEvents events;
 
 private:
     int width;
@@ -31,6 +33,8 @@ private:
     HWND hWnd;
     bool cursorEnabled = true;
     std::vector<BYTE> rawBuffer;
+    bool isBeingResized = false;
+
 
     static LRESULT CALLBACK SetupMessageHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
     static LRESULT CALLBACK PassMessageHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;

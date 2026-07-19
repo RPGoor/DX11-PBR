@@ -26,7 +26,7 @@ Window::Window(int width, int height, LPCWSTR name)
     hWnd = CreateWindow(
         WindowClass::GetName(),
         name,
-        WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU,
+        WS_OVERLAPPEDWINDOW,
         CW_USEDEFAULT,
         CW_USEDEFAULT,
         wr.right - wr.left,
@@ -144,17 +144,13 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
     switch (msg)
     {
-        // we don't want the DefProc to handle this message because
-        // we want our destructor to destroy the window, so return 0 instead of break
     case WM_CLOSE:
         PostQuitMessage(0);
         return 0;
-        // clear keystate when window loses focus to prevent input getting "stuck"
     case WM_KILLFOCUS:
         kbd.ClearState();
         break;
     case WM_ACTIVATE:
-        // confine/free cursor on window to foreground/background if cursor disabled
         if (!cursorEnabled)
         {
             if (wParam & WA_ACTIVE)
@@ -169,7 +165,28 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             }
         }
         break;
+    case WM_ENTERSIZEMOVE:
+        isBeingResized = true;
+        return 0;
+    case WM_SIZE:
+    {
+        const auto newWidth = LOWORD(lParam);
+        const auto newHeight = HIWORD(lParam);
+        if (width == newWidth && height == newHeight)
+        {
+            return 0;
+        }
 
+        if (width > 0 && height > 0)
+        {
+
+            events.SetEvent(width, height);
+        }
+        return 0;
+    }
+    case WM_EXITSIZEMOVE:
+        isBeingResized = false;
+        return 0;
         /*********** KEYBOARD MESSAGES ***********/
     case WM_KEYDOWN:
         // syskey commands need to be handled to track ALT key (VK_MENU) and F10

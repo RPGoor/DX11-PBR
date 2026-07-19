@@ -40,8 +40,9 @@ VertexToPixel main(VSInput input)
         1.0f
     );
 
+
     float heightMask = saturate(1 - input.texcoord.y);
-    const float bendMask = heightMask * heightMask;
+    const float bendMask = pow(heightMask, 1.5);
     
     float phase =
     time * 2.0f +
@@ -62,8 +63,9 @@ VertexToPixel main(VSInput input)
     float2 noiseUV = (bladeOriginWS.xz - 10.0f) * 0.08 + time * 0.05;
     const float noise = windNoise.SampleLevel(windSampler, noiseUV, 0.0f).r * 2.0f - 1.0f;
 
-    positionWS.xz += noise * bendMask * 0.3;
-
+    positionWS.xz += noise * bendMask * 0.2;
+    positionWS.y -= abs(noise) * bendMask * 0.2;
+    
     output.positionWS = positionWS.xyz;
 
     output.positionCS = mul(

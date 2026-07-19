@@ -30,10 +30,15 @@ public:
     void SetCamera(DirectX::FXMMATRIX cam) noexcept;
     DirectX::XMMATRIX GetCamera() const noexcept;
 
+    void Resize(unsigned int width, unsigned int height) noexcept;
+
     void EnableImGui() noexcept;
     void DisableImGui() noexcept;
     bool IsImGuiEnabled() const noexcept;
 
+private:
+    void CreateViewport(unsigned int width, unsigned int height);
+    void CreateTargetAndDepthStencil(unsigned int width, unsigned int height);
 private:
     bool imGuiEnabled = true;
     DirectX::XMMATRIX projection;
