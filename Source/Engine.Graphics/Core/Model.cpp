@@ -194,7 +194,7 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
     }
     else
     {
-        auto pvs = VertexShader::Resolve(gfx, "StandardVS.cso");
+        auto pvs = VertexShader::Resolve(gfx, "TerrainVS.cso");
         auto pvsbc = pvs->GetBytecode();
         bindablePtrs.push_back(std::move(pvs));
         bindablePtrs.push_back(InputLayout::Resolve(gfx, vbuf.GetLayout(), pvsbc));

@@ -32,6 +32,8 @@ public:
 
     void Resize(unsigned int width, unsigned int height) noexcept;
 
+    void Dispatch(UINT groupCountX, UINT groupCountY, UINT groupCountZ) noexcept;
+
     void EnableImGui() noexcept;
     void DisableImGui() noexcept;
     bool IsImGuiEnabled() const noexcept;

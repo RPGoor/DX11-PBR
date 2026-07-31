@@ -118,6 +118,12 @@
       <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
     <ClCompile Include="DX11\Bindings\MaterialBuffer.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\ComputeTexture.cpp">
+      <Filter>DX11\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\ComputeShader.cpp">
       <Filter>DX11\Bindings</Filter>
     </ClCompile>
   </ItemGroup>
@@ -212,11 +218,17 @@
     <ClInclude Include="DX11\Bindings\InstanceBuffer.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
-    <ClInclude Include="DX11\Bindings\MaterialBuffer.h">
-      <Filter>DX11\Bindings</Filter>
-    </ClInclude>
     <ClInclude Include="Core\MaterialConstants.h">
       <Filter>Core\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\MaterialBuffer.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\ComputeTexture.h">
+      <Filter>DX11\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\ComputeShader.h">
+      <Filter>DX11\Bindings</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +245,12 @@
       <Filter>Shaders\private</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\GrassPS.hlsl">
+      <Filter>Shaders\private</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\TerrainCS.hlsl">
+      <Filter>Shaders</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\TerrainVS.hlsl">
       <Filter>Shaders\private</Filter>
     </FxCompile>
   </ItemGroup>

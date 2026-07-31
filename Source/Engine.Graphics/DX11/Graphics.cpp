@@ -173,6 +173,11 @@ void Graphics::Resize(unsigned int width, unsigned int height) noexcept
     CreateViewport(width, height);
 }
 
+void Graphics::Dispatch(UINT groupCountX, UINT groupCountY, UINT groupCountZ) noexcept
+{
+    pContext->Dispatch(groupCountX, groupCountY, groupCountZ);
+}
+
 
 void Graphics::EnableImGui() noexcept
 {

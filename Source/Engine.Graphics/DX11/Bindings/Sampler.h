@@ -4,7 +4,7 @@
 class Sampler : public Bindable
 {
 public:
-    Sampler(Graphics& gfx);
+    Sampler(Graphics& gfx, D3D11_TEXTURE_ADDRESS_MODE mode = D3D11_TEXTURE_ADDRESS_WRAP);
     void Bind(Graphics& gfx) noexcept override;
     void BindVS(Graphics& gfx) noexcept ;
 

@@ -97,6 +97,8 @@
     <ClCompile Include="Core\Vertex.cpp" />
     <ClCompile Include="DX11\Bindings\Bindable.cpp" />
     <ClCompile Include="DX11\Bindings\BindableCodex.cpp" />
+    <ClCompile Include="DX11\Bindings\ComputeShader.cpp" />
+    <ClCompile Include="DX11\Bindings\ComputeTexture.cpp" />
     <ClCompile Include="DX11\Bindings\FrameCBuf.cpp" />
     <ClCompile Include="DX11\Bindings\IndexBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\InputLayout.cpp" />
@@ -129,6 +131,8 @@
     <ClInclude Include="Core\Vertex.h" />
     <ClInclude Include="DX11\Bindings\Bindable.h" />
     <ClInclude Include="DX11\Bindings\BindableCodex.h" />
+    <ClInclude Include="DX11\Bindings\ComputeShader.h" />
+    <ClInclude Include="DX11\Bindings\ComputeTexture.h" />
     <ClInclude Include="DX11\Bindings\ConstantBuffers.h" />
     <ClInclude Include="DX11\Bindings\FrameCBuf.h" />
     <ClInclude Include="DX11\Bindings\IndexBuffer.h" />
@@ -176,6 +180,18 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shaders\TerrainCS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shaders\TerrainVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Shaders\TestPS.hlsl">

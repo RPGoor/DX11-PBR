@@ -2,15 +2,15 @@
 #include "../GraphicsExceptionsMacros.h"
 #include "BindableCodex.h"
 
-Sampler::Sampler(Graphics& gfx)
+Sampler::Sampler(Graphics& gfx, D3D11_TEXTURE_ADDRESS_MODE mode)
 {
     INFOMAN(gfx);
 
     D3D11_SAMPLER_DESC samplerDesc = {};
     samplerDesc.Filter = D3D11_FILTER_MIN_MAG_MIP_LINEAR;
-    samplerDesc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
-    samplerDesc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
-    samplerDesc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+    samplerDesc.AddressU = mode;
+    samplerDesc.AddressV = mode;
+    samplerDesc.AddressW = mode;
 
     GFX_THROW_INFO(GetDevice(gfx)->CreateSamplerState(&samplerDesc, &pSampler));
 }
