@@ -179,7 +179,8 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
         if (width > 0 && height > 0)
         {
-
+            width = newWidth;
+            height = newHeight;
             events.SetEvent(width, height);
         }
         return 0;
