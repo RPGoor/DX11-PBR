@@ -14,7 +14,7 @@ Game::Game()
         DirectX::XMConvertToRadians(60.0f),
         16.0f / 9.0f,
         0.1f,
-        100.0f
+        1000.0f
     ));
 
     terrain.Generate(gfx);
@@ -67,8 +67,6 @@ void Game::DoFrame()
     gfx.SetCamera(cam.GetMatrix());
 
     terrain.Draw(gfx, DirectX::XMMatrixIdentity());
-
-    // grass.Draw(gfx, DirectX::XMMatrixIdentity());
 
     while (const auto e = wnd.kbd.ReadKey())
     {

@@ -5,6 +5,7 @@
 #include <Bindings/ComputeShader.h>
 #include <Model.h>
 #include <Bindings/Sampler.h>
+#include "Grass.h"
 
 class Terrain
 {
@@ -20,5 +21,5 @@ private:
 
     std::unique_ptr<Model> terrain;
     std::unique_ptr<Sampler> terrainSampler;
-
+    std::unique_ptr<Grass> grass;
 };

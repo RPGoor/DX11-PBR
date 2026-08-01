@@ -14,32 +14,38 @@ struct VSInput
 
 };
 
+Texture2D<float> terrainHeightmap : register(t0);
+SamplerState terrainSampler : register(s0);
 
-Texture2D windNoise : register(t0);
-SamplerState windSampler : register(s0);
+Texture2D windNoise : register(t1);
+SamplerState windSampler : register(s1);
 
 VertexToPixel main(VSInput input)
 {
     VertexToPixel output;
 
-    const float4x4 instanceTransform = float4x4(
+
+    float4x4 instanceTransform = float4x4(
         input.instanceTransform0,
         input.instanceTransform1,
         input.instanceTransform2,
         input.instanceTransform3
     );
-
+    
+    float2 terrainUV = instanceTransform[3].xz / 200.0f + 0.5f;
+    instanceTransform[3].y = terrainHeightmap.SampleLevel(terrainSampler, terrainUV, 0.0f) * 100.0f;
+    
     // Imported mesh/node transform followed by the per-instance transform.
     const float4x4 modelToWorld = mul(
         model,
         instanceTransform
     );
 
-    const float4 positionOS = float4(
+
+    float4 positionOS = float4(
         input.position,
         1.0f
     );
-
 
     float heightMask = saturate(1 - input.texcoord.y);
     const float bendMask = pow(heightMask, 1.5);

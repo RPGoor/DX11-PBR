@@ -45,7 +45,7 @@ Grass::Grass(Graphics& gfx)
 
     std::vector<InstanceData> instances;
 
-    for (int i = 0; i < 2500000; ++i)
+    for (int i = 0; i < 500000; ++i)
     {
         const float x = positionDist(rng);
         const float z = positionDist(rng);
@@ -126,10 +126,11 @@ Grass::Grass(Graphics& gfx)
 
     noiseTexture = std::make_unique<Texture>(
         gfx,
-        "..\\..\\Assets\\Textures\\noise.png"
+        "..\\..\\Assets\\Textures\\noise.png",
+        1u
     );
 
-    noiseSampler = std::make_unique<Sampler>(gfx);
+    noiseSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_WRAP, 1u);
 }
 
 void Grass::Draw(Graphics& gfx, DirectX::XMMATRIX position)

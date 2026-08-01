@@ -21,7 +21,7 @@ VertexToPixel main(VertexInput input)
     );
 
     float3 displacedPosition = input.position;
-    displacedPosition.y += terrainHeight;
+    displacedPosition.y = terrainHeight;
     
     float4 positionOS = float4(displacedPosition, 1.0f);
 

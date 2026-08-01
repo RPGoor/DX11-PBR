@@ -2,7 +2,8 @@
 #include "../GraphicsExceptionsMacros.h"
 #include "BindableCodex.h"
 
-Sampler::Sampler(Graphics& gfx, D3D11_TEXTURE_ADDRESS_MODE mode)
+Sampler::Sampler(Graphics& gfx, D3D11_TEXTURE_ADDRESS_MODE mode, UINT slot)
+    : slot(slot)
 {
     INFOMAN(gfx);
 
@@ -17,12 +18,12 @@ Sampler::Sampler(Graphics& gfx, D3D11_TEXTURE_ADDRESS_MODE mode)
 
 void Sampler::Bind(Graphics& gfx) noexcept
 {
-    GetContext(gfx)->PSSetSamplers(0, 1, pSampler.GetAddressOf());
+    GetContext(gfx)->PSSetSamplers(slot, 1, pSampler.GetAddressOf());
 }
 
 void Sampler::BindVS(Graphics& gfx) noexcept
 {
-    GetContext(gfx)->VSSetSamplers(0, 1, pSampler.GetAddressOf());
+    GetContext(gfx)->VSSetSamplers(slot, 1, pSampler.GetAddressOf());
 }
 
 std::shared_ptr<Sampler> Sampler::Resolve(Graphics& gfx)
