@@ -80,8 +80,7 @@ Model::Model(Graphics& gfx, const std::string fileName, MaterialConstants materi
         aiProcess_Triangulate |
         aiProcess_JoinIdenticalVertices |
         aiProcess_ConvertToLeftHanded |
-        aiProcess_GenNormals |
-        aiProcess_GenBoundingBoxes
+        aiProcess_GenNormals
     );
 
     if (pScene == nullptr)
