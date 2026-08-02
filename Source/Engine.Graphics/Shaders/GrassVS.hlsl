@@ -14,6 +14,16 @@ struct VSInput
 
 };
 
+cbuffer GrassControls : register(b2)
+{
+    float horizontalBendStrength;
+    float verticalBendStrength;
+    float bendMaskPow;
+    float speed;
+    float2 direction;
+    float uvScale;
+};
+
 Texture2D<float> terrainHeightmap : register(t0);
 SamplerState terrainSampler : register(s0);
 
@@ -48,14 +58,8 @@ VertexToPixel main(VSInput input)
     );
 
     float heightMask = saturate(1 - input.texcoord.y);
-    const float bendMask = pow(heightMask, 1.5);
-    
-    float phase =
-    time * 4.5f +
-    input.position.x * 0.15f +
-    input.position.z * 0.12f;
-    float wave = sin(phase);
-    
+    const float bendMask = pow(heightMask, bendMaskPow);
+
     float4 positionWS = mul(
         positionOS,
         modelToWorld
@@ -66,11 +70,11 @@ VertexToPixel main(VSInput input)
         modelToWorld
     ).xyz;
     
-    float2 noiseUV = (bladeOriginWS.xz - 10.0f) * 0.08 + time * 0.05;
+    float2 noiseUV = (bladeOriginWS.xz) * uvScale / 100.0f + direction * time * speed / 100.0f;
     const float noise = windNoise.SampleLevel(windSampler, noiseUV, 0.0f).r * 2.0f - 1.0f;
 
-    positionWS.xz += noise * bendMask * 0.15;
-    positionWS.y -= abs(noise) * bendMask * 0.1;
+    positionWS.xz += noise * bendMask * horizontalBendStrength;
+    positionWS.y -= abs(noise) * bendMask * verticalBendStrength;
     
     output.positionWS = positionWS.xyz;
 

@@ -241,9 +241,6 @@
     <FxCompile Include="Shaders\GrassVS.hlsl">
       <Filter>Shaders\private</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\TestPS.hlsl">
-      <Filter>Shaders\private</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\GrassPS.hlsl">
       <Filter>Shaders\private</Filter>
     </FxCompile>

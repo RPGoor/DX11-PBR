@@ -58,4 +58,5 @@ void Terrain::Draw(Graphics& gfx, DirectX::XMMATRIX position)
 void Terrain::SpawnControlWindow() noexcept
 {
     terrainShader.SpawnControlWindow();
+    grass->SpawnControlWindow();
 }
