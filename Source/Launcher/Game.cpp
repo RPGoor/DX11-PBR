@@ -124,6 +124,8 @@ void Game::DoFrame()
         
     }
 
-    pointLight.SpawnControlWindow();
+    //pointLight.SpawnControlWindow();
+    terrain.SpawnControlWindow();
+
     gfx.EndFrame();
 }

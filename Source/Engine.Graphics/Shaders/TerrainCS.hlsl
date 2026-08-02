@@ -5,6 +5,11 @@ RWTexture2D<float> outputHeightmap : register(u0);
 cbuffer TerrainGenerationCBuf : register(b0)
 {
     uint textureDimensions;
+    float frequency;
+    float heightFactor;
+    float frequencyFactor;
+    float amplitudeFactor;
+    uint iterations;
 };
 
 uint Convert2D(uint2 input)
@@ -78,22 +83,21 @@ void main(uint3 dispatchThreadID : SV_DispatchThreadID)
         float(textureDimensions - 1u);
 
     float total = 0.0f;
-    float frequency = 1.0f;
-    float amplitude = 1.0f;
-    uint iterations = 64;
+    float freq = frequency;
+    float amp = 1.0f;
     float amplitudeSum = 0.0f;
     for (int i = 0; i < iterations; i++)
     {
-        float2 noisePos = uv * frequency ;
+        float2 noisePos = uv * freq ;
         float noise = ValueNoise(noisePos);
         noise = noise * 2.0f - 1.0f;
 
-        total += noise * amplitude;
-        amplitudeSum += amplitude;
+        total += noise * amp;
+        amplitudeSum += amp;
         
-        frequency = frequency * 2.0f;
-        amplitude = amplitude * 0.5f;
+        freq = freq * frequencyFactor;
+        amp = amp * amplitudeFactor;
     }
     
-    outputHeightmap[dispatchThreadID.xy] = total / max(amplitudeSum, 0.0001f);
+    outputHeightmap[dispatchThreadID.xy] = heightFactor * total / max(amplitudeSum, 0.0001f);
 }

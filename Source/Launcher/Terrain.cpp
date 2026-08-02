@@ -19,6 +19,11 @@ Terrain::Terrain(Graphics& gfx)
     grass = std::make_unique<Grass>(gfx);
 
     terrainSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_CLAMP);
+
+    terrainShader.regenCallback = [this, &gfx]
+    {
+        Generate(gfx);
+    };
 }
 
 void Terrain::Generate(Graphics& gfx)
@@ -48,4 +53,9 @@ void Terrain::Draw(Graphics& gfx, DirectX::XMMATRIX position)
     terrainSampler->BindVS(gfx);
     terrain->Draw(gfx, position);
     grass->Draw(gfx, DirectX::XMMatrixIdentity());
+}
+
+void Terrain::SpawnControlWindow() noexcept
+{
+    terrainShader.SpawnControlWindow();
 }

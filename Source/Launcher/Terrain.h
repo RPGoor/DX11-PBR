@@ -14,6 +14,8 @@ public:
     Terrain(Graphics& gfx);
     void Generate(Graphics& gfx);
     void Draw(Graphics& gfx, DirectX::XMMATRIX position);
+    void SpawnControlWindow() noexcept;
+
 private:
     static constexpr UINT HeightmapResolution = 1024u;
     ComputeTexture heightmap;
