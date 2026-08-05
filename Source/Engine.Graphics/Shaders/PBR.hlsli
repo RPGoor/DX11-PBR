@@ -4,31 +4,29 @@
 #include "ShaderStructures.hlsli"
 
 static const float PI = 3.14159265359f;
-static const float MIN_ROUGHNESS = 0.045f;
-static const float DIELECTRIC_F0 = 0.04f;
 
-float Pow5(float value)
+float3 FresnelSchlick(float VdotH, float3 color, float3 metallic)
 {
-    float valueSquared = value * value;
-    return valueSquared * valueSquared * value;
-}
-
-float3 FresnelSchlick(float viewDotHalfway, float3 f0)
-{
-    float fresnelFactor = Pow5(
-        1.0f - saturate(viewDotHalfway)
+    float3 f0 = lerp(
+        float3(0.04f, 0.04f, 0.04f),
+        color,
+        metallic
     );
+
+    float fresnelFactor = pow(1.0f - saturate(VdotH), 5);
 
     return f0 + (1.0f - f0) * fresnelFactor;
 }
 
-float DistributionGGX(float normalDotHalfway, float roughness)
+float DistributionGGX(float3 N, float3 H, float roughness)
 {
     float alpha = roughness * roughness;
     float alphaSquared = alpha * alpha;
 
+    float NdotH = saturate(dot(N, H));
+    float NdotHSquared = NdotH * NdotH;
     float denominator =
-        normalDotHalfway * normalDotHalfway *
+        NdotHSquared *
         (alphaSquared - 1.0f) + 1.0f;
 
     denominator = PI * denominator * denominator;
@@ -36,30 +34,27 @@ float DistributionGGX(float normalDotHalfway, float roughness)
     return alphaSquared / max(denominator, 0.000001f);
 }
 
-float GeometrySchlickGGX(float normalDotDirection, float roughness)
+float GeometricAttenuationK(float NdotX, float k)
 {
-    float r = roughness + 1.0f;
-    float k = (r * r) / 8.0f;
-
-    return normalDotDirection /
+    return NdotX /
         max(
-            normalDotDirection * (1.0f - k) + k,
+            NdotX * (1.0f - k) + k,
             0.000001f
         );
 }
 
-float GeometrySmith(
-    float normalDotView,
-    float normalDotLight,
+float GeometricAttenuation(
+    float NdotV,
+    float NdotL,
     float roughness)
 {
-    float viewGeometry =
-        GeometrySchlickGGX(normalDotView, roughness);
+    float k = pow(roughness + 1.0f, 2)/8.0f;
 
-    float lightGeometry =
-        GeometrySchlickGGX(normalDotLight, roughness);
+    float Gv = GeometricAttenuationK(NdotV, k);
 
-    return viewGeometry * lightGeometry;
+    float Gl = GeometricAttenuationK(NdotL, k);
+
+    return Gv * Gl;
 }
 
 struct PBRResult
@@ -69,69 +64,48 @@ struct PBRResult
 };
 
 PBRResult EvaluatePBR(
-    SurfaceData surface,
-    float3 viewDirectionWS,
-    float3 lightDirectionWS)
+    float3 N,
+    float3 V,
+    float3 L,
+    float3 color,
+    float roughness,
+    float metallic)
 {
     PBRResult result;
 
-    float3 N = normalize(surface.normalWS);
-    float3 V = normalize(viewDirectionWS);
-    float3 L = normalize(lightDirectionWS);
     float3 H = normalize(V + L);
 
-    float normalDotView = saturate(dot(N, V));
-    float normalDotLight = saturate(dot(N, L));
-    float normalDotHalfway = saturate(dot(N, H));
-    float viewDotHalfway = saturate(dot(V, H));
+    float NdotV = saturate(dot(N, V));
+    float NdotL = saturate(dot(N, L));
+    float VdotH = saturate(dot(V, H));
 
-    float roughness = max(
-        surface.roughness,
-        MIN_ROUGHNESS
-    );
-
-    float3 dielectricF0 =
-        float3(DIELECTRIC_F0, DIELECTRIC_F0, DIELECTRIC_F0);
-
-    float3 f0 = lerp(
-        dielectricF0,
-        surface.baseColor,
-        surface.metallic
-    );
-
-    float3 fresnel = FresnelSchlick(
-        viewDotHalfway,
-        f0
-    );
-
-    float distribution = DistributionGGX(
-        normalDotHalfway,
+    float D = DistributionGGX(
+        N,
+        H,
         roughness
     );
 
-    float geometry = GeometrySmith(
-        normalDotView,
-        normalDotLight,
+    float3 F = FresnelSchlick(VdotH, color, metallic);
+
+
+    float G = GeometricAttenuation(
+        NdotV,
+        NdotL,
         roughness
     );
 
-    float denominator =
-        4.0f * normalDotView * normalDotLight;
+    float denominator = max(4.0f * NdotV * NdotL, 0.000001f);
 
-    result.specular =
-        distribution * geometry * fresnel /
-        max(denominator, 0.000001f);
+    result.specular = D * G * F / denominator;
 
-    float3 specularContribution = fresnel;
-    float3 diffuseContribution = 1.0f - specularContribution;
-
-    diffuseContribution *= 1.0f - surface.metallic;
+    float3 specularContribution = F;
+    float3 diffuseFactor = (1.0f - specularContribution) * (1.0f - metallic);
 
     result.diffuse =
-        diffuseContribution *
-        surface.baseColor /
+        diffuseFactor *
+        color /
         PI;
-
+    
     return result;
 }
 

@@ -10,33 +10,21 @@ float3 EvaluateDirectionalLight(
     float3 surfacePositionWS,
     DirectionalLight light)
 {
-    float3 viewDirectionWS = normalize(
+    float3 N = normalize(surface.normalWS);
+
+    float3 V = normalize(
         cameraPositionWS - surfacePositionWS
     );
 
-    // The stored direction describes the direction the light travels.
-    // Negating it gives the direction from the surface toward the light.
-    float3 lightDirectionWS = normalize(
+    float3 L = normalize(
         -light.directionWS
     );
 
     float normalDotLight = saturate(
-        dot(
-            normalize(surface.normalWS),
-            lightDirectionWS
-        )
+        dot(N,L)
     );
 
-    if (normalDotLight <= 0.0f)
-    {
-        return 0.0f;
-    }
-
-    PBRResult pbr = EvaluatePBR(
-        surface,
-        viewDirectionWS,
-        lightDirectionWS
-    );
+    PBRResult pbr = EvaluatePBR(N, V, L, surface.baseColor, surface.roughness, surface.metallic);
 
     float3 radiance =
         light.color *

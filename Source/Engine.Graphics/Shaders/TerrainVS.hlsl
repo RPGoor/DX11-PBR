@@ -20,15 +20,13 @@ VertexToPixel main(VertexInput input)
         0.0f
     );
 
-    float3 displacedPosition = input.position;
-    displacedPosition.y = terrainHeight;
-    
-    float4 positionOS = float4(displacedPosition, 1.0f);
+    float4 displacedPositionOS = float4(input.position, 1.0f);
+    displacedPositionOS.y = terrainHeight;
 
-    float4 positionWS = mul(positionOS, model);
+    float4 displacedPositionWS = mul(displacedPositionOS, model);
 
-    output.positionWS = positionWS.xyz;
-    output.positionCS = mul(positionWS, viewProjection);
+    output.positionWS = displacedPositionWS.xyz;
+    output.positionCS = mul(displacedPositionWS, viewProjection);
 
     output.normalWS = normalize(
         mul(

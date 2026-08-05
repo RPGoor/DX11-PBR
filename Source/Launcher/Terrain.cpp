@@ -13,7 +13,7 @@ Terrain::Terrain(Graphics& gfx)
     terrain = std::make_unique<Model>(
         gfx,
         "..\\..\\Assets\\Models\\terrain2.fbx",
-        MaterialConstants{ {0.15f, 0.63f, 0.23f}, 0.4, 0.8, {} }
+        MaterialConstants{ {0.15f, 0.63f, 0.23f}, 0.4, 0.5, {} }
         );
 
     grass = std::make_unique<Grass>(gfx);
