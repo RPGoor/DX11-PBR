@@ -8,17 +8,14 @@ struct VertexInput
 };
 
 Texture2D<float> terrainHeightmap : register(t0);
+Texture2D<float4> terrainNormalmap : register(t1);
 SamplerState terrainSampler : register(s0);
 
 VertexToPixel main(VertexInput input)
 {
     VertexToPixel output;
 
-    float terrainHeight = terrainHeightmap.SampleLevel(
-        terrainSampler,
-        input.texcoord,
-        0.0f
-    );
+    float terrainHeight = terrainHeightmap.SampleLevel(terrainSampler, input.texcoord, 0.0f);
 
     float4 displacedPositionOS = float4(input.position, 1.0f);
     displacedPositionOS.y = terrainHeight;
@@ -30,7 +27,7 @@ VertexToPixel main(VertexInput input)
 
     output.normalWS = normalize(
         mul(
-            float4(input.normal, 0.0f),
+            terrainNormalmap.SampleLevel(terrainSampler, input.texcoord, 0.0f),
             modelInverseTranspose
         ).xyz
     );

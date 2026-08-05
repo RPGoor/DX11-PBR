@@ -6,7 +6,8 @@ ComputeTexture::ComputeTexture(
     UINT width,
     UINT height,
     UINT shaderResourceSlot,
-    UINT unorderedAccessSlot
+    UINT unorderedAccessSlot,
+    DXGI_FORMAT format
 )
     :
     width(width),

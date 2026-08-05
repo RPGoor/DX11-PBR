@@ -1,6 +1,13 @@
 RWTexture2D<float> outputHeightmap : register(u0);
+RWTexture2D<float4> outputNormalmap : register(u1);
 
 #define MAX_UINT 4294967295u
+
+struct ValueNoiseResult
+{
+    float value;
+    float2 gradient;
+};
 
 cbuffer TerrainGenerationCBuf : register(b0)
 {
@@ -34,8 +41,9 @@ float Hash(uint2 input)
 }
 
 
-float ValueNoise(float2 position)
+ValueNoiseResult ValueNoise(float2 position)
 {
+    ValueNoiseResult result;
     uint2 corner = floor(position);
     float2 local = frac(position);
     
@@ -49,24 +57,17 @@ float ValueNoise(float2 position)
 
 
     float2 t = local * local * (3.0f - 2.0f * local);
-    
-    float bottom = lerp(
-            corners[0],
-            corners[1],
-            t.x
-        );
+    float2 dt = 6.0f * local * (1.0f - local);
 
-    float top = lerp(
-            corners[2],
-            corners[3],
-            t.x
-        );
+    float bottom = lerp(corners[0], corners[1], t.x);
+    float top = lerp(corners[2], corners[3], t.x);
 
-    return lerp(
-            bottom,
-            top,
-            t.y
-        );
+    float difX = dt.x * lerp(corners[1] - corners[0], corners[3] - corners[2], t.y);
+    float difY = dt.y * (top - bottom);
+
+    result.value = lerp(bottom, top, t.y);
+    result.gradient = float2(difX, difY);
+    return result;
 }
 
 [numthreads(8, 8, 1)]
@@ -78,26 +79,31 @@ void main(uint3 dispatchThreadID : SV_DispatchThreadID)
         return;
     }
 
-    float2 uv =
-        float2(dispatchThreadID.xy) /
-        float(textureDimensions - 1u);
+    float2 uv = float2(dispatchThreadID.xy) / float(textureDimensions - 1u);
 
-    float total = 0.0f;
+    float height = 0.0f;
+    float2 gradient = float2(0.0f, 0.0f);
     float freq = frequency;
     float amp = 1.0f;
     float amplitudeSum = 0.0f;
     for (int i = 0; i < iterations; i++)
     {
         float2 noisePos = uv * freq ;
-        float noise = ValueNoise(noisePos);
-        noise = noise * 2.0f - 1.0f;
-
-        total += noise * amp;
+        ValueNoiseResult noise = ValueNoise(noisePos);
+        noise.value = noise.value * 2.0f - 1.0f;
+        
+        height += noise.value * amp;
+        gradient += noise.gradient * amp * freq;
+        
         amplitudeSum += amp;
         
         freq = freq * frequencyFactor;
         amp = amp * amplitudeFactor;
     }
     
-    outputHeightmap[dispatchThreadID.xy] = heightFactor * total / max(amplitudeSum, 0.0001f);
+    gradient = heightFactor * gradient / max(amplitudeSum, 0.0001f);
+    float3 normal = normalize(float3(-gradient.x, 1, -gradient.y));
+
+    outputHeightmap[dispatchThreadID.xy] = heightFactor * height / max(amplitudeSum, 0.0001f);
+    outputNormalmap[dispatchThreadID.xy] = float4(normal, 0.0f);
 }

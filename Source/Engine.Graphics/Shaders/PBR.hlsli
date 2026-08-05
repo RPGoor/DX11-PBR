@@ -79,20 +79,12 @@ PBRResult EvaluatePBR(
     float NdotL = saturate(dot(N, L));
     float VdotH = saturate(dot(V, H));
 
-    float D = DistributionGGX(
-        N,
-        H,
-        roughness
-    );
+    float D = DistributionGGX(N, H, roughness);
 
     float3 F = FresnelSchlick(VdotH, color, metallic);
 
 
-    float G = GeometricAttenuation(
-        NdotV,
-        NdotL,
-        roughness
-    );
+    float G = GeometricAttenuation(NdotV, NdotL, roughness);
 
     float denominator = max(4.0f * NdotV * NdotL, 0.000001f);
 

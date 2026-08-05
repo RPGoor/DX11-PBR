@@ -19,6 +19,7 @@ public:
 private:
     static constexpr UINT HeightmapResolution = 1024u;
     ComputeTexture heightmap;
+    ComputeTexture normalmap;
     ComputeShader terrainShader;
 
     std::unique_ptr<Model> terrain;

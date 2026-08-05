@@ -10,7 +10,8 @@ public:
         UINT width,
         UINT height,
         UINT shaderResourceSlot = 0u,
-        UINT unorderedAccessSlot = 0u
+        UINT unorderedAccessSlot = 0u,
+        DXGI_FORMAT format = DXGI_FORMAT_R32_FLOAT
     );
 
     void Bind(Graphics& gfx) noexcept override;
@@ -30,7 +31,6 @@ public:
     ID3D11UnorderedAccessView* GetUAV() const noexcept;
 
 private:
-    DXGI_FORMAT format = DXGI_FORMAT_R32_FLOAT;
     UINT width;
     UINT height;
     UINT shaderResourceSlot;
