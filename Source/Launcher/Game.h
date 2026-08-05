@@ -11,7 +11,7 @@
 #include <../DX11/Bindings/MaterialBuffer.h>
 #include "Grass.h"
 #include "Terrain.h"
-
+#include <Bindings/ShadowMap.h>
 
 class Game
 {
@@ -30,6 +30,7 @@ private:
     Camera cam;
     PointLight pointLight;
     FrameCbuf frameBuffer;
+    ShadowMap shadowmap;
 
     // Model grid{ gfx, "..\\..\\Assets\\Models\\grid.obj", MaterialConstants{ {0.3f, 0.2f, 0.1f}, 0.05, 0.75, {} } };
     Terrain terrain{ gfx };

@@ -24,6 +24,7 @@ private:
     std::unique_ptr<Node> ParseNode(int& nextId, const aiNode& node) noexcept;
 private:
     bool isInstanced;
+    bool isShadowPass;
 
     std::unique_ptr<Node> pRoot;
     std::vector<std::unique_ptr<Mesh>> meshPtrs;

@@ -54,6 +54,15 @@ void Terrain::Draw(Graphics& gfx, DirectX::XMMATRIX position)
     grass->Draw(gfx, DirectX::XMMatrixIdentity());
 }
 
+void Terrain::DrawShadow(Graphics& gfx, DirectX::XMMATRIX position)
+{
+    heightmap.BindVS(gfx);
+    normalmap.BindVS(gfx);
+    terrainSampler->BindVS(gfx);
+    terrain->Draw(gfx, position);
+    grass->Draw(gfx, DirectX::XMMatrixIdentity());
+}
+
 void Terrain::SpawnControlWindow() noexcept
 {
     terrainShader.SpawnControlWindow();

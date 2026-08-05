@@ -126,6 +126,9 @@
     <ClCompile Include="DX11\Bindings\ComputeShader.cpp">
       <Filter>DX11\Bindings</Filter>
     </ClCompile>
+    <ClCompile Include="DX11\Bindings\ShadowMap.cpp">
+      <Filter>DX11\Bindings</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11\Graphics.h">
@@ -230,6 +233,9 @@
     <ClInclude Include="DX11\Bindings\ComputeShader.h">
       <Filter>DX11\Bindings</Filter>
     </ClInclude>
+    <ClInclude Include="DX11\Bindings\ShadowMap.h">
+      <Filter>DX11\Bindings</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\StandardPS.hlsl">
@@ -249,6 +255,9 @@
     </FxCompile>
     <FxCompile Include="Shaders\TerrainVS.hlsl">
       <Filter>Shaders\private</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\ShadowMapVS.hlsl">
+      <Filter>Shaders</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>

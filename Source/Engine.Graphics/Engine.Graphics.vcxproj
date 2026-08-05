@@ -106,6 +106,7 @@
     <ClCompile Include="DX11\Bindings\MaterialBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\PixelShader.cpp" />
     <ClCompile Include="DX11\Bindings\Sampler.cpp" />
+    <ClCompile Include="DX11\Bindings\ShadowMap.cpp" />
     <ClCompile Include="DX11\Bindings\Texture.cpp" />
     <ClCompile Include="DX11\Bindings\Topology.cpp" />
     <ClCompile Include="DX11\Bindings\TransformCbuf.cpp" />
@@ -141,6 +142,7 @@
     <ClInclude Include="DX11\Bindings\MaterialBuffer.h" />
     <ClInclude Include="DX11\Bindings\PixelShader.h" />
     <ClInclude Include="DX11\Bindings\Sampler.h" />
+    <ClInclude Include="DX11\Bindings\ShadowMap.h" />
     <ClInclude Include="DX11\Bindings\Texture.h" />
     <ClInclude Include="DX11\Bindings\Topology.h" />
     <ClInclude Include="DX11\Bindings\TransformCbuf.h" />
@@ -165,6 +167,12 @@
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Shaders\GrassVS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shaders\ShadowMapVS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>

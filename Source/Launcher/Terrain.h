@@ -14,6 +14,7 @@ public:
     Terrain(Graphics& gfx);
     void Generate(Graphics& gfx);
     void Draw(Graphics& gfx, DirectX::XMMATRIX position);
+    void DrawShadow(Graphics& gfx, DirectX::XMMATRIX position);
     void SpawnControlWindow() noexcept;
 
 private:

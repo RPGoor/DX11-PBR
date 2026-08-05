@@ -13,6 +13,7 @@ using namespace Microsoft::WRL;
 class Graphics
 {
     friend class Bindable;
+    friend class ShadowMap;
 public:
     Graphics(HWND hWnd);
     Graphics(const Graphics&) = delete;
@@ -39,8 +40,12 @@ public:
     bool IsImGuiEnabled() const noexcept;
 
 private:
-    void CreateViewport(unsigned int width, unsigned int height);
-    void CreateTargetAndDepthStencil(unsigned int width, unsigned int height);
+    void CreateViewport();
+    void CreateTargetAndDepthStencil();
+
+private:
+    UINT width;
+    UINT height;
 private:
     bool imGuiEnabled = true;
     DirectX::XMMATRIX projection;

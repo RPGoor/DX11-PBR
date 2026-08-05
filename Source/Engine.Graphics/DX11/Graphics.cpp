@@ -13,6 +13,7 @@ namespace dx = DirectX;
 
 
 Graphics::Graphics(HWND hWnd)
+    : width(1280u), height(720u)
 {
     DXGI_SWAP_CHAIN_DESC sd = {};
     sd.BufferDesc.Width = 0;
@@ -63,8 +64,8 @@ Graphics::Graphics(HWND hWnd)
     GFX_THROW_INFO(pDevice->CreateDepthStencilState(&dsDesc, &pDSState));
     pContext->OMSetDepthStencilState(pDSState.Get(), 1u);
 
-    CreateTargetAndDepthStencil(1280u, 720u);
-    CreateViewport(1280u, 720u);
+    CreateTargetAndDepthStencil();
+    CreateViewport();
 
     ImGui_ImplDX11_Init(pDevice.Get(), pContext.Get());
 }
@@ -146,9 +147,11 @@ DirectX::XMMATRIX Graphics::GetCamera() const noexcept
     return camera;
 }
 
-void Graphics::Resize(unsigned int width, unsigned int height) noexcept
+void Graphics::Resize(UINT width, UINT height) noexcept
 {
     HRESULT hr;
+    this->width = width;
+    this->height = height;
 
     pContext->OMSetRenderTargets(
         0u,
@@ -169,8 +172,8 @@ void Graphics::Resize(unsigned int width, unsigned int height) noexcept
         )
     );
 
-    CreateTargetAndDepthStencil(width, height);
-    CreateViewport(width, height);
+    CreateTargetAndDepthStencil();
+    CreateViewport();
 }
 
 void Graphics::Dispatch(UINT groupCountX, UINT groupCountY, UINT groupCountZ) noexcept
@@ -194,7 +197,7 @@ bool Graphics::IsImGuiEnabled() const noexcept
     return imGuiEnabled;
 }
 
-void Graphics::CreateViewport(unsigned int width, unsigned int height)
+void Graphics::CreateViewport()
 {
     D3D11_VIEWPORT vp;
     vp.Width = width;
@@ -206,7 +209,7 @@ void Graphics::CreateViewport(unsigned int width, unsigned int height)
     pContext->RSSetViewports(1u, &vp);
 }
 
-void Graphics::CreateTargetAndDepthStencil(unsigned int width, unsigned int height)
+void Graphics::CreateTargetAndDepthStencil()
 {
     HRESULT hr;
     wrl::ComPtr<ID3D11Resource> pBackBuffer;

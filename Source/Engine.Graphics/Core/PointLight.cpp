@@ -54,3 +54,8 @@ void PointLight::Bind( Graphics& gfx,DirectX::FXMMATRIX view ) const noexcept
     cbuf.Update(gfx, dataCopy);
     cbuf.Bind(gfx);
 }
+
+DirectX::XMFLOAT3 PointLight::GetLightDirection() const
+{
+    return cbData.directionWS;
+}

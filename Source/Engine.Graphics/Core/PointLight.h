@@ -10,6 +10,10 @@ public:
 	void SpawnControlWindow() noexcept;
 	void Reset() noexcept;
 	void Bind( Graphics& gfx,DirectX::FXMMATRIX view ) const noexcept;
+
+    DirectX::XMFLOAT3 GetLightDirection() const;
+
+
 private:
     struct alignas(16) DirectionalLightConstants
     {
