@@ -8,7 +8,7 @@ Terrain::Terrain(Graphics& gfx)
 {
     terrain = std::make_unique<Model>(
         gfx,
-        "..\\..\\Assets\\Models\\terrain2.fbx",
+        "..\\..\\Assets\\Models\\terrain3.fbx",
         MaterialConstants{ {0.15f, 0.63f, 0.23f}, 0.1, 0.75, {} }
         );
 
@@ -51,7 +51,7 @@ void Terrain::Draw(Graphics& gfx, DirectX::XMMATRIX position)
     normalmap.BindVS(gfx);
     terrainSampler->BindVS(gfx);
     terrain->Draw(gfx, position);
-    grass->Draw(gfx, DirectX::XMMatrixIdentity());
+    //grass->Draw(gfx, DirectX::XMMatrixIdentity());
 }
 
 void Terrain::SpawnControlWindow() noexcept

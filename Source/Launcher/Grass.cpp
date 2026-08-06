@@ -47,7 +47,7 @@ Grass::Grass(Graphics& gfx)
 
     std::vector<InstanceData> instances;
 
-    for (int i = 0; i < 2000000; ++i)
+    for (int i = 0; i < 1000000; ++i)
     {
         const float x = positionDist(rng);
         const float z = positionDist(rng);
@@ -128,7 +128,7 @@ Grass::Grass(Graphics& gfx)
 
     noiseTexture = std::make_unique<Texture>(
         gfx,
-        "..\\..\\Assets\\Textures\\noise.png",
+        "..\\..\\Assets\\Textures\\noise2.png",
         1u
     );
 

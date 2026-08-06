@@ -34,7 +34,6 @@ VertexToPixel main(VSInput input)
 {
     VertexToPixel output;
 
-
     float4x4 instanceTransform = float4x4(
         input.instanceTransform0,
         input.instanceTransform1,
@@ -42,29 +41,24 @@ VertexToPixel main(VSInput input)
         input.instanceTransform3
     );
     
-    float2 terrainUV = instanceTransform[3].xz / 200.0f + 0.5f;
-    instanceTransform[3].y = terrainHeightmap.SampleLevel(terrainSampler, terrainUV, 0.0f) * 100.0f;
+    float2 terrainUV = instanceTransform[3].xz / 20.0f + 0.5f;
+    instanceTransform[3].y = terrainHeightmap.SampleLevel(terrainSampler, terrainUV, 0.0f);
     
-    // Imported mesh/node transform followed by the per-instance transform.
-    const float4x4 modelToWorld = mul(
-        model,
-        instanceTransform
-    );
-
+    const float4x4 modelToWorld = mul(instanceTransform, model);
 
     float4 positionOS = float4(
         input.position,
         1.0f
     );
 
-    float heightMask = saturate(1 - input.texcoord.y);
-    const float bendMask = pow(heightMask, bendMaskPow);
-
     float4 positionWS = mul(
         positionOS,
         modelToWorld
     );
-
+    
+    float heightMask = saturate(1 - input.texcoord.y);
+    const float bendMask = pow(heightMask, bendMaskPow);
+    
     float3 bladeOriginWS = mul(
         float4(0.0f, 0.0f, 0.0f, 1.0f),
         modelToWorld

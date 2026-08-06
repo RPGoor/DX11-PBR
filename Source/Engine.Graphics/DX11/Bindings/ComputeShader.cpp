@@ -4,7 +4,7 @@
 
 ComputeShader::ComputeShader(Graphics& gfx, const std::string& path)
     :
-    path(path), cbuf(gfx, 0u), cbData( 1024u, 1.0f, 1.0f, 2.0f, 0.5f, 8u)
+    path(path), cbuf(gfx, 0u), cbData( 1024u, 1.0f, 4.0f, 2.0f, 0.5f, 8u)
 {
     INFOMAN(gfx);
     Microsoft::WRL::ComPtr<ID3DBlob> pBlob;

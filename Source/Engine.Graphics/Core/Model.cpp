@@ -146,7 +146,7 @@ std::unique_ptr<Mesh> Model::ParseMesh(Graphics& gfx, const aiMesh& mesh, const 
         );
     }
 
-    std::vector<unsigned short> indices;
+    std::vector<unsigned int> indices;
     indices.reserve(mesh.mNumFaces * 3);
     for (unsigned int i = 0; i < mesh.mNumFaces; i++)
     {

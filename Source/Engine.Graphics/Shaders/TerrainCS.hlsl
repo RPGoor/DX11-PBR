@@ -93,7 +93,7 @@ void main(uint3 dispatchThreadID : SV_DispatchThreadID)
         noise.value = noise.value * 2.0f - 1.0f;
         
         height += noise.value * amp;
-        gradient += noise.gradient * amp * freq;
+        gradient += noise.gradient * 2.0 * amp * freq;
         
         amplitudeSum += amp;
         
@@ -101,8 +101,8 @@ void main(uint3 dispatchThreadID : SV_DispatchThreadID)
         amp = amp * amplitudeFactor;
     }
     
-    gradient = heightFactor * gradient / max(amplitudeSum, 0.0001f);
-    float3 normal = normalize(float3(-gradient.x, 1, -gradient.y));
+    gradient = heightFactor * gradient / max(amplitudeSum, 0.0001f) / 20.0f;
+    float3 normal = normalize(float3(-gradient.x, 1.0f, -gradient.y));
 
     outputHeightmap[dispatchThreadID.xy] = heightFactor * height / max(amplitudeSum, 0.0001f);
     outputNormalmap[dispatchThreadID.xy] = float4(normal, 0.0f);
