@@ -112,9 +112,7 @@
     <ClCompile Include="DX11\Bindings\VertexBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\VertexShader.cpp" />
     <ClCompile Include="DX11\DX11Exceptions.cpp" />
-    <ClCompile Include="DX11\GDIPlusManager.cpp" />
     <ClCompile Include="DX11\Graphics.cpp" />
-    <ClCompile Include="DX11\Surface.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Camera.h" />
@@ -147,10 +145,8 @@
     <ClInclude Include="DX11\Bindings\VertexBuffer.h" />
     <ClInclude Include="DX11\Bindings\VertexShader.h" />
     <ClInclude Include="DX11\DX11Exceptions.h" />
-    <ClInclude Include="DX11\GDIPlusManager.h" />
     <ClInclude Include="DX11\Graphics.h" />
     <ClInclude Include="DX11\GraphicsExceptionsMacros.h" />
-    <ClInclude Include="DX11\Surface.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Engine.Common\Engine.Common.vcxproj">

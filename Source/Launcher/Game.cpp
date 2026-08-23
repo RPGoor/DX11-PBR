@@ -2,10 +2,7 @@
 #include "imgui.h"
 #include "imgui_impl_win32.h"
 #include "imgui_impl_dx11.h"
-#include <GDIPlusManager.h>
 #include <random>
-
-GDIPlusManager gdipm;
 
 Game::Game()
     : wnd(1280, 720, L"Solorn Engine Window"), gfx(Graphics(wnd.GetHWND())), pointLight(gfx), frameBuffer(gfx)

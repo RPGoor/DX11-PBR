@@ -81,12 +81,6 @@
     <ClCompile Include="DX11\Bindings\BindableCodex.cpp">
       <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
-    <ClCompile Include="DX11\Surface.cpp">
-      <Filter>DX11\private</Filter>
-    </ClCompile>
-    <ClCompile Include="DX11\GDIPlusManager.cpp">
-      <Filter>DX11\private</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Mesh.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
@@ -175,12 +169,6 @@
     </ClInclude>
     <ClInclude Include="Core\Vertex.h">
       <Filter>Core\public</Filter>
-    </ClInclude>
-    <ClInclude Include="DX11\Surface.h">
-      <Filter>DX11\public</Filter>
-    </ClInclude>
-    <ClInclude Include="DX11\GDIPlusManager.h">
-      <Filter>DX11\public</Filter>
     </ClInclude>
     <ClInclude Include="DX11\Bindings\ConstantBuffers.h">
       <Filter>DX11\Bindings\public</Filter>
