@@ -47,7 +47,7 @@ Grass::Grass(Graphics& gfx)
 
     std::vector<InstanceData> instances;
 
-    for (int i = 0; i < 1000000; ++i)
+    for (int i = 0; i < 2500000; ++i)
     {
         const float x = positionDist(rng);
         const float z = positionDist(rng);

@@ -77,7 +77,6 @@ VertexToPixel main(VSInput input)
         viewProjection
     );
 
-    // Correct for rotation and uniform scale.
     output.normalWS = normalize(
         mul(
             float4(input.normal, 0.0f),
