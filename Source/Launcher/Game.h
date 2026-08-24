@@ -3,12 +3,10 @@
 #include <Time/Timer.h>
 #include <ImGuiManager.h>
 #include <Graphics.h>
-#include <Model.h>
 #include <Camera.h>
 #include <PointLight.h>
 #include <Bindings/FrameCBuf.h>
 #include <InstancedModel.h>
-#include <../DX11/Bindings/MaterialBuffer.h>
 #include "Grass.h"
 #include "Terrain.h"
 
@@ -31,6 +29,5 @@ private:
     PointLight pointLight;
     FrameCbuf frameBuffer;
 
-    // Model grid{ gfx, "..\\..\\Assets\\Models\\grid.obj", MaterialConstants{ {0.3f, 0.2f, 0.1f}, 0.05, 0.75, {} } };
     Terrain terrain{ gfx };
 };

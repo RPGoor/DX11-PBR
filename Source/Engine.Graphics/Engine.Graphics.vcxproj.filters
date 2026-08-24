@@ -84,12 +84,6 @@
     <ClCompile Include="Core\Mesh.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Model.cpp">
-      <Filter>Core\private</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Node.cpp">
-      <Filter>Core\private</Filter>
-    </ClCompile>
     <ClCompile Include="Core\ModelException.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
@@ -111,14 +105,20 @@
     <ClCompile Include="DX11\Bindings\InstanceBuffer.cpp">
       <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
-    <ClCompile Include="DX11\Bindings\MaterialBuffer.cpp">
-      <Filter>DX11\Bindings\private</Filter>
-    </ClCompile>
     <ClCompile Include="DX11\Bindings\ComputeTexture.cpp">
       <Filter>DX11\Bindings</Filter>
     </ClCompile>
     <ClCompile Include="DX11\Bindings\ComputeShader.cpp">
       <Filter>DX11\Bindings</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\MeshFactory.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Material.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\PipelineSettings.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -176,12 +176,6 @@
     <ClInclude Include="Core\Mesh.h">
       <Filter>Core\public</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Model.h">
-      <Filter>Core\public</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Node.h">
-      <Filter>Core\public</Filter>
-    </ClInclude>
     <ClInclude Include="Core\ModelException.h">
       <Filter>Core\public</Filter>
     </ClInclude>
@@ -206,17 +200,23 @@
     <ClInclude Include="DX11\Bindings\InstanceBuffer.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
-    <ClInclude Include="Core\MaterialConstants.h">
-      <Filter>Core\public</Filter>
-    </ClInclude>
-    <ClInclude Include="DX11\Bindings\MaterialBuffer.h">
-      <Filter>DX11\Bindings\public</Filter>
-    </ClInclude>
     <ClInclude Include="DX11\Bindings\ComputeTexture.h">
       <Filter>DX11\Bindings</Filter>
     </ClInclude>
     <ClInclude Include="DX11\Bindings\ComputeShader.h">
       <Filter>DX11\Bindings</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MeshFactory.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\MeshData.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Material.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PipelineSettings.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

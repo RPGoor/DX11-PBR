@@ -3,11 +3,12 @@
 #include <ConditionalNoexcept.h>
 #include "../DX11/Bindings/Bindable.h"
 #include "Drawable.h"
+#include "MeshData.h"
 
 class Mesh : public Drawable
 {
 public:
-    Mesh(Graphics& gfx, std::vector<std::shared_ptr<Bindable>> bindPtrs);
+    Mesh(Graphics& gfx, MeshData data);
     void Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const conexcept;
     void DrawInstanced(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform, UINT instanceCount) const conexcept;
 

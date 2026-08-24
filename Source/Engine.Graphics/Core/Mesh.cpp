@@ -1,15 +1,14 @@
 #include "Mesh.h"
 #include "../DX11/Bindings/Topology.h"
 #include "../DX11/Bindings/TransformCbuf.h"
+#include "../DX11/Bindings/VertexBuffer.h"
 
-Mesh::Mesh(Graphics& gfx, std::vector<std::shared_ptr<Bindable>> bindPtrs)
+Mesh::Mesh(Graphics& gfx, MeshData data)
 {
     AddBind(Topology::Resolve(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
 
-    for (auto& pb : bindPtrs)
-    {
-        AddBind(std::move(pb));
-    }
+    AddBind(VertexBuffer::Resolve(gfx, data.tag, data.vertices));
+    AddBind(IndexBuffer::Resolve(gfx, data.tag, data.indices));
 
     AddBind(std::make_shared<TransformCbuf>(gfx, *this, 1u));
 }

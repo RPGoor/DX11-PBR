@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Model.h"
 #include "../DX11/Bindings/InstanceBuffer.h"
-#include "../Core/MaterialConstants.h"
+#include "../Core/Material.h"
 
 class InstancedModel
 {
@@ -14,6 +13,6 @@ public:
 public:
     void Draw(Graphics& gfx, DirectX::XMMATRIX position);
 private:
-    Model model;
+    //Model model;
     InstanceBuffer instanceBuffer;
 };
