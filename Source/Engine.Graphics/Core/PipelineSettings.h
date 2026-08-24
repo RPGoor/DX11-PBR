@@ -13,6 +13,15 @@ public:
         const std::string& pixelShaderPath
     );
 
+    PipelineSettings(
+        Graphics& gfx,
+        const Dvtx::VertexLayout& vertexLayout,
+        const Dvtx::VertexLayout& instanceLayout,
+        const std::string& vertexShaderPath,
+        const std::string& pixelShaderPath
+    );
+
+
     void Bind(Graphics& gfx) noexcept override;
 
 private:

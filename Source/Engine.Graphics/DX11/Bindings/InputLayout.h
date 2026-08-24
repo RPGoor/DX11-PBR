@@ -17,8 +17,11 @@ public:
     );
 
     void Bind(Graphics& gfx) noexcept override;
-    static std::shared_ptr<InputLayout> Resolve(Graphics& gfx,
-        const Dvtx::VertexLayout& layout, ID3DBlob* pVertexShaderBytecode);
+
+    static std::shared_ptr<InputLayout> Resolve(
+        Graphics& gfx,
+        const Dvtx::VertexLayout& layout,
+        ID3DBlob* pVertexShaderBytecode);
 
     static std::shared_ptr<InputLayout> ResolveInstanced(
         Graphics& gfx,

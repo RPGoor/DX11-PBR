@@ -1,6 +1,7 @@
 #include "Grass.h"
 #include <random>
 #include "ImGui.h"
+#include <MeshFactory.h>
 
 Grass::Grass(Graphics& gfx)
     : cbuf(gfx, 2u), cbData(0.15f, 0.1f, 1.5f, 5.0f, {1.0f, 1.0f}, 8.0f, 0.0f)
@@ -119,12 +120,7 @@ Grass::Grass(Graphics& gfx)
         instances.push_back(instance);
     }
 
-    grass = std::make_unique<InstancedModel>(
-        gfx,
-        "..\\..\\Assets\\Models\\grass.obj",
-        instances,
-        MaterialConstants{ {0.15f, 0.63f, 0.23f}, 0.1, 0.5, {} }
-    );
+    instanceBuffer = std::make_unique<InstanceBuffer>(gfx, instances);
 
     noiseTexture = std::make_unique<Texture>(
         gfx,
@@ -132,13 +128,19 @@ Grass::Grass(Graphics& gfx)
         1u
     );
 
+    MeshData data = MeshFactory::Load("..\\..\\Assets\\Models\\grass.obj");
+    renderSettings = std::make_unique<PipelineSettings>(gfx, data.vertices.GetLayout(), InstanceData::GetLayout(), "GrassVS.cso", "GrassPS.cso");
+    material = std::make_unique<Material>(gfx, MaterialConstants { {0.15f, 0.63f, 0.23f}, 0.1, 0.75, {} });
+    grass = std::make_unique<Mesh>(gfx, data);
+
+
     noiseSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_WRAP, 1u);
 }
 
 void Grass::Draw(Graphics& gfx, DirectX::XMMATRIX position)
 {
     Bind(gfx);
-    grass->Draw(gfx, position);
+    grass->DrawInstanced(gfx, position, instanceBuffer->GetCount());
 }
 
 void Grass::Bind(Graphics& gfx)
@@ -149,6 +151,9 @@ void Grass::Bind(Graphics& gfx)
     cbuf.Bind(gfx);
     noiseTexture->BindVS(gfx);
     noiseSampler->BindVS(gfx);
+    renderSettings->Bind(gfx);
+    material->Bind(gfx);
+    instanceBuffer->Bind(gfx);
 }
 
 void Grass::SpawnControlWindow() noexcept

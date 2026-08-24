@@ -4,6 +4,9 @@
 #include <Bindings/Texture.h>
 #include <Bindings/Sampler.h>
 #include <Bindings/ConstantBuffers.h>
+#include <Mesh.h>
+#include <PipelineSettings.h>
+#include <Material.h>
 
 class Grass
 {
@@ -13,6 +16,10 @@ public:
     void Bind(Graphics& gfx);
     void SpawnControlWindow() noexcept;
 private:
+    std::unique_ptr<Mesh> grass;
+    std::unique_ptr<PipelineSettings> renderSettings;
+    std::unique_ptr<Material> material;
+
     struct alignas(16) GrassConstants
     {
         float horizontalBendStrength;
@@ -27,7 +34,7 @@ private:
     GrassConstants cbData;
     mutable VertexConstantBuffer<GrassConstants> cbuf;
 
-    std::unique_ptr<InstancedModel> grass;
+    std::unique_ptr<InstanceBuffer> instanceBuffer;
     std::unique_ptr<Texture> noiseTexture;
     std::unique_ptr<Sampler> noiseSampler;
 };

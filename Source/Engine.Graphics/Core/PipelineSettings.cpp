@@ -21,6 +21,26 @@ PipelineSettings::PipelineSettings(
     bindables.push_back(InputLayout::Resolve(gfx, layout, pvsBytecode));
 }
 
+PipelineSettings::PipelineSettings(
+    Graphics& gfx,
+    const Dvtx::VertexLayout& vertexLayout,
+    const Dvtx::VertexLayout& instanceLayout,
+    const std::string& vertexShaderPath,
+    const std::string& pixelShaderPath
+)
+{
+    auto pvs = VertexShader::Resolve(gfx, vertexShaderPath);
+
+    auto pvsBytecode = pvs->GetBytecode();
+
+    bindables.push_back(pvs);
+
+    bindables.push_back(PixelShader::Resolve(gfx, pixelShaderPath));
+
+    bindables.push_back(InputLayout::ResolveInstanced(gfx, vertexLayout, instanceLayout, pvsBytecode));
+}
+
+
 void PipelineSettings::Bind(Graphics& gfx) noexcept
 {
     for (const auto& bindable : bindables)

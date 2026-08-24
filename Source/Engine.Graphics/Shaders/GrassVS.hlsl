@@ -56,7 +56,7 @@ VertexToPixel main(VSInput input)
         modelToWorld
     );
     
-    float heightMask = saturate(1 - input.texcoord.y);
+    float heightMask = saturate(input.texcoord.y);
     const float bendMask = pow(heightMask, bendMaskPow);
     
     float3 bladeOriginWS = mul(

@@ -24,10 +24,11 @@ private:
     std::unique_ptr<Material> material;
 
 
-    //static constexpr UINT HeightmapResolution = 1024u;
-    //ComputeTexture heightmap;
-    //ComputeTexture normalmap;
-    //ComputeShader terrainShader;
-    //std::unique_ptr<Sampler> terrainSampler;
-    //std::unique_ptr<Grass> grass;
+    std::unique_ptr<Grass> grass;
+
+    static constexpr UINT HeightmapResolution = 1024u;
+    ComputeTexture heightmap;
+    ComputeTexture normalmap;
+    ComputeShader terrainShader;
+    std::unique_ptr<Sampler> terrainSampler;
 };
