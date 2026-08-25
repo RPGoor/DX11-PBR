@@ -6,7 +6,6 @@
 #include <Camera.h>
 #include <PointLight.h>
 #include <Bindings/FrameCBuf.h>
-#include <InstancedModel.h>
 #include "Grass.h"
 #include "Terrain.h"
 

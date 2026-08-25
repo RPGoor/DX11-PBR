@@ -4,36 +4,26 @@
 #include <memory>
 #include <vector>
 #include "../DX11/Bindings/IndexBuffer.h"
+#include "Mesh.h"
+#include "PipelineSettings.h"
+#include "Material.h"
 
 class Drawable
 {
 public:
-    Drawable() = default;
     Drawable(const Drawable&) = delete;
     virtual ~Drawable() = default;
 
 public:
+    virtual void Draw(Graphics& gfx) const = 0;
     virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
-    void Draw(Graphics& gfx) const conexcept;
-    void DrawInstanced(Graphics& gfx, UINT instanceCount) const conexcept;
+
 protected:
-    template<class T>
-    T* QueryBindable() noexcept
-    {
-        for (auto& pb : binds)
-        {
-            if (auto pt = dynamic_cast<T*>(pb.get()))
-            {
-                return pt;
-            }
-        }
-        return nullptr;
-    }
+    Drawable() = default;
 
-    void AddBind(std::shared_ptr<Bindable> bind) conexcept;
-
+    std::shared_ptr<Mesh> mesh;
+    std::shared_ptr<Material> material;
+    std::shared_ptr<PipelineSettings> pipeline;
 private:
-    const IndexBuffer* pIndexBuffer = nullptr;
-    std::vector<std::shared_ptr<Bindable>> binds;
 
 };

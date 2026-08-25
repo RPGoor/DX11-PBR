@@ -129,21 +129,25 @@ Grass::Grass(Graphics& gfx)
     );
 
     MeshData data = MeshFactory::Load("..\\..\\Assets\\Models\\grass.obj");
-    renderSettings = std::make_unique<PipelineSettings>(gfx, data.vertices.GetLayout(), InstanceData::GetLayout(), "GrassVS.cso", "GrassPS.cso");
-    material = std::make_unique<Material>(gfx, MaterialConstants { {0.15f, 0.63f, 0.23f}, 0.1, 0.75, {} });
-    grass = std::make_unique<Mesh>(gfx, data);
-
+    pipeline = std::make_unique<PipelineSettings>(gfx, data.vertices.GetLayout(), InstanceData::GetLayout(), "GrassVS.cso", "GrassPS.cso");
+    material = Material::Resolve(gfx, "M_grass", MaterialConstants{{0.15f, 0.63f, 0.23f}, 0.1, 0.75, {}});
+    mesh = Mesh::Resolve(gfx, data);
 
     noiseSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_WRAP, 1u);
 }
 
-void Grass::Draw(Graphics& gfx, DirectX::XMMATRIX position)
+void Grass::Draw(Graphics& gfx) const
 {
     Bind(gfx);
-    grass->DrawInstanced(gfx, position, instanceBuffer->GetCount());
+    gfx.DrawIndexed(mesh->GetCount(), 2500000u);
 }
 
-void Grass::Bind(Graphics& gfx)
+DirectX::XMMATRIX Grass::GetTransformXM() const noexcept
+{
+    return DirectX::XMMatrixIdentity();
+}
+
+void Grass::Bind(Graphics& gfx) const
 {
     auto dataCopy = cbData;
     cbuf.Update(gfx, dataCopy);
@@ -151,7 +155,9 @@ void Grass::Bind(Graphics& gfx)
     cbuf.Bind(gfx);
     noiseTexture->BindVS(gfx);
     noiseSampler->BindVS(gfx);
-    renderSettings->Bind(gfx);
+
+    mesh->Bind(gfx);
+    pipeline->Bind(gfx);
     material->Bind(gfx);
     instanceBuffer->Bind(gfx);
 }
@@ -170,3 +176,4 @@ void Grass::SpawnControlWindow() noexcept
     }
     ImGui::End();
 }
+

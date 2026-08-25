@@ -88,17 +88,16 @@
   <ItemGroup>
     <ClCompile Include="Core\Camera.cpp" />
     <ClCompile Include="Core\Drawable.cpp" />
-    <ClCompile Include="Core\InstancedModel.cpp" />
     <ClCompile Include="Core\Material.cpp" />
     <ClCompile Include="Core\Mesh.cpp" />
     <ClCompile Include="Core\MeshFactory.cpp" />
     <ClCompile Include="Core\ModelException.cpp" />
     <ClCompile Include="Core\PipelineSettings.cpp" />
     <ClCompile Include="Core\PointLight.cpp" />
+    <ClCompile Include="Core\RenderableObject.cpp" />
     <ClCompile Include="Core\Vertex.cpp" />
     <ClCompile Include="DX11\Bindings\Bindable.cpp" />
     <ClCompile Include="DX11\Bindings\BindableCodex.cpp" />
-    <ClCompile Include="DX11\Bindings\ComputeShader.cpp" />
     <ClCompile Include="DX11\Bindings\ComputeTexture.cpp" />
     <ClCompile Include="DX11\Bindings\FrameCBuf.cpp" />
     <ClCompile Include="DX11\Bindings\IndexBuffer.cpp" />
@@ -106,6 +105,7 @@
     <ClCompile Include="DX11\Bindings\InstanceBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\PixelShader.cpp" />
     <ClCompile Include="DX11\Bindings\Sampler.cpp" />
+    <ClCompile Include="DX11\Bindings\TerrainComputeShader.cpp" />
     <ClCompile Include="DX11\Bindings\Texture.cpp" />
     <ClCompile Include="DX11\Bindings\Topology.cpp" />
     <ClCompile Include="DX11\Bindings\TransformCbuf.cpp" />
@@ -119,7 +119,6 @@
     <ClInclude Include="Core\Color.h" />
     <ClInclude Include="Core\Drawable.h" />
     <ClInclude Include="Core\InstanceData.h" />
-    <ClInclude Include="Core\InstancedModel.h" />
     <ClInclude Include="Core\Material.h" />
     <ClInclude Include="Core\Mesh.h" />
     <ClInclude Include="Core\MeshData.h" />
@@ -127,10 +126,10 @@
     <ClInclude Include="Core\ModelException.h" />
     <ClInclude Include="Core\PipelineSettings.h" />
     <ClInclude Include="Core\PointLight.h" />
+    <ClInclude Include="Core\RenderableObject.h" />
     <ClInclude Include="Core\Vertex.h" />
     <ClInclude Include="DX11\Bindings\Bindable.h" />
     <ClInclude Include="DX11\Bindings\BindableCodex.h" />
-    <ClInclude Include="DX11\Bindings\ComputeShader.h" />
     <ClInclude Include="DX11\Bindings\ComputeTexture.h" />
     <ClInclude Include="DX11\Bindings\ConstantBuffers.h" />
     <ClInclude Include="DX11\Bindings\FrameCBuf.h" />
@@ -139,6 +138,7 @@
     <ClInclude Include="DX11\Bindings\InstanceBuffer.h" />
     <ClInclude Include="DX11\Bindings\PixelShader.h" />
     <ClInclude Include="DX11\Bindings\Sampler.h" />
+    <ClInclude Include="DX11\Bindings\TerrainComputeShader.h" />
     <ClInclude Include="DX11\Bindings\Texture.h" />
     <ClInclude Include="DX11\Bindings\Topology.h" />
     <ClInclude Include="DX11\Bindings\TransformCbuf.h" />

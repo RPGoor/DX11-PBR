@@ -1,25 +1,24 @@
 #pragma once
 
-#include <InstancedModel.h>
+#include <Bindings/InstanceBuffer.h>
 #include <Bindings/Texture.h>
 #include <Bindings/Sampler.h>
 #include <Bindings/ConstantBuffers.h>
 #include <Mesh.h>
 #include <PipelineSettings.h>
 #include <Material.h>
+#include <Drawable.h>
 
-class Grass
+class Grass : public Drawable
 {
 public:
     Grass(Graphics& gfx);
-    void Draw(Graphics& gfx, DirectX::XMMATRIX position);
-    void Bind(Graphics& gfx);
+    virtual void Draw(Graphics& gfx) const override;
+    void Bind(Graphics& gfx) const;
     void SpawnControlWindow() noexcept;
-private:
-    std::unique_ptr<Mesh> grass;
-    std::unique_ptr<PipelineSettings> renderSettings;
-    std::unique_ptr<Material> material;
 
+    virtual DirectX::XMMATRIX GetTransformXM() const noexcept override;
+private:
     struct alignas(16) GrassConstants
     {
         float horizontalBendStrength;

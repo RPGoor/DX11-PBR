@@ -1,33 +1,44 @@
 #include "Mesh.h"
-#include "../DX11/Bindings/Topology.h"
-#include "../DX11/Bindings/TransformCbuf.h"
-#include "../DX11/Bindings/VertexBuffer.h"
+#include "../DX11/Bindings/BindableCodex.h"
 
 Mesh::Mesh(Graphics& gfx, MeshData data)
+    : tag(data.tag), layout(data.vertices.GetLayout())
 {
-    AddBind(Topology::Resolve(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST));
-
-    AddBind(VertexBuffer::Resolve(gfx, data.tag, data.vertices));
-    AddBind(IndexBuffer::Resolve(gfx, data.tag, data.indices));
-
-    AddBind(std::make_shared<TransformCbuf>(gfx, *this, 1u));
+    topology = Topology::Resolve(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
+    vertexBuffer = std::make_unique<VertexBuffer>(gfx, data.tag, data.vertices);
+    indexBuffer = std::make_unique<IndexBuffer>(gfx, data.tag, data.indices);
 }
 
-void Mesh::Draw(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform) const conexcept
+void Mesh::Bind(Graphics& gfx) noexcept
 {
-    DirectX::XMStoreFloat4x4(&transform, accumulatedTransform);
-    Drawable::Draw(gfx);
+    vertexBuffer->Bind(gfx);
+    indexBuffer->Bind(gfx);
+    topology->Bind(gfx);
 }
 
-void Mesh::DrawInstanced(Graphics& gfx, DirectX::FXMMATRIX accumulatedTransform, UINT instanceCount) const conexcept
+std::shared_ptr<Mesh> Mesh::Resolve(Graphics& gfx, MeshData data)
 {
-    DirectX::XMStoreFloat4x4(&transform, accumulatedTransform);
-
-    Drawable::DrawInstanced(gfx, instanceCount);
+    return Codex::Resolve<Mesh>(gfx, data);
 }
 
-
-DirectX::XMMATRIX Mesh::GetTransformXM() const noexcept
+std::string Mesh::GenerateUID_(const std::string& tag)
 {
-    return DirectX::XMLoadFloat4x4(&transform);
+    using namespace std::string_literals;
+    return typeid(Mesh).name() + "#"s + tag;
 }
+
+std::string Mesh::GetUID() const noexcept
+{
+    return GenerateUID_(tag);
+}
+
+const Dvtx::VertexLayout& Mesh::GetLayout() const noexcept
+{
+    return layout;
+}
+
+const UINT& Mesh::GetCount() const noexcept
+{
+    return indexBuffer->GetCount();
+}
+

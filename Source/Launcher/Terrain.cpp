@@ -2,65 +2,45 @@
 #include <MeshFactory.h>
 
 Terrain::Terrain(Graphics& gfx)
-    :
-    heightmap(gfx, HeightmapResolution, HeightmapResolution, 0u, 0u),
-    normalmap(gfx, HeightmapResolution, HeightmapResolution, 1u, 1u, DXGI_FORMAT_R32G32B32A32_FLOAT),
-    terrainShader(gfx, "TerrainCS.cso")
 {
 
     MeshData data = MeshFactory::Load("..\\..\\Assets\\Models\\terrain3.fbx");
-    renderSettings = std::make_unique<PipelineSettings>(gfx, data.vertices.GetLayout(), "TerrainVS.cso", "StandardPS.cso");
-    material = std::make_unique<Material>(gfx);
-    terrain = std::make_unique<Mesh>(gfx, data);
+    pipeline = std::make_unique<PipelineSettings>(gfx, data.vertices.GetLayout(), "TerrainVS.cso", "StandardPS.cso");
+    material = Material::Resolve(gfx, "M_terrain");
+    mesh = Mesh::Resolve(gfx, data);
 
     grass = std::make_unique<Grass>(gfx);
 
-    terrainSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_CLAMP);
-
-    terrainShader.regenCallback = [this, &gfx]
+    terrainShader = std::make_unique<TerrainComputeShader>(gfx);
+    terrainShader->regenCallback = [this, &gfx]
     {
-        Generate(gfx);
+        GenerateTerrain(gfx);
     };
 }
 
-void Terrain::Generate(Graphics& gfx)
+void Terrain::Draw(Graphics& gfx) const
 {
-    terrainShader.Bind(gfx);
-    heightmap.BindUAV(gfx);
-    normalmap.BindUAV(gfx);
+    mesh->Bind(gfx);
+    pipeline->Bind(gfx);
+    material->Bind(gfx);
+    terrainShader->BindVS(gfx);
+    gfx.DrawIndexed(mesh->GetCount());
 
-    constexpr UINT threadGroupSize = 8u;
-
-    const UINT groupCount =
-        (HeightmapResolution + threadGroupSize - 1u) /
-        threadGroupSize;
-
-    gfx.Dispatch(
-        groupCount,
-        groupCount,
-        1u
-    );
-
-    heightmap.UnbindUAV(gfx);
-    normalmap.UnbindUAV(gfx);
-    terrainShader.Unbind(gfx);
+    grass->Draw(gfx);
 }
 
-void Terrain::Draw(Graphics& gfx, DirectX::XMMATRIX position)
+DirectX::XMMATRIX Terrain::GetTransformXM() const noexcept
 {
-    renderSettings->Bind(gfx);
-    material->Bind(gfx);
-    heightmap.BindVS(gfx);
-    normalmap.BindVS(gfx);
-    terrainSampler->BindVS(gfx);
-
-    terrain->Draw(gfx, position);
-
-    grass->Draw(gfx, DirectX::XMMatrixIdentity());
+    return DirectX::XMMatrixIdentity();
 }
 
 void Terrain::SpawnControlWindow() noexcept
 {
-    terrainShader.SpawnControlWindow();
+    terrainShader->SpawnControlWindow();
     grass->SpawnControlWindow();
+}
+
+void Terrain::GenerateTerrain(Graphics& gfx)
+{
+    terrainShader->Generate(gfx);
 }

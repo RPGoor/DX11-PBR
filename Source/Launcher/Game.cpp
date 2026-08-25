@@ -14,7 +14,7 @@ Game::Game()
         1000.0f
     ));
 
-    terrain.Generate(gfx);
+    terrain.GenerateTerrain(gfx);
 }
 
 Game::~Game()
@@ -63,7 +63,7 @@ void Game::DoFrame()
     gfx.BeginFrame(0.2f, 0.4f, 0.9f);
     gfx.SetCamera(cam.GetMatrix());
 
-    terrain.Draw(gfx, DirectX::XMMatrixIdentity());
+    terrain.Draw(gfx);
 
     while (const auto e = wnd.kbd.ReadKey())
     {

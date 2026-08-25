@@ -150,6 +150,7 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Grass.cpp" />
+    <ClCompile Include="Landscape.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="WinMain.cpp" />
   </ItemGroup>
@@ -170,6 +171,7 @@
   <ItemGroup>
     <ClInclude Include="Game.h" />
     <ClInclude Include="Grass.h" />
+    <ClInclude Include="Landscape.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Terrain.h" />
   </ItemGroup>

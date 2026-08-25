@@ -2,33 +2,25 @@
 
 #include <Graphics.h>
 #include <Bindings/ComputeTexture.h>
-#include <Bindings/ComputeShader.h>
+#include <Bindings/TerrainComputeShader.h>
 #include <Bindings/Sampler.h>
 #include "Grass.h"
 #include <Mesh.h>
 #include <PipelineSettings.h>
 #include <Material.h>
 
-class Terrain
+class Terrain : public Drawable
 {
 
 public:
     Terrain(Graphics& gfx);
-    void Generate(Graphics& gfx);
-    void Draw(Graphics& gfx, DirectX::XMMATRIX position);
     void SpawnControlWindow() noexcept;
 
+    virtual void Draw(Graphics& gfx) const override;
+    virtual DirectX::XMMATRIX GetTransformXM() const noexcept override;
+
+    void GenerateTerrain(Graphics& gfx);
 private:
-    std::unique_ptr<Mesh> terrain;
-    std::unique_ptr<PipelineSettings> renderSettings;
-    std::unique_ptr<Material> material;
-
-
     std::unique_ptr<Grass> grass;
-
-    static constexpr UINT HeightmapResolution = 1024u;
-    ComputeTexture heightmap;
-    ComputeTexture normalmap;
-    ComputeShader terrainShader;
-    std::unique_ptr<Sampler> terrainSampler;
+    std::unique_ptr<TerrainComputeShader> terrainShader;
 };
