@@ -13,11 +13,10 @@ class Grass : public Drawable
 {
 public:
     Grass(Graphics& gfx);
-    virtual void Draw(Graphics& gfx) const override;
     void Bind(Graphics& gfx) const;
     void SpawnControlWindow() noexcept;
 
-    virtual DirectX::XMMATRIX GetTransformXM() const noexcept override;
+    virtual void DrawCall(Graphics& gfx) const override;
 private:
     struct alignas(16) GrassConstants
     {

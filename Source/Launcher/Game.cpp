@@ -5,7 +5,7 @@
 #include <random>
 
 Game::Game()
-    : wnd(1280, 720, L"Solorn Engine Window"), gfx(Graphics(wnd.GetHWND())), pointLight(gfx), frameBuffer(gfx)
+    : wnd(1280, 720, L"Solorn Engine Window"), gfx(Graphics(wnd.GetHWND())), pointLight(gfx), frameBuffer(gfx), landscape(gfx)
 {
     gfx.SetProjection(DirectX::XMMatrixPerspectiveFovLH(
         DirectX::XMConvertToRadians(60.0f),
@@ -14,7 +14,7 @@ Game::Game()
         1000.0f
     ));
 
-    terrain.GenerateTerrain(gfx);
+    landscape.GenerateTerrain(gfx);
 }
 
 Game::~Game()
@@ -63,7 +63,7 @@ void Game::DoFrame()
     gfx.BeginFrame(0.2f, 0.4f, 0.9f);
     gfx.SetCamera(cam.GetMatrix());
 
-    terrain.Draw(gfx);
+    landscape.Draw(gfx);
 
     while (const auto e = wnd.kbd.ReadKey())
     {
@@ -121,8 +121,7 @@ void Game::DoFrame()
         
     }
 
-    //pointLight.SpawnControlWindow();
-    terrain.SpawnControlWindow();
+    landscape.SpawnControlWindows();
 
     gfx.EndFrame();
 }

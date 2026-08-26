@@ -16,11 +16,12 @@ public:
     virtual ~Drawable() = default;
 
 public:
-    virtual void Draw(Graphics& gfx) const = 0;
-    virtual DirectX::XMMATRIX GetTransformXM() const noexcept = 0;
+    void Draw(Graphics& gfx) const;
 
 protected:
-    Drawable() = default;
+    Drawable();
+
+    virtual void DrawCall(Graphics& gfx) const;
 
     std::shared_ptr<Mesh> mesh;
     std::shared_ptr<Material> material;

@@ -6,8 +6,7 @@
 #include <Camera.h>
 #include <PointLight.h>
 #include <Bindings/FrameCBuf.h>
-#include "Grass.h"
-#include "Terrain.h"
+#include "Landscape.h"
 
 
 class Game
@@ -28,5 +27,5 @@ private:
     PointLight pointLight;
     FrameCbuf frameBuffer;
 
-    Terrain terrain{ gfx };
+    Landscape landscape;
 };

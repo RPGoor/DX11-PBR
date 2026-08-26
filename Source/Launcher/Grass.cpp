@@ -137,17 +137,6 @@ Grass::Grass(Graphics& gfx)
     noiseSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_WRAP, 1u);
 }
 
-void Grass::Draw(Graphics& gfx) const
-{
-    Bind(gfx);
-    gfx.DrawIndexed(mesh->GetCount(), 2500000u);
-}
-
-DirectX::XMMATRIX Grass::GetTransformXM() const noexcept
-{
-    return DirectX::XMMatrixIdentity();
-}
-
 void Grass::Bind(Graphics& gfx) const
 {
     auto dataCopy = cbData;
@@ -156,11 +145,6 @@ void Grass::Bind(Graphics& gfx) const
     cbuf.Bind(gfx);
     noiseTexture->BindVS(gfx);
     noiseSampler->BindVS(gfx);
-
-    mesh->Bind(gfx);
-    pipeline->Bind(gfx);
-    material->Bind(gfx);
-    transform->Bind(gfx);
     instanceBuffer->Bind(gfx);
 }
 
@@ -177,5 +161,11 @@ void Grass::SpawnControlWindow() noexcept
 
     }
     ImGui::End();
+}
+
+void Grass::DrawCall(Graphics& gfx) const
+{
+    Bind(gfx);
+    gfx.DrawIndexed(mesh->GetCount(), 2500000u);
 }
 
