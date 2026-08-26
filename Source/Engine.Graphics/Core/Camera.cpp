@@ -42,6 +42,8 @@ void Camera::Rotate( float dx,float dy ) noexcept
 
 void Camera::Translate( DirectX::XMFLOAT3 translation ) noexcept
 {
+    const float yComp = translation.y;
+    translation.y = 0.0f;
     dx::XMStoreFloat3( &translation,dx::XMVector3Transform(
         dx::XMLoadFloat3( &translation ),
         dx::XMMatrixRotationRollPitchYaw( pitch,yaw,0.0f ) *
@@ -49,7 +51,7 @@ void Camera::Translate( DirectX::XMFLOAT3 translation ) noexcept
     ) );
     pos = {
         pos.x + translation.x,
-        pos.y + translation.y,
+        pos.y + translation.y + (yComp * travelSpeed),
         pos.z + translation.z
     };
 }

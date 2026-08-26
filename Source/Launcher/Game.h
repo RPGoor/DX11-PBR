@@ -7,7 +7,7 @@
 #include <PointLight.h>
 #include <Bindings/FrameCBuf.h>
 #include "Landscape.h"
-
+#include "Controller.h"
 
 class Game
 {
@@ -28,4 +28,5 @@ private:
     FrameCbuf frameBuffer;
 
     Landscape landscape;
+    Controller controller;
 };

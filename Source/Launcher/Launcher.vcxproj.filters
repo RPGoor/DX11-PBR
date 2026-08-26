@@ -12,6 +12,7 @@
     <ClCompile Include="Grass.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Landscape.cpp" />
+    <ClCompile Include="Controller.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h" />
@@ -19,6 +20,7 @@
     <ClInclude Include="Grass.h" />
     <ClInclude Include="Terrain.h" />
     <ClInclude Include="Landscape.h" />
+    <ClInclude Include="Controller.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Launcher.rc">
