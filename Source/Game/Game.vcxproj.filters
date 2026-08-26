@@ -30,17 +30,8 @@
     </Image>
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="Resources\Launcher.rc">
-      <Filter>Resource Files</Filter>
-    </ResourceCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Launcher.vcxproj">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="Resources\Launcher.vcxproj.filters">
-      <Filter>Resource Files</Filter>
-    </None>
+    <None Include="Resources\Game.vcxproj" />
+    <None Include="Resources\Game.vcxproj.filters" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Resources\resource.h">
@@ -87,5 +78,10 @@
     <ClCompile Include="Scene\Scene.cpp">
       <Filter>Scene\private</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources\Game.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>
