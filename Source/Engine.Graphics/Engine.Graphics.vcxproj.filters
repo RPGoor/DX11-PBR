@@ -102,23 +102,23 @@
     <ClCompile Include="DX11\Bindings\InstanceBuffer.cpp">
       <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
-    <ClCompile Include="DX11\Bindings\ComputeTexture.cpp">
-      <Filter>DX11\Bindings</Filter>
+    <ClCompile Include="Core\Material.cpp">
+      <Filter>Core\private</Filter>
     </ClCompile>
     <ClCompile Include="Core\MeshFactory.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Material.cpp">
-      <Filter>Core</Filter>
+      <Filter>Core\private</Filter>
     </ClCompile>
     <ClCompile Include="Core\PipelineSettings.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="DX11\Bindings\TerrainComputeShader.cpp">
-      <Filter>DX11\Bindings</Filter>
+      <Filter>Core\private</Filter>
     </ClCompile>
     <ClCompile Include="Core\RenderableObject.cpp">
-      <Filter>Core</Filter>
+      <Filter>Core\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\ComputeTexture.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\TerrainComputeShader.cpp">
+      <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -197,26 +197,26 @@
     <ClInclude Include="DX11\Bindings\InstanceBuffer.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
-    <ClInclude Include="DX11\Bindings\ComputeTexture.h">
-      <Filter>DX11\Bindings</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\MeshFactory.h">
-      <Filter>Core</Filter>
+    <ClInclude Include="Core\Material.h">
+      <Filter>Core\public</Filter>
     </ClInclude>
     <ClInclude Include="Core\MeshData.h">
-      <Filter>Core</Filter>
+      <Filter>Core\public</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Material.h">
-      <Filter>Core</Filter>
+    <ClInclude Include="Core\MeshFactory.h">
+      <Filter>Core\public</Filter>
     </ClInclude>
     <ClInclude Include="Core\PipelineSettings.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="DX11\Bindings\TerrainComputeShader.h">
-      <Filter>DX11\Bindings</Filter>
+      <Filter>Core\public</Filter>
     </ClInclude>
     <ClInclude Include="Core\RenderableObject.h">
-      <Filter>Core</Filter>
+      <Filter>Core\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\ComputeTexture.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\TerrainComputeShader.h">
+      <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -232,10 +232,10 @@
     <FxCompile Include="Shaders\GrassPS.hlsl">
       <Filter>Shaders\private</Filter>
     </FxCompile>
-    <FxCompile Include="Shaders\TerrainCS.hlsl">
-      <Filter>Shaders</Filter>
-    </FxCompile>
     <FxCompile Include="Shaders\TerrainVS.hlsl">
+      <Filter>Shaders\private</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\TerrainCS.hlsl">
       <Filter>Shaders\private</Filter>
     </FxCompile>
   </ItemGroup>

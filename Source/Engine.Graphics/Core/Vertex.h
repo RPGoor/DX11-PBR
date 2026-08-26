@@ -87,8 +87,7 @@ namespace Dvtx
         struct Map<InstanceTransform0>
         {
             using SysType = DirectX::XMFLOAT4;
-            static constexpr DXGI_FORMAT dxgiFormat =
-                DXGI_FORMAT_R32G32B32A32_FLOAT;
+            static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
             static constexpr const char* semantic = "InstanceTransform";
             static constexpr UINT semanticIndex = 0u;
             static constexpr const char* code = "IT0";
@@ -98,8 +97,7 @@ namespace Dvtx
         struct Map<InstanceTransform1>
         {
             using SysType = DirectX::XMFLOAT4;
-            static constexpr DXGI_FORMAT dxgiFormat =
-                DXGI_FORMAT_R32G32B32A32_FLOAT;
+            static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
             static constexpr const char* semantic = "InstanceTransform";
             static constexpr UINT semanticIndex = 1u;
             static constexpr const char* code = "IT1";
@@ -109,8 +107,7 @@ namespace Dvtx
         struct Map<InstanceTransform2>
         {
             using SysType = DirectX::XMFLOAT4;
-            static constexpr DXGI_FORMAT dxgiFormat =
-                DXGI_FORMAT_R32G32B32A32_FLOAT;
+            static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
             static constexpr const char* semantic = "InstanceTransform";
             static constexpr UINT semanticIndex = 2u;
             static constexpr const char* code = "IT2";
@@ -120,8 +117,7 @@ namespace Dvtx
         struct Map<InstanceTransform3>
         {
             using SysType = DirectX::XMFLOAT4;
-            static constexpr DXGI_FORMAT dxgiFormat =
-                DXGI_FORMAT_R32G32B32A32_FLOAT;
+            static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
             static constexpr const char* semantic = "InstanceTransform";
             static constexpr UINT semanticIndex = 3u;
             static constexpr const char* code = "IT3";
@@ -131,8 +127,7 @@ namespace Dvtx
         struct Map<InstanceTransform4>
         {
             using SysType = DirectX::XMFLOAT4;
-            static constexpr DXGI_FORMAT dxgiFormat =
-                DXGI_FORMAT_R32G32B32A32_FLOAT;
+            static constexpr DXGI_FORMAT dxgiFormat = DXGI_FORMAT_R32G32B32A32_FLOAT;
             static constexpr const char* semantic = "InstanceTransform";
             static constexpr UINT semanticIndex = 4u;
             static constexpr const char* code = "IT4";

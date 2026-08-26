@@ -1,4 +1,5 @@
 #include "InstanceBuffer.h"
+#include "../GraphicsExceptionsMacros.h"
 
 InstanceBuffer::InstanceBuffer(
     Graphics& gfx,
@@ -6,6 +7,8 @@ InstanceBuffer::InstanceBuffer(
 )
     : count(static_cast<UINT>(instances.size()))
 {
+    INFOMAN(gfx);
+
     D3D11_BUFFER_DESC bd = {};
     bd.BindFlags = D3D11_BIND_VERTEX_BUFFER;
     bd.Usage = D3D11_USAGE_DEFAULT;
@@ -17,11 +20,11 @@ InstanceBuffer::InstanceBuffer(
     D3D11_SUBRESOURCE_DATA sd = {};
     sd.pSysMem = instances.data();
 
-    GetDevice(gfx)->CreateBuffer(
+    GFX_THROW_INFO(GetDevice(gfx)->CreateBuffer(
         &bd,
         &sd,
         &pBuffer
-    );
+    ));
 }
 
 void InstanceBuffer::Bind(Graphics& gfx) noexcept
