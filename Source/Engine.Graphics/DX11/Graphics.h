@@ -27,9 +27,6 @@ public:
     void EndFrame();
     void BeginFrame(float r, float g, float b) noexcept;
 
-    void SetCamera(DirectX::FXMMATRIX cam) noexcept;
-    DirectX::XMMATRIX GetCamera() const noexcept;
-
     void Resize(unsigned int width, unsigned int height) noexcept;
 
     void Dispatch(UINT groupCountX, UINT groupCountY, UINT groupCountZ) noexcept;
@@ -44,7 +41,6 @@ private:
 private:
     bool imGuiEnabled = true;
     DirectX::XMMATRIX projection;
-    DirectX::XMMATRIX camera;
 #ifndef NDEBUG
     DxgiInfoManager infoManager;
 #endif

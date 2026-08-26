@@ -5,7 +5,7 @@
 #include <random>
 
 Game::Game()
-    : wnd(1280, 720, L"Solorn Engine Window"), gfx(Graphics(wnd.GetHWND())), pointLight(gfx), frameBuffer(gfx), landscape(gfx)
+    : wnd(1280, 720, L"Solorn Engine Window"), gfx(Graphics(wnd.GetHWND())), frameBuffer(gfx), scene(gfx)
 {
     gfx.SetProjection(DirectX::XMMatrixPerspectiveFovLH(
         DirectX::XMConvertToRadians(60.0f),
@@ -14,7 +14,6 @@ Game::Game()
         1000.0f
     ));
 
-    landscape.GenerateTerrain(gfx);
 }
 
 Game::~Game()
@@ -35,6 +34,8 @@ int Game::Go()
 
 void Game::DoFrame()
 {
+    const auto dt = timer.Mark();
+
     if (const auto resize = wnd.events.GetEvent())
     {
         gfx.Resize(
@@ -43,31 +44,22 @@ void Game::DoFrame()
         );
 
     }
+    Camera& cam = scene.GetCamera();
+    controller.Update(wnd, cam, dt);
 
-    const auto dt = timer.Mark();
-    const auto view = cam.GetMatrix();
-    const auto projection = gfx.GetProjection();
+    scene.Update(dt);
 
-    float test = timer.Elapsed();
+    gfx.BeginFrame(0.2f, 0.4f, 0.9f);
 
     frameBuffer.Update(
         gfx,
-        view,
-        projection,
+        cam.GetMatrix(),
+        gfx.GetProjection(),
         cam.pos,
         timer.Elapsed()
     );
-    frameBuffer.Bind(gfx);
-    pointLight.Bind(gfx, cam.GetMatrix());
 
-    gfx.BeginFrame(0.2f, 0.4f, 0.9f);
-    gfx.SetCamera(cam.GetMatrix());
-
-    landscape.Draw(gfx);
-
-    controller.Update(wnd, cam, dt);
-
-    landscape.SpawnControlWindows();
+    scene.Draw(gfx);
 
     gfx.EndFrame();
 }

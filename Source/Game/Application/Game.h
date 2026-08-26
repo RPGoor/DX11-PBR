@@ -3,11 +3,10 @@
 #include <Time/Timer.h>
 #include <ImGuiManager.h>
 #include <Graphics.h>
-#include <Camera.h>
-#include <PointLight.h>
 #include <Bindings/FrameCBuf.h>
-#include "Landscape.h"
 #include "Controller.h"
+#include "../Scene/Scene.h"
+
 
 class Game
 {
@@ -23,10 +22,8 @@ private:
     Window wnd;
     Graphics gfx;
     Engine::Timer timer;
-    Camera cam;
-    PointLight pointLight;
     FrameCbuf frameBuffer;
 
-    Landscape landscape;
     Controller controller;
+    Scene scene;
 };

@@ -16,7 +16,7 @@ void FrameCbuf::Update(Graphics & gfx, DirectX::FXMMATRIX view, DirectX::FXMMATR
 
     bufferVS.Update(gfx, data);
     bufferPS.Update(gfx, data);
-
+    Bind(gfx);
 }
 
 void FrameCbuf::Bind(Graphics & gfx) noexcept

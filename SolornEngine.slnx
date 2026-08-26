@@ -6,5 +6,5 @@
   <Project Path="Source/Engine.Graphics/Engine.Graphics.vcxproj" Id="a7f02457-f1c0-4d2d-906a-9c3a42a9ec41" />
   <Project Path="Source/Engine.ImGui/Engine.ImGui.vcxproj" Id="5cff1cb4-7337-4aeb-abcf-b4f58d8e56dc" />
   <Project Path="Source/Engine.Platform/Engine.Platform.vcxproj" Id="cd886ff3-1735-435c-8df9-8cb5542d6e2e" />
-  <Project Path="Source/Launcher/Launcher.vcxproj" Id="695e5120-3c07-4e49-b28e-95e191e0baa5" />
+  <Project Path="Source/Game/Game.vcxproj" Id="695e5120-3c07-4e49-b28e-95e191e0baa5" />
 </Solution>

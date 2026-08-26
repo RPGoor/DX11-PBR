@@ -136,16 +136,6 @@ void Graphics::BeginFrame(float r, float g, float b) noexcept
     pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
 }
 
-void Graphics::SetCamera(DirectX::FXMMATRIX cam) noexcept
-{
-    camera = cam;
-}
-
-DirectX::XMMATRIX Graphics::GetCamera() const noexcept
-{
-    return camera;
-}
-
 void Graphics::Resize(unsigned int width, unsigned int height) noexcept
 {
     HRESULT hr;
