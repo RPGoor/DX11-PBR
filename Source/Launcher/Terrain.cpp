@@ -8,6 +8,7 @@ Terrain::Terrain(Graphics& gfx)
     pipeline = std::make_unique<PipelineSettings>(gfx, data.vertices.GetLayout(), "TerrainVS.cso", "StandardPS.cso");
     material = Material::Resolve(gfx, "M_terrain");
     mesh = Mesh::Resolve(gfx, data);
+    transform = std::make_unique<TransformCbuf>(gfx);
 
     grass = std::make_unique<Grass>(gfx);
 
@@ -23,6 +24,7 @@ void Terrain::Draw(Graphics& gfx) const
     mesh->Bind(gfx);
     pipeline->Bind(gfx);
     material->Bind(gfx);
+    transform->Bind(gfx);
     terrainShader->BindVS(gfx);
     gfx.DrawIndexed(mesh->GetCount());
 

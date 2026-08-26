@@ -1,22 +1,16 @@
 #include "TransformCbuf.h"
 
-TransformCbuf::TransformCbuf(Graphics& gfx, const Drawable& parent, UINT slot)
-    :
-    parent(parent)
+TransformCbuf::TransformCbuf(Graphics& gfx, UINT slot)
+    : vbuf(gfx, slot)
 {
-    if (!pVcbuf)
-    {
-        pVcbuf = std::make_unique<VertexConstantBuffer<ObjectConstants>>(gfx, slot);
-    }
+    DirectX::XMStoreFloat4x4(&transform, DirectX::XMMatrixIdentity());
 }
 
 void TransformCbuf::Bind(Graphics& gfx) noexcept
 {
-    const DirectX::XMMATRIX model =
-        parent.GetTransformXM();
+    const DirectX::XMMATRIX model = DirectX::XMLoadFloat4x4(&transform);;
 
-    const DirectX::XMMATRIX inverseModel =
-        DirectX::XMMatrixInverse(nullptr, model);
+    const DirectX::XMMATRIX inverseModel = DirectX::XMMatrixInverse(nullptr, model);
 
     const ObjectConstants tf =
     {
@@ -24,8 +18,6 @@ void TransformCbuf::Bind(Graphics& gfx) noexcept
         DirectX::XMMatrixTranspose(inverseModel)
     };
 
-    pVcbuf->Update(gfx, tf);
-    pVcbuf->Bind(gfx);
+    vbuf.Update(gfx, tf);
+    vbuf.Bind(gfx);
 }
-
-std::unique_ptr<VertexConstantBuffer<TransformCbuf::ObjectConstants>> TransformCbuf::pVcbuf;

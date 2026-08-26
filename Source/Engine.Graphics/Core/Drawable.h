@@ -4,6 +4,7 @@
 #include <memory>
 #include <vector>
 #include "../DX11/Bindings/IndexBuffer.h"
+#include "../DX11/Bindings/TransformCbuf.h"
 #include "Mesh.h"
 #include "PipelineSettings.h"
 #include "Material.h"
@@ -24,6 +25,8 @@ protected:
     std::shared_ptr<Mesh> mesh;
     std::shared_ptr<Material> material;
     std::shared_ptr<PipelineSettings> pipeline;
+    std::unique_ptr<TransformCbuf> transform;
+
 private:
 
 };

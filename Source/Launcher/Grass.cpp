@@ -132,6 +132,7 @@ Grass::Grass(Graphics& gfx)
     pipeline = std::make_unique<PipelineSettings>(gfx, data.vertices.GetLayout(), InstanceData::GetLayout(), "GrassVS.cso", "GrassPS.cso");
     material = Material::Resolve(gfx, "M_grass", MaterialConstants{{0.15f, 0.63f, 0.23f}, 0.1, 0.75, {}});
     mesh = Mesh::Resolve(gfx, data);
+    transform = std::make_unique<TransformCbuf>(gfx);
 
     noiseSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_WRAP, 1u);
 }
@@ -159,6 +160,7 @@ void Grass::Bind(Graphics& gfx) const
     mesh->Bind(gfx);
     pipeline->Bind(gfx);
     material->Bind(gfx);
+    transform->Bind(gfx);
     instanceBuffer->Bind(gfx);
 }
 

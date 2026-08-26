@@ -1,6 +1,5 @@
 #pragma once
 #include "Bindable.h"
-#include "../../Core/Drawable.h"
 #include "ConstantBuffers.h"
 
 class TransformCbuf : public Bindable
@@ -11,10 +10,12 @@ private:
         DirectX::XMMATRIX model;
         DirectX::XMMATRIX modelInverseTranspose;
     };
+
 public:
-    TransformCbuf(Graphics& gfx, const Drawable& parent, UINT slot = 1u);
+    TransformCbuf(Graphics& gfx, UINT slot = 1u);
     void Bind(Graphics& gfx) noexcept override;
+
 private:
-    static std::unique_ptr<VertexConstantBuffer<ObjectConstants>> pVcbuf;
-    const Drawable& parent;
+    VertexConstantBuffer<ObjectConstants> vbuf;
+    DirectX::XMFLOAT4X4 transform;
 };
