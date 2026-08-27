@@ -1,17 +1,22 @@
 #pragma once
 
-#include <InstancedModel.h>
+#include <Bindings/InstanceBuffer.h>
 #include <Bindings/Texture.h>
 #include <Bindings/Sampler.h>
 #include <Bindings/ConstantBuffers.h>
+#include <Bindings/Mesh.h>
+#include <Bindings/PipelineSettings.h>
+#include <Bindings/Material.h>
+#include <Drawable.h>
 
-class Grass
+class Grass : public Drawable
 {
 public:
     Grass(Graphics& gfx);
-    void Draw(Graphics& gfx, DirectX::XMMATRIX position);
-    void Bind(Graphics& gfx);
+    void Bind(Graphics& gfx) const;
     void SpawnControlWindow() noexcept;
+
+    virtual void DrawCall(Graphics& gfx) const override;
 private:
     struct alignas(16) GrassConstants
     {
@@ -27,7 +32,7 @@ private:
     GrassConstants cbData;
     mutable VertexConstantBuffer<GrassConstants> cbuf;
 
-    std::unique_ptr<InstancedModel> grass;
+    std::unique_ptr<InstanceBuffer> instanceBuffer;
     std::unique_ptr<Texture> noiseTexture;
     std::unique_ptr<Sampler> noiseSampler;
 };

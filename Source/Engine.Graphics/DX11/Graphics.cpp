@@ -79,7 +79,7 @@ void Graphics::DrawIndexed(UINT count) conexcept
     GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
 }
 
-void Graphics::DrawIndexedInstanced(UINT count, UINT instanceCount) conexcept
+void Graphics::DrawIndexed(UINT count, UINT instanceCount) conexcept
 {
     GFX_THROW_INFO_ONLY(pContext->DrawIndexedInstanced(count, instanceCount, 0u, 0u, 0u));
 }
@@ -134,16 +134,6 @@ void Graphics::BeginFrame(float r, float g, float b) noexcept
     const float color[] = { r, g, b, 1.0 };
     pContext->ClearRenderTargetView(pTarget.Get(), color);
     pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
-}
-
-void Graphics::SetCamera(DirectX::FXMMATRIX cam) noexcept
-{
-    camera = cam;
-}
-
-DirectX::XMMATRIX Graphics::GetCamera() const noexcept
-{
-    return camera;
 }
 
 void Graphics::Resize(unsigned int width, unsigned int height) noexcept

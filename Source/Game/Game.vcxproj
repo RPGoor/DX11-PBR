@@ -24,7 +24,7 @@
     <ProjectGuid>{695e5120-3c07-4e49-b28e-95e191e0baa5}</ProjectGuid>
     <RootNamespace>VeilEngine</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
-    <ProjectName>Launcher</ProjectName>
+    <ProjectName>Game</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -148,12 +148,6 @@
     </Manifest>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Game.cpp" />
-    <ClCompile Include="Grass.cpp" />
-    <ClCompile Include="Terrain.cpp" />
-    <ClCompile Include="WinMain.cpp" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Engine.Common\Engine.Common.vcxproj">
       <Project>{36a65e5f-8e1f-4769-a322-ce3370d419e2}</Project>
     </ProjectReference>
@@ -168,16 +162,32 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h" />
-    <ClInclude Include="Grass.h" />
-    <ClInclude Include="resource.h" />
-    <ClInclude Include="Terrain.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="Launcher.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="..\..\Assets\Icons\Asole.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources\Game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Game.vcxproj" />
+    <None Include="Resources\Game.vcxproj.filters" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Application\Controller.h" />
+    <ClInclude Include="Application\Game.h" />
+    <ClInclude Include="Resources\resource.h" />
+    <ClInclude Include="Scene\Grass.h" />
+    <ClInclude Include="Scene\Landscape.h" />
+    <ClInclude Include="Scene\Scene.h" />
+    <ClInclude Include="Scene\Terrain.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application\Controller.cpp" />
+    <ClCompile Include="Application\Game.cpp" />
+    <ClCompile Include="Application\WinMain.cpp" />
+    <ClCompile Include="Scene\Grass.cpp" />
+    <ClCompile Include="Scene\Landscape.cpp" />
+    <ClCompile Include="Scene\Scene.cpp" />
+    <ClCompile Include="Scene\Terrain.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

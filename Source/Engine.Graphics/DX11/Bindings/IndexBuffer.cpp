@@ -1,7 +1,7 @@
 #include "InputLayout.h"
 #include "../GraphicsExceptionsMacros.h"
 #include "IndexBuffer.h"
-#include "BindableCodex.h"
+#include "../BindableCodex.h"
 
 IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<unsigned int>& indices)
     :

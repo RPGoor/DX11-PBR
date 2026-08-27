@@ -1,6 +1,7 @@
 #include "Grass.h"
 #include <random>
 #include "ImGui.h"
+#include <MeshFactory.h>
 
 Grass::Grass(Graphics& gfx)
     : cbuf(gfx, 2u), cbData(0.15f, 0.1f, 1.5f, 5.0f, {1.0f, 1.0f}, 8.0f, 0.0f)
@@ -45,7 +46,7 @@ Grass::Grass(Graphics& gfx)
         0.15f
     );
 
-    std::vector<InstanceData> instances;
+    std::vector<Vertex::Instance> instances;
 
     for (int i = 0; i < 2500000; ++i)
     {
@@ -74,57 +75,18 @@ Grass::Grass(Graphics& gfx)
             );
 
         DirectX::XMFLOAT4X4 storedMatrix;
-        DirectX::XMStoreFloat4x4(
-            &storedMatrix,
-            matrix
-        );
+        DirectX::XMStoreFloat4x4(&storedMatrix,matrix);
 
-        InstanceData instance{};
-
-        instance.row0 = DirectX::XMFLOAT4(
-            storedMatrix._11,
-            storedMatrix._12,
-            storedMatrix._13,
-            storedMatrix._14
-        );
-
-        instance.row1 = DirectX::XMFLOAT4(
-            storedMatrix._21,
-            storedMatrix._22,
-            storedMatrix._23,
-            storedMatrix._24
-        );
-
-        instance.row2 = DirectX::XMFLOAT4(
-            storedMatrix._31,
-            storedMatrix._32,
-            storedMatrix._33,
-            storedMatrix._34
-        );
-
-        instance.row3 = DirectX::XMFLOAT4(
-            storedMatrix._41,
-            storedMatrix._42,
-            storedMatrix._43,
-            storedMatrix._44
-        );
-
-        instance.row4 = DirectX::XMFLOAT4(
-            colorDistR(rng),
-            colorDistG(rng),
-            colorDistB(rng),
-            1.0f
-        );
+        Vertex::Instance instance
+        {
+            storedMatrix,
+            DirectX::XMFLOAT4(colorDistR(rng), colorDistG(rng), colorDistB(rng), 1.0f)
+        };
 
         instances.push_back(instance);
     }
 
-    grass = std::make_unique<InstancedModel>(
-        gfx,
-        "..\\..\\Assets\\Models\\grass.obj",
-        instances,
-        MaterialConstants{ {0.15f, 0.63f, 0.23f}, 0.1, 0.5, {} }
-    );
+    instanceBuffer = std::make_unique<InstanceBuffer>(gfx, instances);
 
     noiseTexture = std::make_unique<Texture>(
         gfx,
@@ -132,16 +94,20 @@ Grass::Grass(Graphics& gfx)
         1u
     );
 
+    MeshData data = MeshFactory::Load("..\\..\\Assets\\Models\\grass.obj");
+    pipeline = std::make_unique<PipelineSettings>(
+        gfx,
+        Vertex::CombineLayouts(VertexLayout<Vertex::Standard>::elements, VertexLayout<Vertex::Instance>::elements),
+        "GrassVS.cso",
+        "GrassPS.cso");
+    material = Material::Resolve(gfx, "M_grass", MaterialConstants{{0.15f, 0.63f, 0.23f}, 0.1, 0.75, {}});
+    mesh = Mesh::Resolve(gfx, data);
+    transform = std::make_unique<TransformCbuf>(gfx);
+
     noiseSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_WRAP, 1u);
 }
 
-void Grass::Draw(Graphics& gfx, DirectX::XMMATRIX position)
-{
-    Bind(gfx);
-    grass->Draw(gfx, position);
-}
-
-void Grass::Bind(Graphics& gfx)
+void Grass::Bind(Graphics& gfx) const
 {
     auto dataCopy = cbData;
     cbuf.Update(gfx, dataCopy);
@@ -149,6 +115,7 @@ void Grass::Bind(Graphics& gfx)
     cbuf.Bind(gfx);
     noiseTexture->BindVS(gfx);
     noiseSampler->BindVS(gfx);
+    instanceBuffer->Bind(gfx);
 }
 
 void Grass::SpawnControlWindow() noexcept
@@ -165,3 +132,10 @@ void Grass::SpawnControlWindow() noexcept
     }
     ImGui::End();
 }
+
+void Grass::DrawCall(Graphics& gfx) const
+{
+    Bind(gfx);
+    gfx.DrawIndexed(mesh->GetCount(), 2500000u);
+}
+

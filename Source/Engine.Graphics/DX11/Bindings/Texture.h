@@ -1,6 +1,5 @@
 #pragma once
-#include "Bindable.h"
-#include "../Surface.h"
+#include "../Bindable.h"
 
 class Texture : public Bindable
 {

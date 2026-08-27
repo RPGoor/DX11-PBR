@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Application">
+      <UniqueIdentifier>{39e68ca4-1985-40f9-bd61-9d0532a081c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\public">
+      <UniqueIdentifier>{cf089faf-5da8-4767-87d4-421b12804a2f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Application\private">
+      <UniqueIdentifier>{411c32f4-83da-41a3-b3cb-7ad203ee8ab8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene">
+      <UniqueIdentifier>{45eed0f9-eca3-473b-9560-b3c4b3238bc9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\public">
+      <UniqueIdentifier>{4ffa5ea5-248a-4416-b17e-4a0f4a7c8a85}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene\private">
+      <UniqueIdentifier>{d2520eec-3e30-401d-a570-1b474419c853}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\..\Assets\Icons\Asole.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Game.vcxproj" />
+    <None Include="Resources\Game.vcxproj.filters" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Resources\resource.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Game.h">
+      <Filter>Application\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Application\Controller.h">
+      <Filter>Application\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Grass.h">
+      <Filter>Scene\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Landscape.h">
+      <Filter>Scene\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Terrain.h">
+      <Filter>Scene\public</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\Scene.h">
+      <Filter>Scene\public</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Application\WinMain.cpp">
+      <Filter>Application</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Game.cpp">
+      <Filter>Application\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Application\Controller.cpp">
+      <Filter>Application\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Grass.cpp">
+      <Filter>Scene\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Landscape.cpp">
+      <Filter>Scene\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Terrain.cpp">
+      <Filter>Scene\private</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\Scene.cpp">
+      <Filter>Scene\private</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resources\Game.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+</Project>

@@ -21,53 +21,6 @@ bool Keyboard::KeyIsEmpty() const noexcept
     return keybuffer.empty();
 }
 
-std::optional<char> Keyboard::ReadChar() noexcept
-{
-    if (charbuffer.size() > 0u)
-    {
-        unsigned char charcode = charbuffer.front();
-        charbuffer.pop();
-        return charcode;
-    }
-    return {};
-}
-
-bool Keyboard::CharIsEmpty() const noexcept
-{
-    return charbuffer.empty();
-}
-
-void Keyboard::FlushKey() noexcept
-{
-    keybuffer = std::queue<Event>();
-}
-
-void Keyboard::FlushChar() noexcept
-{
-    charbuffer = std::queue<char>();
-}
-
-void Keyboard::Flush() noexcept
-{
-    FlushKey();
-    FlushChar();
-}
-
-void Keyboard::EnableAutorepeat() noexcept
-{
-    autorepeatEnabled = true;
-}
-
-void Keyboard::DisableAutorepeat() noexcept
-{
-    autorepeatEnabled = false;
-}
-
-bool Keyboard::AutorepeatIsEnabled() const noexcept
-{
-    return autorepeatEnabled;
-}
-
 void Keyboard::OnKeyPressed(unsigned char keycode) noexcept
 {
     keystates[keycode] = true;
@@ -80,12 +33,6 @@ void Keyboard::OnKeyReleased(unsigned char keycode) noexcept
     keystates[keycode] = false;
     keybuffer.push(Keyboard::Event(Keyboard::Event::Type::Release, keycode));
     TrimBuffer(keybuffer);
-}
-
-void Keyboard::OnChar(char character) noexcept
-{
-    charbuffer.push(character);
-    TrimBuffer(charbuffer);
 }
 
 void Keyboard::ClearState() noexcept

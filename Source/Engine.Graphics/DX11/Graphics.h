@@ -20,15 +20,12 @@ public:
     ~Graphics();
 
     void DrawIndexed(UINT count) conexcept;
-    void DrawIndexedInstanced(UINT count, UINT instanceCount) conexcept;
+    void DrawIndexed(UINT count, UINT instanceCount) conexcept;
 
     void SetProjection(DirectX::FXMMATRIX proj) noexcept;
     DirectX::XMMATRIX GetProjection() const noexcept;
     void EndFrame();
     void BeginFrame(float r, float g, float b) noexcept;
-
-    void SetCamera(DirectX::FXMMATRIX cam) noexcept;
-    DirectX::XMMATRIX GetCamera() const noexcept;
 
     void Resize(unsigned int width, unsigned int height) noexcept;
 
@@ -44,7 +41,6 @@ private:
 private:
     bool imGuiEnabled = true;
     DirectX::XMMATRIX projection;
-    DirectX::XMMATRIX camera;
 #ifndef NDEBUG
     DxgiInfoManager infoManager;
 #endif

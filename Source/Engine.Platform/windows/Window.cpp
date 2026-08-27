@@ -140,7 +140,7 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     {
         return true;
     }
-    const auto imio = ImGui::GetIO();
+    const ImGuiIO imGuiIO = ImGui::GetIO();
 
     switch (msg)
     {
@@ -190,34 +190,23 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         return 0;
         /*********** KEYBOARD MESSAGES ***********/
     case WM_KEYDOWN:
-        // syskey commands need to be handled to track ALT key (VK_MENU) and F10
     case WM_SYSKEYDOWN:
-        // stifle this keyboard message if imgui wants to capture
-        if (imio.WantCaptureKeyboard)
+        if (imGuiIO.WantCaptureKeyboard)
         {
             break;
         }
-        if (!(lParam & 0x40000000) || kbd.AutorepeatIsEnabled()) // filter autorepeat
+        if (!(lParam & 0x40000000) )
         {
             kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
         }
         break;
     case WM_KEYUP:
     case WM_SYSKEYUP:
-        // stifle this keyboard message if imgui wants to capture
-        if (imio.WantCaptureKeyboard)
+        if (imGuiIO.WantCaptureKeyboard)
         {
             break;
         }
         kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
-        break;
-    case WM_CHAR:
-        // stifle this keyboard message if imgui wants to capture
-        if (imio.WantCaptureKeyboard)
-        {
-            break;
-        }
-        kbd.OnChar(static_cast<unsigned char>(wParam));
         break;
         /*********** END KEYBOARD MESSAGES ***********/
 
@@ -225,7 +214,6 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     case WM_MOUSEMOVE:
     {
         const POINTS pt = MAKEPOINTS(lParam);
-        // cursorless exclusive gets first dibs
         if (!cursorEnabled)
         {
             if (!mouse.IsInWindow())
@@ -236,12 +224,10 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             }
             break;
         }
-        // stifle this mouse message if imgui wants to capture
-        if (imio.WantCaptureMouse)
+        if (imGuiIO.WantCaptureMouse)
         {
             break;
         }
-        // in client region -> log move, and log enter + capture mouse (if not previously in window)
         if (pt.x >= 0 && pt.x < width && pt.y >= 0 && pt.y < height)
         {
             mouse.OnMouseMove(pt.x, pt.y);
@@ -251,19 +237,10 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
                 mouse.OnMouseEnter();
             }
         }
-        // not in client -> log move / maintain capture if button down
         else
         {
-            if (wParam & (MK_LBUTTON | MK_RBUTTON))
-            {
-                mouse.OnMouseMove(pt.x, pt.y);
-            }
-            // button up -> release capture / log event for leaving
-            else
-            {
-                ReleaseCapture();
-                mouse.OnMouseLeave();
-            }
+            ReleaseCapture();
+            mouse.OnMouseLeave();
         }
         break;
     }
@@ -275,36 +252,29 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             ConfineCursor();
             HideCursor();
         }
-        // stifle this mouse message if imgui wants to capture
-        if (imio.WantCaptureMouse)
+        if (imGuiIO.WantCaptureMouse)
         {
             break;
         }
         const POINTS pt = MAKEPOINTS(lParam);
-        mouse.OnLeftPressed(pt.x, pt.y);
         break;
     }
     case WM_RBUTTONDOWN:
     {
-        // stifle this mouse message if imgui wants to capture
-        if (imio.WantCaptureMouse)
+        if (imGuiIO.WantCaptureMouse)
         {
             break;
         }
         const POINTS pt = MAKEPOINTS(lParam);
-        mouse.OnRightPressed(pt.x, pt.y);
         break;
     }
     case WM_LBUTTONUP:
     {
-        // stifle this mouse message if imgui wants to capture
-        if (imio.WantCaptureMouse)
+        if (imGuiIO.WantCaptureMouse)
         {
             break;
         }
         const POINTS pt = MAKEPOINTS(lParam);
-        mouse.OnLeftReleased(pt.x, pt.y);
-        // release mouse if outside of window
         if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
         {
             ReleaseCapture();
@@ -314,31 +284,16 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
     }
     case WM_RBUTTONUP:
     {
-        // stifle this mouse message if imgui wants to capture
-        if (imio.WantCaptureMouse)
+        if (imGuiIO.WantCaptureMouse)
         {
             break;
         }
         const POINTS pt = MAKEPOINTS(lParam);
-        mouse.OnRightReleased(pt.x, pt.y);
-        // release mouse if outside of window
         if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
         {
             ReleaseCapture();
             mouse.OnMouseLeave();
         }
-        break;
-    }
-    case WM_MOUSEWHEEL:
-    {
-        // stifle this mouse message if imgui wants to capture
-        if (imio.WantCaptureMouse)
-        {
-            break;
-        }
-        const POINTS pt = MAKEPOINTS(lParam);
-        const int delta = GET_WHEEL_DELTA_WPARAM(wParam);
-        mouse.OnWheelDelta(pt.x, pt.y, delta);
         break;
     }
     /************** END MOUSE MESSAGES **************/
@@ -350,8 +305,7 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
         {
             break;
         }
-        UINT size;
-        // first get the size of the input data
+        UINT size = 0;
         if (GetRawInputData(
             reinterpret_cast<HRAWINPUT>(lParam),
             RID_INPUT,
@@ -359,11 +313,9 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             &size,
             sizeof(RAWINPUTHEADER)) == -1)
         {
-            // bail msg processing if error
             break;
         }
         rawBuffer.resize(size);
-        // read in the input data
         if (GetRawInputData(
             reinterpret_cast<HRAWINPUT>(lParam),
             RID_INPUT,
@@ -371,10 +323,8 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
             &size,
             sizeof(RAWINPUTHEADER)) != size)
         {
-            // bail msg processing if error
             break;
         }
-        // process the raw input data
         auto& ri = reinterpret_cast<const RAWINPUT&>(*rawBuffer.data());
         if (ri.header.dwType == RIM_TYPEMOUSE &&
             (ri.data.mouse.lLastX != 0 || ri.data.mouse.lLastY != 0))

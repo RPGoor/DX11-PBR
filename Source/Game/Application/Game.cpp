@@ -1,0 +1,65 @@
+#include "Game.h"
+#include "imgui.h"
+#include "imgui_impl_win32.h"
+#include "imgui_impl_dx11.h"
+#include <random>
+
+Game::Game()
+    : wnd(1280, 720, L"Solorn Engine Window"), gfx(Graphics(wnd.GetHWND())), frameBuffer(gfx), scene(gfx)
+{
+    gfx.SetProjection(DirectX::XMMatrixPerspectiveFovLH(
+        DirectX::XMConvertToRadians(60.0f),
+        16.0f / 9.0f,
+        0.1f,
+        1000.0f
+    ));
+
+}
+
+Game::~Game()
+{}
+
+int Game::Go()
+{
+
+    while (true)
+    {
+        if (const auto ecode = Window::ProcessMessagePump())
+        {
+            return *ecode;
+        }
+        DoFrame();
+    }
+}
+
+void Game::DoFrame()
+{
+    const auto dt = timer.Mark();
+
+    if (const auto resize = wnd.events.GetEvent())
+    {
+        gfx.Resize(
+            resize->width,
+            resize->height
+        );
+
+    }
+    Camera& cam = scene.GetCamera();
+    controller.Update(wnd, cam, dt);
+
+    scene.Update(dt);
+
+    gfx.BeginFrame(0.2f, 0.4f, 0.9f);
+
+    frameBuffer.Update(
+        gfx,
+        cam.GetMatrix(),
+        gfx.GetProjection(),
+        cam.pos,
+        timer.Elapsed()
+    );
+
+    scene.Draw(gfx);
+
+    gfx.EndFrame();
+}
