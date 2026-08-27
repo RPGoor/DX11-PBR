@@ -1,5 +1,5 @@
 #include "VertexBuffer.h"
-#include "BindableCodex.h"
+#include "../BindableCodex.h"
 
 VertexBuffer::VertexBuffer(Graphics& gfx, const std::vector<Vertex::Standard>& vertices)
     :

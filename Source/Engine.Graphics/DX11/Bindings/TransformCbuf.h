@@ -1,5 +1,5 @@
 #pragma once
-#include "Bindable.h"
+#include "../Bindable.h"
 #include "ConstantBuffers.h"
 
 class TransformCbuf : public Bindable

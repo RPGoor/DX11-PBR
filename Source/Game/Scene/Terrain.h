@@ -5,9 +5,9 @@
 #include <Bindings/TerrainComputeShader.h>
 #include <Bindings/Sampler.h>
 #include "Grass.h"
-#include <Mesh.h>
-#include <PipelineSettings.h>
-#include <Material.h>
+#include <Bindings/Mesh.h>
+#include <Bindings/PipelineSettings.h>
+#include <Bindings/Material.h>
 
 class Terrain : public Drawable
 {

@@ -1,6 +1,6 @@
 #include "Texture.h"
 #include "../GraphicsExceptionsMacros.h"
-#include "BindableCodex.h"
+#include "../BindableCodex.h"
 
 #include <directxtk/WICTextureLoader.h>
 #include <filesystem>

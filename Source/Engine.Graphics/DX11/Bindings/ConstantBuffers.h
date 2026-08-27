@@ -1,7 +1,7 @@
 #pragma once
-#include "Bindable.h"
+#include "../Bindable.h"
 #include "../GraphicsExceptionsMacros.h"
-#include "BindableCodex.h"
+#include "../BindableCodex.h"
 
 template<typename C>
 class ConstantBuffer : public Bindable

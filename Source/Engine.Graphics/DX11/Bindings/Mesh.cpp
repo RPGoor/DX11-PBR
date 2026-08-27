@@ -1,5 +1,5 @@
 #include "Mesh.h"
-#include "../DX11/Bindings/BindableCodex.h"
+#include "../BindableCodex.h"
 
 Mesh::Mesh(Graphics& gfx, MeshData data)
     : tag(data.tag)

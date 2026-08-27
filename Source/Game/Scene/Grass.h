@@ -4,9 +4,9 @@
 #include <Bindings/Texture.h>
 #include <Bindings/Sampler.h>
 #include <Bindings/ConstantBuffers.h>
-#include <Mesh.h>
-#include <PipelineSettings.h>
-#include <Material.h>
+#include <Bindings/Mesh.h>
+#include <Bindings/PipelineSettings.h>
+#include <Bindings/Material.h>
 #include <Drawable.h>
 
 class Grass : public Drawable

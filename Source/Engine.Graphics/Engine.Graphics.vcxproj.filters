@@ -45,9 +45,6 @@
     <ClCompile Include="DX11\DX11Exceptions.cpp">
       <Filter>DX11\private</Filter>
     </ClCompile>
-    <ClCompile Include="DX11\Bindings\Bindable.cpp">
-      <Filter>DX11\Bindings\private</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Drawable.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
@@ -78,12 +75,6 @@
     <ClCompile Include="DX11\Bindings\VertexShader.cpp">
       <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
-    <ClCompile Include="DX11\Bindings\BindableCodex.cpp">
-      <Filter>DX11\Bindings\private</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Mesh.cpp">
-      <Filter>Core\private</Filter>
-    </ClCompile>
     <ClCompile Include="Core\ModelException.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
@@ -99,19 +90,28 @@
     <ClCompile Include="DX11\Bindings\InstanceBuffer.cpp">
       <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Material.cpp">
-      <Filter>Core\private</Filter>
-    </ClCompile>
     <ClCompile Include="Core\MeshFactory.cpp">
-      <Filter>Core\private</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\PipelineSettings.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
     <ClCompile Include="DX11\Bindings\ComputeTexture.cpp">
       <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
     <ClCompile Include="DX11\Bindings\TerrainComputeShader.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\Mesh.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\PipelineSettings.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindable.cpp">
+      <Filter>DX11\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\BindableCodex.cpp">
+      <Filter>DX11\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\Material.cpp">
       <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
   </ItemGroup>
@@ -124,9 +124,6 @@
     </ClInclude>
     <ClInclude Include="DX11\GraphicsExceptionsMacros.h">
       <Filter>DX11\public</Filter>
-    </ClInclude>
-    <ClInclude Include="DX11\Bindings\Bindable.h">
-      <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
     <ClInclude Include="Core\Drawable.h">
       <Filter>Core\public</Filter>
@@ -158,22 +155,13 @@
     <ClInclude Include="DX11\Bindings\VertexShader.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
-    <ClInclude Include="DX11\Bindings\BindableCodex.h">
-      <Filter>DX11\Bindings\public</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Vertex.h">
       <Filter>Core\public</Filter>
     </ClInclude>
     <ClInclude Include="DX11\Bindings\ConstantBuffers.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Mesh.h">
-      <Filter>Core\public</Filter>
-    </ClInclude>
     <ClInclude Include="Core\ModelException.h">
-      <Filter>Core\public</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Color.h">
       <Filter>Core\public</Filter>
     </ClInclude>
     <ClInclude Include="Core\Camera.h">
@@ -188,22 +176,31 @@
     <ClInclude Include="DX11\Bindings\InstanceBuffer.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Material.h">
-      <Filter>Core\public</Filter>
-    </ClInclude>
     <ClInclude Include="Core\MeshData.h">
       <Filter>Core\public</Filter>
     </ClInclude>
     <ClInclude Include="Core\MeshFactory.h">
       <Filter>Core\public</Filter>
     </ClInclude>
-    <ClInclude Include="Core\PipelineSettings.h">
-      <Filter>Core\public</Filter>
-    </ClInclude>
     <ClInclude Include="DX11\Bindings\ComputeTexture.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
     <ClInclude Include="DX11\Bindings\TerrainComputeShader.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\Mesh.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\PipelineSettings.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindable.h">
+      <Filter>DX11\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\BindableCodex.h">
+      <Filter>DX11\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\Material.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
   </ItemGroup>

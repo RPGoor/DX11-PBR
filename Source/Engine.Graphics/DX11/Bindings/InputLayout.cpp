@@ -1,6 +1,6 @@
 #include "InputLayout.h"
 #include "../GraphicsExceptionsMacros.h"
-#include "BindableCodex.h"
+#include "../BindableCodex.h"
 
 InputLayout::InputLayout(Graphics& gfx, std::span<const D3D11_INPUT_ELEMENT_DESC> layout, ID3DBlob* pVertexShaderBytecode)
     : layout(std::move(layout))

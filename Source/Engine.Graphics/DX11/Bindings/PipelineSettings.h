@@ -1,7 +1,7 @@
 #pragma once
-#include "../DX11/Graphics.h"
-#include "Vertex.h"
-#include "../DX11/Bindings/Bindable.h"
+#include "../Graphics.h"
+#include "../../Core/Vertex.h"
+#include "../Bindable.h"
 #include <span>
 
 class PipelineSettings : Bindable

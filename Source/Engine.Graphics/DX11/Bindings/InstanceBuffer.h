@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Bindable.h"
+#include "../Bindable.h"
 #include "../../Core/Vertex.h"
 
 class InstanceBuffer : public Bindable

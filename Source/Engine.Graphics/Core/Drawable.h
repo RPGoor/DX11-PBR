@@ -1,13 +1,13 @@
 #pragma once
 #include "../DX11/Graphics.h"
-#include "../DX11/Bindings/Bindable.h"
+#include "../DX11/Bindable.h"
 #include <memory>
 #include <vector>
 #include "../DX11/Bindings/IndexBuffer.h"
 #include "../DX11/Bindings/TransformCbuf.h"
-#include "Mesh.h"
-#include "PipelineSettings.h"
-#include "Material.h"
+#include "../DX11/Bindings/Mesh.h"
+#include "../DX11/Bindings/PipelineSettings.h"
+#include "../DX11/Bindings/Material.h"
 
 class Drawable
 {

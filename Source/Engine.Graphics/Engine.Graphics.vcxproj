@@ -88,19 +88,19 @@
   <ItemGroup>
     <ClCompile Include="Core\Camera.cpp" />
     <ClCompile Include="Core\Drawable.cpp" />
-    <ClCompile Include="Core\Material.cpp" />
-    <ClCompile Include="Core\Mesh.cpp" />
     <ClCompile Include="Core\MeshFactory.cpp" />
     <ClCompile Include="Core\ModelException.cpp" />
-    <ClCompile Include="Core\PipelineSettings.cpp" />
     <ClCompile Include="Core\PointLight.cpp" />
-    <ClCompile Include="DX11\Bindings\Bindable.cpp" />
-    <ClCompile Include="DX11\Bindings\BindableCodex.cpp" />
+    <ClCompile Include="DX11\Bindable.cpp" />
+    <ClCompile Include="DX11\BindableCodex.cpp" />
     <ClCompile Include="DX11\Bindings\ComputeTexture.cpp" />
     <ClCompile Include="DX11\Bindings\FrameCBuf.cpp" />
     <ClCompile Include="DX11\Bindings\IndexBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\InputLayout.cpp" />
     <ClCompile Include="DX11\Bindings\InstanceBuffer.cpp" />
+    <ClCompile Include="DX11\Bindings\Material.cpp" />
+    <ClCompile Include="DX11\Bindings\Mesh.cpp" />
+    <ClCompile Include="DX11\Bindings\PipelineSettings.cpp" />
     <ClCompile Include="DX11\Bindings\PixelShader.cpp" />
     <ClCompile Include="DX11\Bindings\Sampler.cpp" />
     <ClCompile Include="DX11\Bindings\TerrainComputeShader.cpp" />
@@ -114,24 +114,23 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Camera.h" />
-    <ClInclude Include="Core\Color.h" />
     <ClInclude Include="Core\Drawable.h" />
-    <ClInclude Include="Core\Material.h" />
-    <ClInclude Include="Core\Mesh.h" />
     <ClInclude Include="Core\MeshData.h" />
     <ClInclude Include="Core\MeshFactory.h" />
     <ClInclude Include="Core\ModelException.h" />
-    <ClInclude Include="Core\PipelineSettings.h" />
     <ClInclude Include="Core\PointLight.h" />
     <ClInclude Include="Core\Vertex.h" />
-    <ClInclude Include="DX11\Bindings\Bindable.h" />
-    <ClInclude Include="DX11\Bindings\BindableCodex.h" />
+    <ClInclude Include="DX11\Bindable.h" />
+    <ClInclude Include="DX11\BindableCodex.h" />
     <ClInclude Include="DX11\Bindings\ComputeTexture.h" />
     <ClInclude Include="DX11\Bindings\ConstantBuffers.h" />
     <ClInclude Include="DX11\Bindings\FrameCBuf.h" />
     <ClInclude Include="DX11\Bindings\IndexBuffer.h" />
     <ClInclude Include="DX11\Bindings\InputLayout.h" />
     <ClInclude Include="DX11\Bindings\InstanceBuffer.h" />
+    <ClInclude Include="DX11\Bindings\Material.h" />
+    <ClInclude Include="DX11\Bindings\Mesh.h" />
+    <ClInclude Include="DX11\Bindings\PipelineSettings.h" />
     <ClInclude Include="DX11\Bindings\PixelShader.h" />
     <ClInclude Include="DX11\Bindings\Sampler.h" />
     <ClInclude Include="DX11\Bindings\TerrainComputeShader.h" />

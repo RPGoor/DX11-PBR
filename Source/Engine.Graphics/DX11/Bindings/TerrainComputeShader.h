@@ -1,5 +1,5 @@
 #pragma once
-#include "Bindable.h"
+#include "../Bindable.h"
 #include "ConstantBuffers.h"
 #include <functional>
 #include "Sampler.h"

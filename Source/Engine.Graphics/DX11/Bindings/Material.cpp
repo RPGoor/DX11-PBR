@@ -1,5 +1,4 @@
 #include "Material.h"
-#include "../DX11/Bindings/ConstantBuffers.h"
 
 Material::Material(
     Graphics& gfx,

@@ -1,6 +1,6 @@
 #pragma once
-#include "../DX11/Bindings/Bindable.h"
-#include "../DX11/Bindings/ConstantBuffers.h"
+#include "../Bindable.h"
+#include "ConstantBuffers.h"
 #include <DirectXMath.h>
 
 struct alignas(16) MaterialConstants

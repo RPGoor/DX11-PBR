@@ -1,11 +1,11 @@
 #pragma once
 
 #include <ConditionalNoexcept.h>
-#include "../DX11/Bindings/Bindable.h"
-#include "../DX11/Bindings/Topology.h"
-#include "../DX11/Bindings/VertexBuffer.h"
-#include "../DX11/Bindings/IndexBuffer.h"
-#include "MeshData.h"
+#include "../Bindable.h"
+#include "Topology.h"
+#include "VertexBuffer.h"
+#include "IndexBuffer.h"
+#include "../../Core/MeshData.h"
 
 class Mesh : public Bindable
 {
