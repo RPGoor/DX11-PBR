@@ -2,7 +2,7 @@
 #include "../DX11/Bindings/BindableCodex.h"
 
 Mesh::Mesh(Graphics& gfx, MeshData data)
-    : tag(data.tag), layout(data.vertices.GetLayout())
+    : tag(data.tag)
 {
     topology = Topology::Resolve(gfx, D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST);
     vertexBuffer = std::make_unique<VertexBuffer>(gfx, data.tag, data.vertices);
@@ -30,11 +30,6 @@ std::string Mesh::GenerateUID_(const std::string& tag)
 std::string Mesh::GetUID() const noexcept
 {
     return GenerateUID_(tag);
-}
-
-const Dvtx::VertexLayout& Mesh::GetLayout() const noexcept
-{
-    return layout;
 }
 
 const UINT& Mesh::GetCount() const noexcept

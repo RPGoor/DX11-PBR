@@ -94,8 +94,6 @@
     <ClCompile Include="Core\ModelException.cpp" />
     <ClCompile Include="Core\PipelineSettings.cpp" />
     <ClCompile Include="Core\PointLight.cpp" />
-    <ClCompile Include="Core\RenderableObject.cpp" />
-    <ClCompile Include="Core\Vertex.cpp" />
     <ClCompile Include="DX11\Bindings\Bindable.cpp" />
     <ClCompile Include="DX11\Bindings\BindableCodex.cpp" />
     <ClCompile Include="DX11\Bindings\ComputeTexture.cpp" />
@@ -118,7 +116,6 @@
     <ClInclude Include="Core\Camera.h" />
     <ClInclude Include="Core\Color.h" />
     <ClInclude Include="Core\Drawable.h" />
-    <ClInclude Include="Core\InstanceData.h" />
     <ClInclude Include="Core\Material.h" />
     <ClInclude Include="Core\Mesh.h" />
     <ClInclude Include="Core\MeshData.h" />
@@ -126,7 +123,6 @@
     <ClInclude Include="Core\ModelException.h" />
     <ClInclude Include="Core\PipelineSettings.h" />
     <ClInclude Include="Core\PointLight.h" />
-    <ClInclude Include="Core\RenderableObject.h" />
     <ClInclude Include="Core\Vertex.h" />
     <ClInclude Include="DX11\Bindings\Bindable.h" />
     <ClInclude Include="DX11\Bindings\BindableCodex.h" />

@@ -1,13 +1,13 @@
 #include "VertexBuffer.h"
 #include "BindableCodex.h"
 
-VertexBuffer::VertexBuffer(Graphics& gfx, const Dvtx::VertexBuffer& vbuf)
+VertexBuffer::VertexBuffer(Graphics& gfx, const std::vector<Vertex::Standard>& vertices)
     :
-    VertexBuffer(gfx, "?", vbuf)
+    VertexBuffer(gfx, "?", vertices)
 {}
-VertexBuffer::VertexBuffer(Graphics& gfx, const std::string& tag, const Dvtx::VertexBuffer& vbuf)
+VertexBuffer::VertexBuffer(Graphics& gfx, const std::string& tag, const std::vector<Vertex::Standard>& vertices)
     :
-    stride((UINT)vbuf.GetLayout().Size()),
+    stride((UINT)sizeof(Vertex::Standard)),
     tag(tag)
 {
     INFOMAN(gfx);
@@ -17,10 +17,10 @@ VertexBuffer::VertexBuffer(Graphics& gfx, const std::string& tag, const Dvtx::Ve
     bd.Usage = D3D11_USAGE_DEFAULT;
     bd.CPUAccessFlags = 0u;
     bd.MiscFlags = 0u;
-    bd.ByteWidth = UINT(vbuf.SizeBytes());
-    bd.StructureByteStride = stride;
+    bd.ByteWidth = UINT(sizeof(Vertex::Standard) * vertices.size());
+    bd.StructureByteStride = 0u;
     D3D11_SUBRESOURCE_DATA sd = {};
-    sd.pSysMem = vbuf.GetData();
+    sd.pSysMem = vertices.data();
     GFX_THROW_INFO(GetDevice(gfx)->CreateBuffer(&bd, &sd, &pVertexBuffer));
 }
 
@@ -29,10 +29,10 @@ void VertexBuffer::Bind(Graphics& gfx) noexcept
     const UINT offset = 0u;
     GetContext(gfx)->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
 }
-std::shared_ptr<VertexBuffer> VertexBuffer::Resolve(Graphics& gfx, const std::string& tag, const Dvtx::VertexBuffer& vbuf)
+std::shared_ptr<VertexBuffer> VertexBuffer::Resolve(Graphics& gfx, const std::string& tag, const std::vector<Vertex::Standard>& vertices)
 {
     assert(tag != "?");
-    return Codex::Resolve<VertexBuffer>(gfx, tag, vbuf);
+    return Codex::Resolve<VertexBuffer>(gfx, tag, vertices);
 }
 std::string VertexBuffer::GenerateUID_(const std::string& tag)
 {

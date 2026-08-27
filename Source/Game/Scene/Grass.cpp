@@ -46,7 +46,7 @@ Grass::Grass(Graphics& gfx)
         0.15f
     );
 
-    std::vector<InstanceData> instances;
+    std::vector<Vertex::Instance> instances;
 
     for (int i = 0; i < 2500000; ++i)
     {
@@ -75,47 +75,13 @@ Grass::Grass(Graphics& gfx)
             );
 
         DirectX::XMFLOAT4X4 storedMatrix;
-        DirectX::XMStoreFloat4x4(
-            &storedMatrix,
-            matrix
-        );
+        DirectX::XMStoreFloat4x4(&storedMatrix,matrix);
 
-        InstanceData instance{};
-
-        instance.row0 = DirectX::XMFLOAT4(
-            storedMatrix._11,
-            storedMatrix._12,
-            storedMatrix._13,
-            storedMatrix._14
-        );
-
-        instance.row1 = DirectX::XMFLOAT4(
-            storedMatrix._21,
-            storedMatrix._22,
-            storedMatrix._23,
-            storedMatrix._24
-        );
-
-        instance.row2 = DirectX::XMFLOAT4(
-            storedMatrix._31,
-            storedMatrix._32,
-            storedMatrix._33,
-            storedMatrix._34
-        );
-
-        instance.row3 = DirectX::XMFLOAT4(
-            storedMatrix._41,
-            storedMatrix._42,
-            storedMatrix._43,
-            storedMatrix._44
-        );
-
-        instance.row4 = DirectX::XMFLOAT4(
-            colorDistR(rng),
-            colorDistG(rng),
-            colorDistB(rng),
-            1.0f
-        );
+        Vertex::Instance instance
+        {
+            storedMatrix,
+            DirectX::XMFLOAT4(colorDistR(rng), colorDistG(rng), colorDistB(rng), 1.0f)
+        };
 
         instances.push_back(instance);
     }
@@ -129,7 +95,11 @@ Grass::Grass(Graphics& gfx)
     );
 
     MeshData data = MeshFactory::Load("..\\..\\Assets\\Models\\grass.obj");
-    pipeline = std::make_unique<PipelineSettings>(gfx, data.vertices.GetLayout(), InstanceData::GetLayout(), "GrassVS.cso", "GrassPS.cso");
+    pipeline = std::make_unique<PipelineSettings>(
+        gfx,
+        Vertex::CombineLayouts(VertexLayout<Vertex::Standard>::elements, VertexLayout<Vertex::Instance>::elements),
+        "GrassVS.cso",
+        "GrassPS.cso");
     material = Material::Resolve(gfx, "M_grass", MaterialConstants{{0.15f, 0.63f, 0.23f}, 0.1, 0.75, {}});
     mesh = Mesh::Resolve(gfx, data);
     transform = std::make_unique<TransformCbuf>(gfx);

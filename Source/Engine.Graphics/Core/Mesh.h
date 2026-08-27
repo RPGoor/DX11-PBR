@@ -24,7 +24,6 @@ public:
     
     std::string GetUID() const noexcept override;
 
-    const Dvtx::VertexLayout& GetLayout() const noexcept;
     const UINT& GetCount() const noexcept;
 
 private:
@@ -36,5 +35,4 @@ private:
     std::unique_ptr<VertexBuffer> vertexBuffer;
     std::unique_ptr<IndexBuffer> indexBuffer;
     std::shared_ptr<Topology> topology;
-    Dvtx::VertexLayout layout;
 };

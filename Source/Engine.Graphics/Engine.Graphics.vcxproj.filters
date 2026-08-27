@@ -87,9 +87,6 @@
     <ClCompile Include="Core\ModelException.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Vertex.cpp">
-      <Filter>Core\private</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Camera.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
@@ -109,9 +106,6 @@
       <Filter>Core\private</Filter>
     </ClCompile>
     <ClCompile Include="Core\PipelineSettings.cpp">
-      <Filter>Core\private</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\RenderableObject.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
     <ClCompile Include="DX11\Bindings\ComputeTexture.cpp">
@@ -191,9 +185,6 @@
     <ClInclude Include="DX11\Bindings\FrameCBuf.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
-    <ClInclude Include="Core\InstanceData.h">
-      <Filter>Core\public</Filter>
-    </ClInclude>
     <ClInclude Include="DX11\Bindings\InstanceBuffer.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
@@ -207,9 +198,6 @@
       <Filter>Core\public</Filter>
     </ClInclude>
     <ClInclude Include="Core\PipelineSettings.h">
-      <Filter>Core\public</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\RenderableObject.h">
       <Filter>Core\public</Filter>
     </ClInclude>
     <ClInclude Include="DX11\Bindings\ComputeTexture.h">

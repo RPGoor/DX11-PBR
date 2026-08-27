@@ -7,8 +7,6 @@
 
 MeshData MeshFactory::Load(const std::string& path)
 {
-    using Dvtx::VertexLayout;
-
     Assimp::Importer importer;
 
     const aiScene* scene = importer.ReadFile(
@@ -25,20 +23,16 @@ MeshData MeshFactory::Load(const std::string& path)
 
     const aiMesh& mesh = *scene->mMeshes[0];
 
-    Dvtx::VertexBuffer vbuf(
-        VertexLayout{}
-        .Append(VertexLayout::Position3D)
-        .Append(VertexLayout::Normal)
-        .Append(VertexLayout::Texture2D)
-    );
+    std::vector<Vertex::Standard> vertices;
 
     for (unsigned int i = 0; i < mesh.mNumVertices; i++)
     {
-        vbuf.EmplaceBack(
+        vertices.push_back(Vertex::Standard
+        {
             *reinterpret_cast<DirectX::XMFLOAT3*>(&mesh.mVertices[i]),
-            *reinterpret_cast<DirectX::XMFLOAT3*>(&mesh.mNormals[i]),
-            *reinterpret_cast<DirectX::XMFLOAT2*>(&mesh.mTextureCoords[0][i])
-        );
+            * reinterpret_cast<DirectX::XMFLOAT3*>(&mesh.mNormals[i]),
+            * reinterpret_cast<DirectX::XMFLOAT2*>(&mesh.mTextureCoords[0][i])
+        });
     }
 
     std::vector<unsigned int> indices;
@@ -56,7 +50,7 @@ MeshData MeshFactory::Load(const std::string& path)
     }
     return MeshData{
         std::string("load#") + mesh.mName.C_Str(),
-        std::move(vbuf),
+        std::move(vertices),
         std::move(indices)
     };
 }
