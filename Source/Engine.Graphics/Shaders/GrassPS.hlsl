@@ -14,7 +14,7 @@ float4 main(
     }
 
     SurfaceData surface;
-    surface.baseColor = baseColor;
+    surface.baseColor = input.color;
     surface.normalWS = normalWS;
     surface.metallic = 0.0f;
     surface.roughness = roughness;
@@ -34,7 +34,7 @@ float4 main(
 
     color += ambient;
 
-    color = saturate(color * (input.uv.y) * input.colorRand.rgb);
+    color = saturate(color);
 
     return float4(color, 1.0f);
 }

@@ -48,7 +48,7 @@ Grass::Grass(Graphics& gfx)
 
     std::vector<Vertex::Instance> instances;
 
-    for (int i = 0; i < 2500000; ++i)
+    for (int i = 0; i < 2500; ++i)
     {
         const float x = positionDist(rng);
         const float z = positionDist(rng);
@@ -94,7 +94,7 @@ Grass::Grass(Graphics& gfx)
         1u
     );
 
-    MeshData data = MeshFactory::Load("..\\..\\Assets\\Models\\grass.obj");
+    MeshData data = MeshFactory::Load("..\\..\\Assets\\Models\\pampas.fbx");
     pipeline = std::make_unique<PipelineSettings>(
         gfx,
         Vertex::CombineLayouts(VertexLayout<Vertex::Standard>::elements, VertexLayout<Vertex::Instance>::elements),
@@ -136,6 +136,6 @@ void Grass::SpawnControlWindow() noexcept
 void Grass::DrawCall(Graphics& gfx) const
 {
     Bind(gfx);
-    gfx.DrawIndexed(mesh->GetCount(), 2500000u);
+    gfx.DrawIndexed(mesh->GetCount(), 2500u);
 }
 

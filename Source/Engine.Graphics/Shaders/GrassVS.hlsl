@@ -5,6 +5,7 @@ struct VSInput
     float3 position : POSITION;
     float3 normal : NORMAL;
     float2 texcoord : TEXCOORD;
+    float4 color : COLOR;
 
     row_major matrix instanceTransform : INSTANCE_TRANSFORM;
     float4 instanceColorOffset : INSTANCE_COLOR_OFFSET;
@@ -67,6 +68,7 @@ VertexToPixel main(VSInput input)
         viewProjection
     );
 
+    input.normal.y = 1.0f;
     output.normalWS = normalize(
         mul(
             float4(input.normal, 0.0f),
@@ -75,6 +77,6 @@ VertexToPixel main(VSInput input)
     );
 
     output.uv = input.texcoord;
-    output.colorRand = input.instanceColorOffset;
+    output.color = input.color;
     return output;
 }

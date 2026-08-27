@@ -25,13 +25,22 @@ MeshData MeshFactory::Load(const std::string& path)
 
     std::vector<Vertex::Standard> vertices;
 
+    const bool hasColors = mesh.HasVertexColors(0);
+
     for (unsigned int i = 0; i < mesh.mNumVertices; i++)
     {
+        DirectX::XMFLOAT4 color = { 0.0f, 0.0f, 0.0f, 0.0f };
+        if (hasColors)
+        {
+            color = *reinterpret_cast<DirectX::XMFLOAT4*>(&mesh.mColors[0][i]);
+        }
+
         vertices.push_back(Vertex::Standard
         {
             *reinterpret_cast<DirectX::XMFLOAT3*>(&mesh.mVertices[i]),
-            * reinterpret_cast<DirectX::XMFLOAT3*>(&mesh.mNormals[i]),
-            * reinterpret_cast<DirectX::XMFLOAT2*>(&mesh.mTextureCoords[0][i])
+            *reinterpret_cast<DirectX::XMFLOAT3*>(&mesh.mNormals[i]),
+            *reinterpret_cast<DirectX::XMFLOAT2*>(&mesh.mTextureCoords[0][i]),
+            color
         });
     }
 

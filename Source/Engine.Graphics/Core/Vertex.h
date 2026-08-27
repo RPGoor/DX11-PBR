@@ -12,6 +12,7 @@ namespace Vertex
         DirectX::XMFLOAT3 position;
         DirectX::XMFLOAT3 normal;
         DirectX::XMFLOAT2 texcoord;
+        DirectX::XMFLOAT4 color;
     };
 
     struct Instance
@@ -65,6 +66,15 @@ struct VertexLayout<Vertex::Standard>
             DXGI_FORMAT_R32G32_FLOAT,
             0u,
             static_cast<UINT>(offsetof(Vertex::Standard, texcoord)),
+            D3D11_INPUT_PER_VERTEX_DATA,
+            0u
+        },
+        {
+            "COLOR",
+            0u,
+            DXGI_FORMAT_R32G32B32A32_FLOAT,
+            0u,
+            static_cast<UINT>(offsetof(Vertex::Standard, color)),
             D3D11_INPUT_PER_VERTEX_DATA,
             0u
         }
