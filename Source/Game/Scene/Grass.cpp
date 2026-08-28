@@ -6,88 +6,6 @@
 Grass::Grass(Graphics& gfx)
     : cbuf(gfx, 2u), cbData(0.15f, 0.1f, 1.5f, 5.0f, {1.0f, 1.0f}, 8.0f, 0.0f)
 {
-    std::random_device rd;
-    std::mt19937 rng(rd());
-
-    std::uniform_real_distribution<float> positionDist(
-        -10.0f,
-        10.0f
-    );
-
-    std::uniform_real_distribution<float> rotationDist(
-        0.0f,
-        DirectX::XM_2PI
-    );
-
-    std::uniform_real_distribution<float> scaleDist(
-        0.6f,
-        1.4f
-    );
-    std::uniform_real_distribution<float> heightDist(
-        0.6f,
-        1.5f
-    );
-
-    std::uniform_real_distribution<float> colorDistR(
-        0.75f,
-        1.4f
-    );
-    std::uniform_real_distribution<float> colorDistG(
-        0.8f,
-        1.2f
-    );
-    std::uniform_real_distribution<float> colorDistB(
-        0.85f,
-        1.4f
-    );
-
-    std::uniform_real_distribution<float> LeanDist(
-        -0.15f,
-        0.15f
-    );
-
-    std::vector<Vertex::Instance> instances;
-
-    for (int i = 0; i < 2500000; ++i)
-    {
-        const float x = positionDist(rng);
-        const float z = positionDist(rng);
-        const float rotation = rotationDist(rng);
-        const float scale = scaleDist(rng);
-
-        const DirectX::XMMATRIX matrix =
-            DirectX::XMMatrixScaling(
-                scale,
-                heightDist(rng),
-                scale
-            )
-            *
-            DirectX::XMMatrixRotationY(rotation)
-            *
-            DirectX::XMMatrixRotationX(LeanDist(rng))
-            *
-            DirectX::XMMatrixRotationZ(LeanDist(rng))
-            *
-            DirectX::XMMatrixTranslation(
-                x,
-                0.0f,
-                z
-            );
-
-        DirectX::XMFLOAT4X4 storedMatrix;
-        DirectX::XMStoreFloat4x4(&storedMatrix,matrix);
-
-        Vertex::Instance instance
-        {
-            storedMatrix,
-            DirectX::XMFLOAT4(colorDistR(rng), colorDistG(rng), colorDistB(rng), 1.0f)
-        };
-
-        instances.push_back(instance);
-    }
-
-    instanceBuffer = std::make_unique<InstanceBuffer>(gfx, instances);
-
     noiseTexture = std::make_unique<Texture>(
         gfx,
         "..\\..\\Assets\\Textures\\noise2.png",
@@ -115,7 +33,6 @@ void Grass::Bind(Graphics& gfx) const
     cbuf.Bind(gfx);
     noiseTexture->BindVS(gfx);
     noiseSampler->BindVS(gfx);
-    instanceBuffer->Bind(gfx);
 }
 
 void Grass::SpawnControlWindow() noexcept
@@ -133,9 +50,11 @@ void Grass::SpawnControlWindow() noexcept
     ImGui::End();
 }
 
-void Grass::DrawCall(Graphics& gfx) const
+void Grass::DrawChunk(Graphics& gfx, const Chunk& chunk) const
 {
+    chunk.instanceBuffer->Bind(gfx);
     Bind(gfx);
-    gfx.DrawIndexed(mesh->GetCount(), 2500000u);
+    transform->SetTransform(DirectX::XMMatrixTranslation(chunk.position.x, 0.0f, chunk.position.y));
+    Drawable::Draw(gfx, chunk.grassInstanceCount);
 }
 

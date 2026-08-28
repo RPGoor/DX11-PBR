@@ -8,6 +8,13 @@ Landscape::Landscape(Graphics& gfx)
     {
         GenerateTerrain(gfx);
     };
+    for (int i = 0; i < 12; i++)
+    {
+        for (int j = 0; j < 12; j++)
+        {
+            chunks.emplace_back(Chunk(gfx, { (float)i, (float)j }, *terrainShader));
+        }
+    }
 }
 
 void Landscape::SpawnControlWindows() noexcept
@@ -20,11 +27,18 @@ void Landscape::SpawnControlWindows() noexcept
 void Landscape::Draw(Graphics& gfx) const
 {
     terrainShader->BindVS(gfx);
-    terrain.Draw(gfx);
-    grass.Draw(gfx);
+    for (const Chunk& chunk : chunks)
+    {
+        chunk.Bind(gfx);
+        terrain.DrawChunk(gfx, chunk);
+        grass.DrawChunk(gfx, chunk);
+    }
 }
 
 void Landscape::GenerateTerrain(Graphics& gfx)
 {
-    terrainShader->Generate(gfx);
+    for (const Chunk& chunk : chunks)
+    {
+        terrainShader->Generate(gfx, *chunk.heightmap, *chunk.normalmap, chunk.position);
+    }
 }

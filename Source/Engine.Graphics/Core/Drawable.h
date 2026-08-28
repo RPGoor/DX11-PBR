@@ -17,11 +17,14 @@ public:
 
 public:
     void Draw(Graphics& gfx) const;
+    void Draw(Graphics& gfx, UINT instanceCount) const;
+    void Bind(Graphics& gfx) const;
 
 protected:
     Drawable();
 
     virtual void DrawCall(Graphics& gfx) const;
+    virtual void DrawCall(Graphics& gfx, UINT instanceCount) const;
 
     std::shared_ptr<Mesh> mesh;
     std::shared_ptr<Material> material;

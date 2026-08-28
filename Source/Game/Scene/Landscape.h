@@ -2,6 +2,8 @@
 #include <Graphics.h>
 #include "Grass.h"
 #include "Terrain.h"
+#include <Bindings/TerrainComputeShader.h>
+#include "Chunk.h"
 
 class Landscape
 {
@@ -13,10 +15,11 @@ public:
     void GenerateTerrain(Graphics& gfx);
 
 private:
+
     std::unique_ptr<TerrainComputeShader> terrainShader;
 
     Grass grass;
     Terrain terrain;
 
-
+    std::vector<Chunk> chunks;
 };

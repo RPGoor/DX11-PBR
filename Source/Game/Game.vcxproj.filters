@@ -55,6 +55,9 @@
     <ClInclude Include="Scene\Scene.h">
       <Filter>Scene\public</Filter>
     </ClInclude>
+    <ClInclude Include="Scene\Chunk.h">
+      <Filter>Scene\public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Application\WinMain.cpp">
@@ -78,6 +81,7 @@
     <ClCompile Include="Scene\Scene.cpp">
       <Filter>Scene\private</Filter>
     </ClCompile>
+    <ClCompile Include="Scene\Chunk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\Game.rc">

@@ -17,6 +17,7 @@ cbuffer TerrainGenerationCBuf : register(b0)
     float frequencyFactor;
     float amplitudeFactor;
     uint iterations;
+    float2 chunkPosition;
 };
 
 uint Convert2D(uint2 input)
@@ -80,7 +81,8 @@ void main(uint3 dispatchThreadID : SV_DispatchThreadID)
     }
 
     float2 uv = float2(dispatchThreadID.xy) / float(textureDimensions - 1u);
-
+    float2 chunkOffset = chunkPosition / 20.0f;
+    
     float height = 0.0f;
     float2 gradient = float2(0.0f, 0.0f);
     float freq = frequency;
@@ -88,7 +90,7 @@ void main(uint3 dispatchThreadID : SV_DispatchThreadID)
     float amplitudeSum = 0.0f;
     for (int i = 0; i < iterations; i++)
     {
-        float2 noisePos = uv * freq ;
+        float2 noisePos = (uv + chunkOffset) * freq;
         ValueNoiseResult noise = ValueNoise(noisePos);
         noise.value = noise.value * 2.0f - 1.0f;
         
