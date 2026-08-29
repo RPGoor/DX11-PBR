@@ -21,13 +21,13 @@ public:
 private:
     struct alignas(16) GrassConstants
     {
-        float horizontalBendStrength;
-        float verticalBendStrength;
+        float bendStrength;
         float bendMaskPow;
         float speed;
+        float padding0;
         float direction[2];
         float uvScale;
-        float padding;
+        float padding1;
     };
 
     GrassConstants cbData;

@@ -4,7 +4,7 @@
 #include <MeshFactory.h>
 
 Grass::Grass(Graphics& gfx)
-    : cbuf(gfx, 2u), cbData(0.15f, 0.1f, 1.5f, 5.0f, {1.0f, 1.0f}, 8.0f, 0.0f)
+    : cbuf(gfx, 2u), cbData(1.0f, 1.5f, 5.0f, 0.0f, { 1.0f, 1.0f }, 8.0f, 0.0f)
 {
     noiseTexture = std::make_unique<Texture>(
         gfx,
@@ -18,7 +18,7 @@ Grass::Grass(Graphics& gfx)
         Vertex::CombineLayouts(VertexLayout<Vertex::Standard>::elements, VertexLayout<Vertex::Instance>::elements),
         "GrassVS.cso",
         "GrassPS.cso");
-    material = Material::Resolve(gfx, "M_grass", MaterialConstants{{0.15f, 0.63f, 0.23f}, 0.1, 0.75, {}});
+    material = Material::Resolve(gfx, "M_grass", MaterialConstants{{0.15f, 0.63f, 0.23f}, 0.0, 0.32, {}});
     mesh = Mesh::Resolve(gfx, data);
     transform = std::make_unique<TransformCbuf>(gfx);
 
@@ -39,13 +39,11 @@ void Grass::SpawnControlWindow() noexcept
 {
     if (ImGui::Begin("Grass"))
     {
-        ImGui::SliderFloat("Horizontal Strength", &cbData.horizontalBendStrength, 0.01f, 1.0f, "%.02f");
-        ImGui::SliderFloat("Vertical Strength", &cbData.verticalBendStrength, 0.01, 1.0f, "%.02f");
+        ImGui::SliderFloat("Bend Strength", &cbData.bendStrength, 0.0, 2.0f, "%.02f");
         ImGui::SliderFloat("Mask Power", &cbData.bendMaskPow, 1.0, 4.0f, "%.02f");
         ImGui::SliderFloat("Speed", &cbData.speed, 0.01, 25.0f, "%.02f");
         ImGui::SliderFloat2("Direction", cbData.direction, -1.0f, 1.0f, "%.02f");
         ImGui::SliderFloat("UV Scale", &cbData.uvScale, 1.0, 25.0f, "%.02f");
-
     }
     ImGui::End();
 }

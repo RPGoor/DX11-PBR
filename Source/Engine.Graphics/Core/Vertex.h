@@ -16,8 +16,9 @@ namespace Vertex
 
     struct Instance
     {
-        DirectX::XMFLOAT4X4  instanceTransform;
-        DirectX::XMFLOAT4 instanceColorOffset;
+        DirectX::XMFLOAT2 position;
+        float rotation;
+        float scale;
     };
 
     inline std::vector<D3D11_INPUT_ELEMENT_DESC> CombineLayouts(std::vector<D3D11_INPUT_ELEMENT_DESC> a, std::vector<D3D11_INPUT_ELEMENT_DESC> b)
@@ -77,50 +78,30 @@ struct VertexLayout<Vertex::Instance>
     inline static const std::vector<D3D11_INPUT_ELEMENT_DESC> elements =
     {{
         {
-            "INSTANCE_TRANSFORM",
+            "INSTANCE_POSITION",
             0u,
-            DXGI_FORMAT_R32G32B32A32_FLOAT,
+            DXGI_FORMAT_R32G32_FLOAT,
             1u,
-            static_cast<UINT>(offsetof(Vertex::Instance, instanceTransform)),
+            static_cast<UINT>(offsetof(Vertex::Instance, position)),
             D3D11_INPUT_PER_INSTANCE_DATA,
             1u
         },
         {
-            "INSTANCE_TRANSFORM",
+            "INSTANCE_ROTATION",
+            0u,
+            DXGI_FORMAT_R32_FLOAT,
             1u,
-            DXGI_FORMAT_R32G32B32A32_FLOAT,
-            1u,
-            static_cast<UINT>(offsetof(Vertex::Instance, instanceTransform) + sizeof(DirectX::XMFLOAT4)
+            static_cast<UINT>(offsetof(Vertex::Instance, rotation)
             ),
             D3D11_INPUT_PER_INSTANCE_DATA,
             1u
         },
         {
-            "INSTANCE_TRANSFORM",
-            2u,
-            DXGI_FORMAT_R32G32B32A32_FLOAT,
+            "INSTANCE_SCALE",
+            0u,
+            DXGI_FORMAT_R32_FLOAT,
             1u,
-            static_cast<UINT>(offsetof(Vertex::Instance, instanceTransform) + sizeof(DirectX::XMFLOAT4) * 2u
-            ),
-            D3D11_INPUT_PER_INSTANCE_DATA,
-            1u
-        },
-        {
-            "INSTANCE_TRANSFORM",
-            3u,
-            DXGI_FORMAT_R32G32B32A32_FLOAT,
-            1u,
-            static_cast<UINT>(offsetof(Vertex::Instance, instanceTransform) + sizeof(DirectX::XMFLOAT4) * 3u
-            ),
-            D3D11_INPUT_PER_INSTANCE_DATA,
-            1u
-        },
-        {
-            "INSTANCE_COLOR_OFFSET",
-            0,
-            DXGI_FORMAT_R32G32B32A32_FLOAT,
-            1u,
-            static_cast<UINT>(offsetof(Vertex::Instance, instanceColorOffset)),
+            static_cast<UINT>(offsetof(Vertex::Instance, scale)),
             D3D11_INPUT_PER_INSTANCE_DATA,
             1u
         }

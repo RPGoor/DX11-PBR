@@ -14,7 +14,7 @@ void Scene::Update(float dt)
 void Scene::Draw(Graphics& gfx)
 {
     pointLight.Bind(gfx, camera.GetMatrix());
-    landscape.Draw(gfx);
+    landscape.Draw(gfx, camera);
     landscape.SpawnControlWindows();
 }
 

@@ -7,6 +7,14 @@ constexpr float PI = 3.14159265f;
 constexpr double PI_D = 3.1415926535897932;
 Camera::Camera() noexcept
 {
+    projection = DirectX::XMMatrixPerspectiveFovLH(
+        DirectX::XMConvertToRadians(60.0f),
+        16.0f / 9.0f,
+        0.1f,
+        1000.0f
+    );
+
+
     pos = { 0.0f,7.5f,-18.0f };
     pitch = 0.0f;
     yaw = 0.0f;
@@ -31,7 +39,7 @@ DirectX::XMMATRIX Camera::GetMatrix() const noexcept
 
     const auto camPosition = XMLoadFloat3( &pos );
     const auto camTarget = camPosition + lookVector;
-    return XMMatrixLookAtLH( camPosition,camTarget,XMVectorSet( 0.0f,1.0f,0.0f,0.0f ) );
+    return XMMatrixLookAtLH(camPosition, camTarget,XMVectorSet( 0.0f,1.0f,0.0f,0.0f ) );
 }
 
 void Camera::Rotate( float dx,float dy ) noexcept
@@ -54,4 +62,23 @@ void Camera::Translate( DirectX::XMFLOAT3 translation ) noexcept
         pos.y + translation.y + (yComp * travelSpeed),
         pos.z + translation.z
     };
+}
+
+DirectX::BoundingFrustum Camera::GetFrustum() const
+{
+    DirectX::BoundingFrustum viewFrustum;
+    DirectX::BoundingFrustum::CreateFromMatrix(viewFrustum, projection);
+    DirectX::BoundingFrustum worldFrustum;
+    viewFrustum.Transform(worldFrustum, DirectX::XMMatrixInverse(nullptr, GetMatrix()));
+    return worldFrustum;
+}
+
+void Camera::SetProjection(DirectX::FXMMATRIX proj) noexcept
+{
+    projection = proj;
+}
+
+DirectX::XMMATRIX Camera::GetProjection() const noexcept
+{
+    return projection;
 }

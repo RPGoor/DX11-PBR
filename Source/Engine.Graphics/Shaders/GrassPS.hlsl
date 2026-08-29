@@ -34,7 +34,7 @@ float4 main(
 
     color += ambient;
 
-    color = saturate(color * (input.uv.y) * input.colorRand.rgb);
+    color = saturate(color * (input.uv.y));
 
     return float4(color, 1.0f);
 }
