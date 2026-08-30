@@ -81,7 +81,9 @@
     <ClCompile Include="Scene\Scene.cpp">
       <Filter>Scene\private</Filter>
     </ClCompile>
-    <ClCompile Include="Scene\Chunk.cpp" />
+    <ClCompile Include="Scene\Chunk.cpp">
+      <Filter>Scene\private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Resources\Game.rc">

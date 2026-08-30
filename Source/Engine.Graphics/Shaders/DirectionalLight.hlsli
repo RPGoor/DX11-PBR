@@ -11,29 +11,15 @@ float3 EvaluateDirectionalLight(
     DirectionalLight light)
 {
     float3 N = normalize(surface.normalWS);
-
-    float3 V = normalize(
-        cameraPositionWS - surfacePositionWS
-    );
-
-    float3 L = normalize(
-        -light.directionWS
-    );
-
-    float normalDotLight = saturate(
-        dot(N,L)
-    );
+    float3 V = normalize(cameraPositionWS - surfacePositionWS);
+    float3 L = normalize(-light.directionWS);
+    float normalDotLight = saturate(dot(N,L));
 
     PBRResult pbr = EvaluatePBR(N, V, L, surface.baseColor, surface.roughness, surface.metallic);
 
-    float3 radiance =
-        light.color *
-        light.intensity;
+    float3 radiance = light.color * light.intensity;
 
-    return
-        (pbr.diffuse + pbr.specular) *
-        radiance *
-        normalDotLight;
+    return (pbr.diffuse + pbr.specular) * radiance * normalDotLight;
 }
 
 #endif

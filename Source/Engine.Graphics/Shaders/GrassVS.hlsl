@@ -44,7 +44,7 @@ VertexToPixel main(VSInput input)
     float4 positionWS = mul(float4(position, 1.0f), model);
 
 
-    // ------------------------------- WIND -------------------------------
+    // ---------------------------- WIND ----------------------------
     
     float heightMask = saturate(input.texcoord.y);
     float bendMask = pow(heightMask, bendMaskPow);
@@ -70,7 +70,7 @@ VertexToPixel main(VSInput input)
     normalWS = normalize(RotateAroundAxis(normalWS, bendAxis, bendAngle));
 
     
-    // -------------------- VIEW-BASED THICKENING --------------------
+    // ------------------- VIEW-BASED THICKENING -------------------
 
     float4 positionVS = mul(positionWS, view);
     float3 normalVS = normalize(mul(float4(normalWS, 0.0f), view).xyz);

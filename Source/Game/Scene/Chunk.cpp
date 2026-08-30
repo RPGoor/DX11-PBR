@@ -7,10 +7,9 @@ Chunk::Chunk(Graphics& gfx, DirectX::XMFLOAT2 position, TerrainComputeShader& te
     heightmap = std::make_unique<ComputeTexture>(gfx, 512u, 512u, 0u, 0u, DXGI_FORMAT_R32G32B32A32_FLOAT);
     normalmap = std::make_unique<ComputeTexture>(gfx, 512u, 512u, 1u, 1u, DXGI_FORMAT_R32G32B32A32_FLOAT);
 
-    bounds.Center = {Chunk::position.x / 2, 0.0f, Chunk::position.y / 2
-    };
+    bounds.Center = {Chunk::position.x, 0.0f, Chunk::position.y};
 
-    bounds.Extents = { 10.0f, 10.0f, 10.0f };
+    bounds.Extents = { 12.0f, 50.0f, 12.0f };
 
     terrainShader.Generate(gfx, *heightmap, *normalmap, Chunk::position);
     GenerateGrassInstances(gfx);

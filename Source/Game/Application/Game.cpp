@@ -42,7 +42,7 @@ void Game::DoFrame()
 
     scene.Update(dt);
 
-    gfx.BeginFrame(0.2f, 0.4f, 0.9f);
+    gfx.BeginFrame(0.72f, 0.80f, 0.84f);
 
     frameBuffer.Update(
         gfx,
