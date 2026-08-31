@@ -43,10 +43,7 @@ float GeometricAttenuationK(float NdotX, float k)
         );
 }
 
-float GeometricAttenuation(
-    float NdotV,
-    float NdotL,
-    float roughness)
+float GeometricAttenuation(float NdotV, float NdotL, float roughness)
 {
     float k = pow(roughness + 1.0f, 2)/8.0f;
 

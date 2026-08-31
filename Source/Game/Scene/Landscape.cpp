@@ -8,6 +8,13 @@ Landscape::Landscape(Graphics& gfx)
     {
         GenerateTerrain(gfx);
     };
+    for (int i = 0; i < 4; i++)
+    {
+        for (int j = 0; j < 4; j++)
+        {
+            chunks.emplace_back(Chunk(gfx, { (float)i, (float)j }, *terrainShader));
+        }
+    }
 }
 
 void Landscape::SpawnControlWindows() noexcept
@@ -17,14 +24,32 @@ void Landscape::SpawnControlWindows() noexcept
     terrainShader->SpawnControlWindow();
 }
 
-void Landscape::Draw(Graphics& gfx) const
+void Landscape::Draw(Graphics& gfx, Camera& cam) const
 {
     terrainShader->BindVS(gfx);
-    terrain.Draw(gfx);
-    grass.Draw(gfx);
+    for (const Chunk& chunk : chunks)
+    {
+        if (!cam.GetFrustum().Intersects(chunk.bounds))
+        {
+            continue;
+        }
+
+        chunk.Bind(gfx);
+        terrain.DrawChunk(gfx, chunk);
+
+        if (chunk.SqrDistanceTo(cam.pos) > 50.0f * 50.0f)
+        {
+            continue;
+        }
+
+        grass.DrawChunk(gfx, chunk);
+    }
 }
 
 void Landscape::GenerateTerrain(Graphics& gfx)
 {
-    terrainShader->Generate(gfx);
+    for (const Chunk& chunk : chunks)
+    {
+        terrainShader->Generate(gfx, *chunk.heightmap, *chunk.normalmap, chunk.position);
+    }
 }

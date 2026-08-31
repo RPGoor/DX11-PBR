@@ -22,8 +22,7 @@ public:
     void DrawIndexed(UINT count) conexcept;
     void DrawIndexed(UINT count, UINT instanceCount) conexcept;
 
-    void SetProjection(DirectX::FXMMATRIX proj) noexcept;
-    DirectX::XMMATRIX GetProjection() const noexcept;
+
     void EndFrame();
     void BeginFrame(float r, float g, float b) noexcept;
 
@@ -40,7 +39,6 @@ private:
     void CreateTargetAndDepthStencil(unsigned int width, unsigned int height);
 private:
     bool imGuiEnabled = true;
-    DirectX::XMMATRIX projection;
 #ifndef NDEBUG
     DxgiInfoManager infoManager;
 #endif

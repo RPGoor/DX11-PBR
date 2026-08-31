@@ -1,5 +1,6 @@
 #include "ConstantBuffers.hlsli"
 #include "DirectionalLight.hlsli"
+#include "Fog.hlsli"
 
 float4 main(
     VertexToPixel input,
@@ -24,7 +25,6 @@ float4 main(
     float3 skyColor = float3(0.18f, 0.28f, 0.16f);
     float3 ambient = skyColor * lerp(0.25f, 1.0f, upFacing);
 
-    
     float3 color = EvaluateDirectionalLight(
         surface,
         cameraPositionWS,
@@ -34,7 +34,7 @@ float4 main(
 
     color += ambient;
 
-    color = saturate(color * (input.uv.y) * input.colorRand.rgb);
-
+    color = saturate(color * (input.uv.y));
+    color = ApplyDistanceFog(color, input.positionWS, cameraPositionWS);
     return float4(color, 1.0f);
 }

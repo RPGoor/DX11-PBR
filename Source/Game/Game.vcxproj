@@ -175,6 +175,7 @@
     <ClInclude Include="Application\Controller.h" />
     <ClInclude Include="Application\Game.h" />
     <ClInclude Include="Resources\resource.h" />
+    <ClInclude Include="Scene\Chunk.h" />
     <ClInclude Include="Scene\Grass.h" />
     <ClInclude Include="Scene\Landscape.h" />
     <ClInclude Include="Scene\Scene.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="Application\Controller.cpp" />
     <ClCompile Include="Application\Game.cpp" />
     <ClCompile Include="Application\WinMain.cpp" />
+    <ClCompile Include="Scene\Chunk.cpp" />
     <ClCompile Include="Scene\Grass.cpp" />
     <ClCompile Include="Scene\Landscape.cpp" />
     <ClCompile Include="Scene\Scene.cpp" />

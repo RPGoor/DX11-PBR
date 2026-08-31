@@ -7,13 +7,6 @@
 Game::Game()
     : wnd(1280, 720, L"Solorn Engine Window"), gfx(Graphics(wnd.GetHWND())), frameBuffer(gfx), scene(gfx)
 {
-    gfx.SetProjection(DirectX::XMMatrixPerspectiveFovLH(
-        DirectX::XMConvertToRadians(60.0f),
-        16.0f / 9.0f,
-        0.1f,
-        1000.0f
-    ));
-
 }
 
 Game::~Game()
@@ -49,12 +42,12 @@ void Game::DoFrame()
 
     scene.Update(dt);
 
-    gfx.BeginFrame(0.2f, 0.4f, 0.9f);
+    gfx.BeginFrame(0.72f, 0.80f, 0.84f);
 
     frameBuffer.Update(
         gfx,
         cam.GetMatrix(),
-        gfx.GetProjection(),
+        cam.GetProjection(),
         cam.pos,
         timer.Elapsed()
     );

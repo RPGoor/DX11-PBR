@@ -10,4 +10,10 @@ Terrain::Terrain(Graphics& gfx)
     transform = std::make_unique<TransformCbuf>(gfx);
 }
 
+void Terrain::DrawChunk(Graphics& gfx, const Chunk& chunk) const
+{
+    transform->SetTransform(DirectX::XMMatrixTranslation(chunk.position.x, 0.0f, chunk.position.y));
+    Drawable::Draw(gfx);
+}
+
 

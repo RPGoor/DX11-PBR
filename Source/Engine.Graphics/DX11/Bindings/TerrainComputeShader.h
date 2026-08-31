@@ -10,7 +10,7 @@ class TerrainComputeShader : public Bindable
 
 public:
     TerrainComputeShader(Graphics& gfx);
-    void Generate(Graphics& gfx);
+    void Generate(Graphics& gfx, ComputeTexture& heightmap, ComputeTexture& normalmap, DirectX::XMFLOAT2 position);
     void Bind(Graphics& gfx) noexcept override;
     void BindVS(Graphics& gfx) noexcept;
 
@@ -28,7 +28,7 @@ protected:
         float frequencyFactor;
         float amplitudeFactor;
         UINT iterations;
-        UINT padding[2];
+        DirectX::XMFLOAT2 chunkPosition;
     };
 
     std::string path = "TerrainCS.cso";
@@ -37,8 +37,6 @@ protected:
     TerrainConstants cbData;
     mutable ComputeConstantBuffer<TerrainConstants> cbuf;
 
-    static constexpr UINT HeightmapResolution = 1024u;
-    std::unique_ptr<ComputeTexture> heightmap;
-    std::unique_ptr<ComputeTexture> normalmap;
+    static constexpr UINT HeightmapResolution = 512u;
     std::unique_ptr<Sampler> terrainSampler;
 };

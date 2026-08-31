@@ -1,5 +1,6 @@
 #include "ConstantBuffers.hlsli"
 #include "DirectionalLight.hlsli"
+#include "Fog.hlsli"
 
 float4 main(VertexToPixel input) : SV_Target
 {
@@ -15,6 +16,7 @@ float4 main(VertexToPixel input) : SV_Target
         input.positionWS,
         directionalLight
     );
-
+    
+    color = ApplyDistanceFog(color, input.positionWS, cameraPositionWS);
     return float4(color, 1.0f);
 }

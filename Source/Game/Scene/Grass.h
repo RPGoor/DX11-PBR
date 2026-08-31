@@ -8,6 +8,7 @@
 #include <Bindings/PipelineSettings.h>
 #include <Bindings/Material.h>
 #include <Drawable.h>
+#include "Chunk.h"
 
 class Grass : public Drawable
 {
@@ -16,23 +17,22 @@ public:
     void Bind(Graphics& gfx) const;
     void SpawnControlWindow() noexcept;
 
-    virtual void DrawCall(Graphics& gfx) const override;
+    void DrawChunk(Graphics& gfx, const Chunk& chunk) const;
 private:
     struct alignas(16) GrassConstants
     {
-        float horizontalBendStrength;
-        float verticalBendStrength;
+        float bendStrength;
         float bendMaskPow;
         float speed;
+        float padding0;
         float direction[2];
         float uvScale;
-        float padding;
+        float padding1;
     };
 
     GrassConstants cbData;
     mutable VertexConstantBuffer<GrassConstants> cbuf;
 
-    std::unique_ptr<InstanceBuffer> instanceBuffer;
     std::unique_ptr<Texture> noiseTexture;
     std::unique_ptr<Sampler> noiseSampler;
 };

@@ -21,3 +21,8 @@ void TransformCbuf::Bind(Graphics& gfx) noexcept
     vbuf.Update(gfx, tf);
     vbuf.Bind(gfx);
 }
+
+void TransformCbuf::SetTransform(DirectX::XMMATRIX transformMatrix)
+{
+    DirectX::XMStoreFloat4x4(&transform, transformMatrix);
+}

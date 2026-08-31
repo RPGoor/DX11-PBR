@@ -7,7 +7,6 @@ struct VertexToPixel
     float3 positionWS : POSITION0;
     float3 normalWS : NORMAL0;
     float2 uv : TEXCOORD;
-    float3 colorRand : COLOR;
 };
 
 struct SurfaceData

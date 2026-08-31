@@ -237,5 +237,11 @@
     <None Include="Shaders\ShaderStructures.hlsli">
       <Filter>Shaders\public</Filter>
     </None>
+    <None Include="Shaders\MathHelper.hlsli">
+      <Filter>Shaders\public</Filter>
+    </None>
+    <None Include="Shaders\Fog.hlsli">
+      <Filter>Shaders\public</Filter>
+    </None>
   </ItemGroup>
 </Project>
