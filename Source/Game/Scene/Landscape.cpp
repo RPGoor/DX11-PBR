@@ -4,6 +4,7 @@ Landscape::Landscape(Graphics& gfx)
     : grass(gfx), terrain(gfx)
 {
     terrainShader = std::make_unique<TerrainComputeShader>(gfx);
+    grassShader = std::make_unique<GrassComputeShader>(gfx);
     terrainShader->regenCallback = [this, &gfx]
     {
         GenerateTerrain(gfx);
@@ -12,7 +13,7 @@ Landscape::Landscape(Graphics& gfx)
     {
         for (int j = 0; j < 4; j++)
         {
-            chunks.emplace_back(Chunk(gfx, { (float)i, (float)j }, *terrainShader));
+            chunks.emplace_back(Chunk(gfx, { (float)i, (float)j }, *terrainShader, *grassShader, grass.GetIndexCount()));
         }
     }
 }
@@ -41,7 +42,7 @@ void Landscape::Draw(Graphics& gfx, Camera& cam) const
         {
             continue;
         }
-
+        chunk.BindInstanceData(gfx);
         grass.DrawChunk(gfx, chunk);
     }
 }

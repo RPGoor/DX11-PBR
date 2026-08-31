@@ -23,6 +23,12 @@ void Drawable::Draw(Graphics& gfx, UINT instanceCount) const
     DrawCall(gfx, instanceCount);
 }
 
+void Drawable::Draw(Graphics& gfx, ID3D11Buffer* indirectArgs) const
+{
+    Bind(gfx);
+    DrawCall(gfx, indirectArgs);
+}
+
 void Drawable::DrawCall(Graphics& gfx) const
 {
     gfx.DrawIndexed(mesh->GetCount());
@@ -31,4 +37,9 @@ void Drawable::DrawCall(Graphics& gfx) const
 void Drawable::DrawCall(Graphics& gfx, UINT instanceCount) const
 {
     gfx.DrawIndexed(mesh->GetCount(), instanceCount);
+}
+
+void Drawable::DrawCall(Graphics& gfx, ID3D11Buffer* indirectArgs) const
+{
+    gfx.DrawIndexed(indirectArgs);
 }

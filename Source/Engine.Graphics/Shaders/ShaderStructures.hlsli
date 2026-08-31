@@ -27,4 +27,11 @@ struct DirectionalLight
     float padding;
 };
 
+struct GrassInstance
+{
+    float2 position : INSTANCE_POSITION;
+    float rotation : INSTANCE_ROTATION;
+    float scale : INSTANCE_SCALE;
+};
+
 #endif

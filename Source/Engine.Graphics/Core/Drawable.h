@@ -18,6 +18,7 @@ public:
 public:
     void Draw(Graphics& gfx) const;
     void Draw(Graphics& gfx, UINT instanceCount) const;
+    void Draw(Graphics& gfx, ID3D11Buffer* indirectArgs) const;
     void Bind(Graphics& gfx) const;
 
 protected:
@@ -25,6 +26,7 @@ protected:
 
     virtual void DrawCall(Graphics& gfx) const;
     virtual void DrawCall(Graphics& gfx, UINT instanceCount) const;
+    virtual void DrawCall(Graphics& gfx, ID3D11Buffer* indirectArgs) const;
 
     std::shared_ptr<Mesh> mesh;
     std::shared_ptr<Material> material;

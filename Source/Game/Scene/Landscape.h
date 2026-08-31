@@ -3,6 +3,7 @@
 #include "Grass.h"
 #include "Terrain.h"
 #include <Bindings/TerrainComputeShader.h>
+#include <Bindings/GrassComputeShader.h>
 #include "Chunk.h"
 #include <Camera.h>
 
@@ -14,10 +15,12 @@ public:
 
     void Draw(Graphics& gfx, Camera& cam) const;
     void GenerateTerrain(Graphics& gfx);
+    void GenerateGrass(Graphics& gfx);
 
 private:
 
     std::unique_ptr<TerrainComputeShader> terrainShader;
+    std::unique_ptr<GrassComputeShader> grassShader;
 
     Grass grass;
     Terrain terrain;
