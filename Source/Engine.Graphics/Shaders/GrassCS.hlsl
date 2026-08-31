@@ -2,6 +2,9 @@
 
 AppendStructuredBuffer<GrassInstance> grassInstances : register(u0);
 
+Texture2D<float4> terrainNormalmap : register(t1);
+SamplerState terrainSampler : register(s0);
+
 cbuffer GrassGenerationConstants : register(b0)
 {
     uint candidateCount;
@@ -51,11 +54,6 @@ void main(uint3 dispatchThreadID : SV_DispatchThreadID)
     float randomZ =
         Random01(seed ^ 0xC8013EA4u);
 
-    float randomRotation =
-        Random01(seed ^ 0xAD90777Du);
-
-    float randomScale =
-        Random01(seed ^ 0x7E95761Eu);
 
 
     GrassInstance instance;
@@ -72,6 +70,22 @@ void main(uint3 dispatchThreadID : SV_DispatchThreadID)
          randomZ
     );
 
+    float2 uv = instance.position / chunkSize + 0.5f;
+    float3 normal = normalize(terrainNormalmap.SampleLevel(terrainSampler, uv, 0.0f).xyz);
+    float slope = 1.0f - saturate(normal.y);
+    float suitability = 1.0f - smoothstep(0.1f, 0.3f, slope);
+    float placementRandom = Random01(seed ^ 0xB5297A4Du);
+    if (placementRandom > suitability)
+    {
+        return;
+    }
+    
+    float randomRotation =
+        Random01(seed ^ 0xAD90777Du);
+
+    float randomScale =
+        Random01(seed ^ 0x7E95761Eu);
+
     instance.rotation =
         randomRotation * 6.28318530718f;
 
@@ -80,6 +94,6 @@ void main(uint3 dispatchThreadID : SV_DispatchThreadID)
         1.4f,
         randomScale
     );
-
+    
     grassInstances.Append(instance);
 }

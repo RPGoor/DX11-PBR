@@ -52,5 +52,6 @@ void Landscape::GenerateTerrain(Graphics& gfx)
     for (const Chunk& chunk : chunks)
     {
         terrainShader->Generate(gfx, *chunk.heightmap, *chunk.normalmap, chunk.position);
+        grassShader->Generate(gfx, *chunk.instanceBuffer, *chunk.indirectGrassArgs, chunk.position, *chunk.normalmap);
     }
 }

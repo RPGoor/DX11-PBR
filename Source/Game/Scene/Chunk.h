@@ -25,6 +25,5 @@ public:
     std::unique_ptr<ComputeTexture> normalmap;
     DirectX::BoundingBox bounds;
 private:
-    void GenerateGrassInstances(Graphics& gfx);
 
 };

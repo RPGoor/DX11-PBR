@@ -77,11 +77,7 @@ void ComputeTexture::Bind(Graphics& gfx) noexcept
 
 void ComputeTexture::BindVS(Graphics& gfx) noexcept
 {
-    GetContext(gfx)->VSSetShaderResources(
-        shaderResourceSlot,
-        1u,
-        pTextureView.GetAddressOf()
-    );
+    GetContext(gfx)->VSSetShaderResources( shaderResourceSlot, 1u, pTextureView.GetAddressOf());
 }
 
 void ComputeTexture::BindPS(Graphics& gfx) noexcept
@@ -95,11 +91,7 @@ void ComputeTexture::BindPS(Graphics& gfx) noexcept
 
 void ComputeTexture::BindCS(Graphics& gfx) noexcept
 {
-    GetContext(gfx)->CSSetShaderResources(
-        shaderResourceSlot,
-        1u,
-        pTextureView.GetAddressOf()
-    );
+    GetContext(gfx)->CSSetShaderResources(shaderResourceSlot, 1u, pTextureView.GetAddressOf());
 }
 
 void ComputeTexture::BindUAV(Graphics& gfx) noexcept

@@ -14,7 +14,7 @@ Chunk::Chunk(Graphics& gfx, DirectX::XMFLOAT2 position, TerrainComputeShader& te
     terrainShader.Generate(gfx, *heightmap, *normalmap, Chunk::position);
     instanceBuffer = std::make_unique<InstanceBuffer>(gfx, grassInstanceCount);
     indirectGrassArgs = std::make_unique<IndirectArgsBuffer>(gfx, grassIndexCount);
-    grassShader.Generate(gfx, *instanceBuffer, *indirectGrassArgs, Chunk::position);
+    grassShader.Generate(gfx, *instanceBuffer, *indirectGrassArgs, Chunk::position, *normalmap);
 }
 
 void Chunk::Bind(Graphics& gfx) const
