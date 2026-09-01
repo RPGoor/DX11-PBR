@@ -238,6 +238,9 @@
     <FxCompile Include="Shaders\GrassCS.hlsl">
       <Filter>Shaders\private</Filter>
     </FxCompile>
+    <FxCompile Include="Shaders\TerrainPS.hlsl">
+      <Filter>Shaders\private</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\ConstantBuffers.hlsli">
