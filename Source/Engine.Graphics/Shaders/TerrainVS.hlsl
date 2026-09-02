@@ -14,8 +14,9 @@ SamplerState terrainSampler : register(s0);
 VertexToPixel main(VertexInput input)
 {
     VertexToPixel output;
-
-    float terrainHeight = terrainHeightmap.SampleLevel(terrainSampler, input.texcoord, 0.0f);
+    float2 uv = input.position.xz / 20.0f + 0.5f;
+    
+    float terrainHeight = terrainHeightmap.SampleLevel(terrainSampler, uv, 0.0f);
 
     float4 displacedPositionOS = float4(input.position, 1.0f);
     displacedPositionOS.y = terrainHeight;
@@ -27,12 +28,12 @@ VertexToPixel main(VertexInput input)
 
     output.normalWS = normalize(
         mul(
-            terrainNormalmap.SampleLevel(terrainSampler, input.texcoord, 0.0f),
+            terrainNormalmap.SampleLevel(terrainSampler, uv, 0.0f),
             modelInverseTranspose
         ).xyz
     );
     
-    output.uv = input.texcoord;
+    output.uv = uv;
 
     return output;
 }

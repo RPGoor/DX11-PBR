@@ -15,7 +15,6 @@ public:
 
     void Draw(Graphics& gfx, Camera& cam) const;
     void GenerateTerrain(Graphics& gfx);
-    void GenerateGrass(Graphics& gfx);
 
 private:
 

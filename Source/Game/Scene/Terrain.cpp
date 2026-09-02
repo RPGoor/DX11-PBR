@@ -7,7 +7,8 @@ Terrain::Terrain(Graphics& gfx)
     dirtTexture = std::make_unique<Texture>(gfx, "..\\..\\Assets\\Textures\\dirt_diff.jpg", 1u);
     sampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_WRAP, 0u);
 
-    MeshData data = MeshFactory::Load("..\\..\\Assets\\Models\\terrain3.fbx");
+    MeshData data = MeshFactory::Grid(256, 20.0f);
+
     pipeline = std::make_unique<PipelineSettings>(gfx, VertexLayout<Vertex::Standard>::elements, "TerrainVS.cso", "TerrainPS.cso");
     material = Material::Resolve(gfx, "M_terrain", { {0.2f, 0.1f, 0.03f}, 0.1f, 0.78f });
     mesh = Mesh::Resolve(gfx, data);

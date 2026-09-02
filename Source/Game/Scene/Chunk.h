@@ -19,6 +19,7 @@ public:
     DirectX::XMFLOAT2 position;
     UINT grassInstanceCount;
     std::unique_ptr<InstanceBuffer> instanceBuffer;
+
     std::unique_ptr<IndirectArgsBuffer> indirectGrassArgs;
 
     std::unique_ptr<ComputeTexture> heightmap;

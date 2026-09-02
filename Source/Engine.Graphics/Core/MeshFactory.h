@@ -6,8 +6,5 @@ namespace MeshFactory
 {
     MeshData Load(const std::string& path);
 
-    MeshData Grid(
-        uint32_t resolution,
-        float size
-    );
+    MeshData Grid(UINT64 resolution, float size);
 }
