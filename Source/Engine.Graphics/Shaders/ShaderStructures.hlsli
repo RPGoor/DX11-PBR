@@ -34,4 +34,10 @@ struct GrassInstance
     float scale : INSTANCE_SCALE;
 };
 
+struct ValueNoiseResult
+{
+    float value;
+    float2 gradient;
+};
+
 #endif

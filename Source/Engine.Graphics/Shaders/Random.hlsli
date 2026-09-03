@@ -1,7 +1,10 @@
 #ifndef RANDOM_INCL
 #define RANDOM_INCL
 
+#include "ShaderStructures.hlsli"
+
 #define MAX_UINT 4294967295u
+
 
 uint Combine(uint2 input)
 {
@@ -36,6 +39,35 @@ float NormalizedHash(uint2 input)
 float NormalizedHash(uint input)
 {
     return NormalizeUint(Hash(input));
+}
+
+ValueNoiseResult ValueNoise(float2 position)
+{
+    ValueNoiseResult result;
+    uint2 corner = floor(position);
+    float2 local = frac(position);
+    
+    float corners[4] =
+    {
+        NormalizedHash(corner),
+        NormalizedHash(corner + uint2(1, 0)),
+        NormalizedHash(corner + uint2(0, 1)),
+        NormalizedHash(corner + uint2(1, 1)),
+    };
+
+
+    float2 t = local * local * (3.0f - 2.0f * local);
+    float2 dt = 6.0f * local * (1.0f - local);
+
+    float bottom = lerp(corners[0], corners[1], t.x);
+    float top = lerp(corners[2], corners[3], t.x);
+
+    float difX = dt.x * lerp(corners[1] - corners[0], corners[3] - corners[2], t.y);
+    float difY = dt.y * (top - bottom);
+
+    result.value = lerp(bottom, top, t.y);
+    result.gradient = float2(difX, difY);
+    return result;
 }
 
 #endif
