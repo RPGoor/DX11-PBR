@@ -1,6 +1,6 @@
 #pragma once
 #include "Landscape.h"
-#include <PointLight.h>
+#include <DirectionalLight.h>
 #include <Camera.h>
 
 class Scene
@@ -12,7 +12,7 @@ public:
     Camera& GetCamera() noexcept;
 private:
     Landscape landscape;
-    PointLight pointLight;
+    DirectionalLight pointLight;
     Camera camera;
 
 };

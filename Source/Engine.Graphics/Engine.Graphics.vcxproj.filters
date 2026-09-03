@@ -81,7 +81,7 @@
     <ClCompile Include="Core\Camera.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
-    <ClCompile Include="Core\PointLight.cpp">
+    <ClCompile Include="Core\DirectionalLight.cpp">
       <Filter>Core\private</Filter>
     </ClCompile>
     <ClCompile Include="DX11\Bindings\FrameCBuf.cpp">
@@ -173,7 +173,7 @@
     <ClInclude Include="Core\Camera.h">
       <Filter>Core\public</Filter>
     </ClInclude>
-    <ClInclude Include="Core\PointLight.h">
+    <ClInclude Include="Core\DirectionalLight.h">
       <Filter>Core\public</Filter>
     </ClInclude>
     <ClInclude Include="DX11\Bindings\FrameCBuf.h">

@@ -3,13 +3,12 @@
 #include "../DX11/Bindings/ConstantBuffers.h"
 #include <ConditionalNoexcept.h>
 
-class PointLight
+class DirectionalLight
 {
 public:
-	PointLight( Graphics& gfx,float radius = 0.5f );
-	void SpawnControlWindow() noexcept;
-	void Reset() noexcept;
-	void Bind( Graphics& gfx,DirectX::FXMMATRIX view ) const noexcept;
+    DirectionalLight( Graphics& gfx,float radius = 0.5f );
+
+    void Bind( Graphics& gfx,DirectX::FXMMATRIX view ) const noexcept;
 private:
     struct alignas(16) DirectionalLightConstants
     {
@@ -22,5 +21,5 @@ private:
 
 private:
     DirectionalLightConstants cbData;
-	mutable PixelConstantBuffer<DirectionalLightConstants> cbuf;
+    mutable PixelConstantBuffer<DirectionalLightConstants> cbuf;
 };

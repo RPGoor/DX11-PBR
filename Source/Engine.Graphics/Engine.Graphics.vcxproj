@@ -90,7 +90,7 @@
     <ClCompile Include="Core\Drawable.cpp" />
     <ClCompile Include="Core\MeshFactory.cpp" />
     <ClCompile Include="Core\ModelException.cpp" />
-    <ClCompile Include="Core\PointLight.cpp" />
+    <ClCompile Include="Core\DirectionalLight.cpp" />
     <ClCompile Include="DX11\Bindable.cpp" />
     <ClCompile Include="DX11\BindableCodex.cpp" />
     <ClCompile Include="DX11\Bindings\ComputeTexture.cpp" />
@@ -120,7 +120,7 @@
     <ClInclude Include="Core\MeshData.h" />
     <ClInclude Include="Core\MeshFactory.h" />
     <ClInclude Include="Core\ModelException.h" />
-    <ClInclude Include="Core\PointLight.h" />
+    <ClInclude Include="Core\DirectionalLight.h" />
     <ClInclude Include="Core\Vertex.h" />
     <ClInclude Include="DX11\Bindable.h" />
     <ClInclude Include="DX11\BindableCodex.h" />
