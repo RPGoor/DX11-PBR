@@ -21,7 +21,7 @@ public:
 
     void DrawIndexed(UINT count) conexcept;
     void DrawIndexed(UINT count, UINT instanceCount) conexcept;
-
+    void DrawIndexed(ID3D11Buffer* indirectArgs) conexcept;
 
     void EndFrame();
     void BeginFrame(float r, float g, float b) noexcept;

@@ -8,11 +8,10 @@ struct VSInput
     float3 position : POSITION;
     float3 normal : NORMAL;
     float2 texcoord : TEXCOORD;
-
-    float2 instancePosition : INSTANCE_POSITION;
-    float instanceRotation : INSTANCE_ROTATION;
-    float instanceScale : INSTANCE_SCALE;
+    uint instanceID : SV_InstanceID;
 };
+
+StructuredBuffer<GrassInstance> grassInstances : register(t2);
 
 cbuffer GrassControls : register(b2)
 {
@@ -34,12 +33,14 @@ float GetNoiseValue(float3 bladeOrigin, float2 direction);
 
 VertexToPixel main(VSInput input)
 {
+    GrassInstance instance = grassInstances[input.instanceID];
+
     VertexToPixel output;
 
-    float terrainHeight = SampleTerrainHeight(input.instancePosition);;
-    float3 position = input.position * input.instanceScale;
-    position.xz = Rotate(position.xz, input.instanceRotation);
-    position.xz += input.instancePosition;
+    float terrainHeight = SampleTerrainHeight(instance.position);;
+    float3 position = input.position * instance.scale;
+    position.xz = Rotate(position.xz, instance.rotation);
+    position.xz += instance.position;
     position.y += terrainHeight;
     float4 positionWS = mul(float4(position, 1.0f), model);
 
@@ -51,7 +52,7 @@ VertexToPixel main(VSInput input)
 
     float2 windDirection = all(direction == float2(0.0f, 0.0f)) ? float2(1.0f, 0.0f) : normalize(direction);
 
-    float3 bladeOriginWS = mul(float4(input.instancePosition.x, terrainHeight, input.instancePosition.y, 1.0f), model).xyz;
+    float3 bladeOriginWS = mul(float4(instance.position.x, terrainHeight, instance.position.y, 1.0f), model).xyz;
     float noise = GetNoiseValue(bladeOriginWS, windDirection);
     float bendAngle = noise * bendMask * radians(45.0f) * bendStrength;
     
@@ -64,7 +65,7 @@ VertexToPixel main(VSInput input)
     // --------------------- RECALCULATE NORMAL ---------------------
     
     float3 normal = input.normal;
-    normal.xz = Rotate(normal.xz, input.instanceRotation);
+    normal.xz = Rotate(normal.xz, instance.rotation);
     float3 normalWS = normalize(mul(normal, (float3x3) model));
     float3 widthTangentWS = normalize(cross(float3(0.0f, 1.0f, 0.0f), normalWS));
     normalWS = normalize(RotateAroundAxis(normalWS, bendAxis, bendAngle));

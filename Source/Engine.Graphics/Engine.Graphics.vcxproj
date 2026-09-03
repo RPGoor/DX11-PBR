@@ -95,7 +95,9 @@
     <ClCompile Include="DX11\BindableCodex.cpp" />
     <ClCompile Include="DX11\Bindings\ComputeTexture.cpp" />
     <ClCompile Include="DX11\Bindings\FrameCBuf.cpp" />
+    <ClCompile Include="DX11\Bindings\GrassComputeShader.cpp" />
     <ClCompile Include="DX11\Bindings\IndexBuffer.cpp" />
+    <ClCompile Include="DX11\Bindings\IndirectArgsBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\InputLayout.cpp" />
     <ClCompile Include="DX11\Bindings\InstanceBuffer.cpp" />
     <ClCompile Include="DX11\Bindings\Material.cpp" />
@@ -125,7 +127,9 @@
     <ClInclude Include="DX11\Bindings\ComputeTexture.h" />
     <ClInclude Include="DX11\Bindings\ConstantBuffers.h" />
     <ClInclude Include="DX11\Bindings\FrameCBuf.h" />
+    <ClInclude Include="DX11\Bindings\GrassComputeShader.h" />
     <ClInclude Include="DX11\Bindings\IndexBuffer.h" />
+    <ClInclude Include="DX11\Bindings\IndirectArgsBuffer.h" />
     <ClInclude Include="DX11\Bindings\InputLayout.h" />
     <ClInclude Include="DX11\Bindings\InstanceBuffer.h" />
     <ClInclude Include="DX11\Bindings\Material.h" />
@@ -149,6 +153,12 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shaders\GrassCS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
     <FxCompile Include="Shaders\GrassPS.hlsl">
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
@@ -177,6 +187,12 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Compute</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Compute</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
+    </FxCompile>
+    <FxCompile Include="Shaders\TerrainPS.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Pixel</ShaderType>
+      <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">5.0</ShaderModel>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Pixel</ShaderType>
       <ShaderModel Condition="'$(Configuration)|$(Platform)'=='Release|x64'">5.0</ShaderModel>
     </FxCompile>
     <FxCompile Include="Shaders\TerrainVS.hlsl">

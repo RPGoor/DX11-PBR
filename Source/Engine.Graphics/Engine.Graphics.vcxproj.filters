@@ -114,6 +114,12 @@
     <ClCompile Include="DX11\Bindings\Material.cpp">
       <Filter>DX11\Bindings\private</Filter>
     </ClCompile>
+    <ClCompile Include="DX11\Bindings\IndirectArgsBuffer.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
+    <ClCompile Include="DX11\Bindings\GrassComputeShader.cpp">
+      <Filter>DX11\Bindings\private</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="DX11\Graphics.h">
@@ -203,6 +209,12 @@
     <ClInclude Include="DX11\Bindings\Material.h">
       <Filter>DX11\Bindings\public</Filter>
     </ClInclude>
+    <ClInclude Include="DX11\Bindings\IndirectArgsBuffer.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
+    <ClInclude Include="DX11\Bindings\GrassComputeShader.h">
+      <Filter>DX11\Bindings\public</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shaders\StandardPS.hlsl">
@@ -221,6 +233,12 @@
       <Filter>Shaders\private</Filter>
     </FxCompile>
     <FxCompile Include="Shaders\TerrainCS.hlsl">
+      <Filter>Shaders\private</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\GrassCS.hlsl">
+      <Filter>Shaders\private</Filter>
+    </FxCompile>
+    <FxCompile Include="Shaders\TerrainPS.hlsl">
       <Filter>Shaders\private</Filter>
     </FxCompile>
   </ItemGroup>

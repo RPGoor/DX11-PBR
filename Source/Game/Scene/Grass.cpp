@@ -48,11 +48,16 @@ void Grass::SpawnControlWindow() noexcept
     ImGui::End();
 }
 
+UINT Grass::GetIndexCount() noexcept
+{
+    return mesh->GetCount();
+}
+
 void Grass::DrawChunk(Graphics& gfx, const Chunk& chunk) const
 {
     chunk.instanceBuffer->Bind(gfx);
     Bind(gfx);
     transform->SetTransform(DirectX::XMMatrixTranslation(chunk.position.x, 0.0f, chunk.position.y));
-    Drawable::Draw(gfx, chunk.grassInstanceCount);
+    Drawable::Draw(gfx, chunk.indirectGrassArgs->GetBuffer());
 }
 

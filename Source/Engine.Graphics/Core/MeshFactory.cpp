@@ -55,14 +55,48 @@ MeshData MeshFactory::Load(const std::string& path)
     };
 }
 
-//MeshData MeshFactory::Grid(
-//    uint32_t resolution,
-//    float size
-//)
-//{
-//    //MeshData data {std::string("load#"), nullptr, nullptr};
-//
-//    // generate vertices + indices
-//
-//    return;
-//}
+MeshData MeshFactory::Grid(UINT64 resolution, float size)
+{
+    std::vector<Vertex::Standard> vertices;
+    vertices.reserve(resolution * resolution);
+
+    float spacing = size / (resolution - 1u);
+    float halfSize = size * 0.5f;
+    for (UINT z = 0; z < resolution; z++)
+    {
+        for (UINT x = 0; x < resolution; x++)
+        {
+            vertices.push_back(Vertex::Standard{
+                { -halfSize + x * spacing, 0.0f, -halfSize + z * spacing}
+            });
+        }
+    }
+
+    std::vector<unsigned int> indices;
+    indices.reserve((resolution - 1) * (resolution - 1) * 6);
+
+    for (UINT z = 0; z < resolution - 1; z++)
+    {
+        for (UINT x = 0; x < resolution - 1; x++)
+        {
+            UINT topLeft = z * resolution + x;
+            UINT topRight = topLeft + 1;
+            UINT bottomLeft = (z + 1) * resolution + x;
+            UINT bottomRight = bottomLeft + 1;
+
+            indices.push_back(topLeft);
+            indices.push_back(bottomLeft);
+            indices.push_back(topRight);
+
+            indices.push_back(topRight);
+            indices.push_back(bottomLeft);
+            indices.push_back(bottomRight);
+        }
+    }
+
+    return MeshData{
+        std::string("generateGrid#") + std::to_string(resolution) + "#"  + std::to_string(size),
+        std::move(vertices),
+        std::move(indices)
+    };
+}

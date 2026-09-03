@@ -16,7 +16,7 @@ public:
     Grass(Graphics& gfx);
     void Bind(Graphics& gfx) const;
     void SpawnControlWindow() noexcept;
-
+    UINT GetIndexCount() noexcept;
     void DrawChunk(Graphics& gfx, const Chunk& chunk) const;
 private:
     struct alignas(16) GrassConstants
