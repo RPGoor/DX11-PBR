@@ -208,6 +208,7 @@
     <None Include="Shaders\Fog.hlsli" />
     <None Include="Shaders\MathHelper.hlsli" />
     <None Include="Shaders\PBR.hlsli" />
+    <None Include="Shaders\Random.hlsli" />
     <None Include="Shaders\ShaderStructures.hlsli" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

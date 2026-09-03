@@ -1,7 +1,7 @@
+#include "Random.hlsli"
+
 RWTexture2D<float> outputHeightmap : register(u0);
 RWTexture2D<float4> outputNormalmap : register(u1);
-
-#define MAX_UINT 4294967295u
 
 struct ValueNoiseResult
 {
@@ -20,28 +20,6 @@ cbuffer TerrainGenerationCBuf : register(b0)
     float2 chunkPosition;
 };
 
-uint Convert2D(uint2 input)
-{
-    return
-    input.x * 73856093u ^
-    input.y * 19349663u;
-}
-
-float NormalizeUint(uint input)
-{
-    return float(input) / float(MAX_UINT);
-}
-
-float Hash(uint2 input)
-{
-    uint hashedInput = Convert2D(input);
-    
-    uint state = hashedInput * 747796405u + 2891336453u;
-    uint word = ((state >> ((state >> 28u) + 4u)) ^ state) * 277803737u;
-    return NormalizeUint((word >> 22u) ^ word);
-}
-
-
 ValueNoiseResult ValueNoise(float2 position)
 {
     ValueNoiseResult result;
@@ -50,10 +28,10 @@ ValueNoiseResult ValueNoise(float2 position)
     
     float corners[4] =
     {
-        Hash(corner),
-            Hash(corner + uint2(1, 0)),
-            Hash(corner + uint2(0, 1)),
-            Hash(corner + uint2(1, 1)),
+        NormalizedHash(corner),
+        NormalizedHash(corner + uint2(1, 0)),
+        NormalizedHash(corner + uint2(0, 1)),
+        NormalizedHash(corner + uint2(1, 1)),
     };
 
 

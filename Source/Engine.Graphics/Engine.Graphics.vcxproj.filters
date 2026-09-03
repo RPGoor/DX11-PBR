@@ -261,5 +261,8 @@
     <None Include="Shaders\Fog.hlsli">
       <Filter>Shaders\public</Filter>
     </None>
+    <None Include="Shaders\Random.hlsli">
+      <Filter>Shaders\public</Filter>
+    </None>
   </ItemGroup>
 </Project>
