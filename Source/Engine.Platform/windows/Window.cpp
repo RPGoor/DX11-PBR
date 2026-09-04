@@ -1,7 +1,7 @@
-#include "imgui_impl_dx11.h"
-#include "imgui_impl_win32.h"
 #include "Window.h"
 #include "WindowExceptionsMacros.h"
+#include "imgui_impl_dx11.h"
+#include "imgui_impl_win32.h"
 
 #define IDI_ENGINE_ICON 101
 

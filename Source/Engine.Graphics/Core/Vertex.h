@@ -1,8 +1,8 @@
 #pragma once
 
+#include <DirectXMath.h>
 #include <cstddef>
 #include <d3d11.h>
-#include <DirectXMath.h>
 #include <vector>
 
 namespace Vertex

@@ -1,6 +1,6 @@
+#include "TerrainComputeShader.h"
 #include "../GraphicsExceptionsMacros.h"
 #include "imgui.h"
-#include "TerrainComputeShader.h"
 
 TerrainComputeShader::TerrainComputeShader(Graphics& gfx)
     : cbuf(gfx, 0u),

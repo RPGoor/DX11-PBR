@@ -1,5 +1,5 @@
-#include "../GraphicsExceptionsMacros.h"
 #include "GrassComputeShader.h"
+#include "../GraphicsExceptionsMacros.h"
 #include "imgui.h"
 
 GrassComputeShader::GrassComputeShader(Graphics& gfx)

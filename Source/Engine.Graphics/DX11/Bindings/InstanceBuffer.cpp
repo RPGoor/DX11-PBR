@@ -1,5 +1,5 @@
-#include "../GraphicsExceptionsMacros.h"
 #include "InstanceBuffer.h"
+#include "../GraphicsExceptionsMacros.h"
 
 InstanceBuffer::InstanceBuffer(Graphics& gfx, UINT maxCount)
     : count(maxCount)

@@ -1,5 +1,5 @@
-#include "../GraphicsExceptionsMacros.h"
 #include "IndirectArgsBuffer.h"
+#include "../GraphicsExceptionsMacros.h"
 
 IndirectArgsBuffer::IndirectArgsBuffer(Graphics& gfx, UINT indexCount)
 {
