@@ -3,7 +3,7 @@
 
 class WindowEvents
 {
-public:
+  public:
     struct ResizeEvent
     {
         unsigned int width;
@@ -12,6 +12,7 @@ public:
 
     std::optional<ResizeEvent> GetEvent() noexcept;
     void SetEvent(unsigned int width, unsigned int height) noexcept;
-private:
+
+  private:
     std::optional<ResizeEvent> pendingResize;
 };

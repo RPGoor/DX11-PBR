@@ -9,8 +9,13 @@ Terrain::Terrain(Graphics& gfx)
 
     MeshData data = MeshFactory::Grid(256, 20.0f);
 
-    pipeline = std::make_unique<PipelineSettings>(gfx, VertexLayout<Vertex::Standard>::elements, "TerrainVS.cso", "TerrainPS.cso");
-    material = Material::Resolve(gfx, "M_terrain", { {0.2f, 0.1f, 0.03f}, 0.1f, 0.78f });
+    pipeline = std::make_unique<PipelineSettings>(
+        gfx,
+        VertexLayout<Vertex::Standard>::elements,
+        "TerrainVS.cso",
+        "TerrainPS.cso"
+    );
+    material = Material::Resolve(gfx, "M_terrain", {{0.2f, 0.1f, 0.03f}, 0.1f, 0.78f});
     mesh = Mesh::Resolve(gfx, data);
     transform = std::make_unique<TransformCbuf>(gfx);
 }
@@ -23,5 +28,3 @@ void Terrain::DrawChunk(Graphics& gfx, const Chunk& chunk) const
     transform->SetTransform(DirectX::XMMatrixTranslation(chunk.position.x, 0.0f, chunk.position.y));
     Drawable::Draw(gfx);
 }
-
-

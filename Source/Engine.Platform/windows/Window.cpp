@@ -10,7 +10,8 @@ extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg
 Window::WindowClass Window::WindowClass::wndClass;
 
 Window::Window(int width, int height, LPCWSTR name)
-    :width(width), height(height)
+    : width(width),
+      height(height)
 {
     RECT wr;
     wr.left = 100;
@@ -21,7 +22,6 @@ Window::Window(int width, int height, LPCWSTR name)
     {
         throw WND_LAST_EXCEPT();
     }
-
 
     hWnd = CreateWindow(
         WindowClass::GetName(),
@@ -59,7 +59,7 @@ Window::Window(int width, int height, LPCWSTR name)
 
 Window::~Window()
 {
-     ImGui_ImplWin32_Shutdown();
+    ImGui_ImplWin32_Shutdown();
     DestroyWindow(hWnd);
 }
 
@@ -127,7 +127,6 @@ bool Window::CursorEnabled() const noexcept
     return cursorEnabled;
 }
 
-
 LRESULT Window::PassMessageHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept
 {
     Window* const pWnd = reinterpret_cast<Window*>(GetWindowLongPtr(hWnd, GWLP_USERDATA));
@@ -144,196 +143,193 @@ LRESULT Window::HandleMessage(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam)
 
     switch (msg)
     {
-    case WM_CLOSE:
-        PostQuitMessage(0);
-        return 0;
-    case WM_KILLFOCUS:
-        kbd.ClearState();
-        break;
-    case WM_ACTIVATE:
-        if (!cursorEnabled)
+        case WM_CLOSE:
+            PostQuitMessage(0);
+            return 0;
+        case WM_KILLFOCUS:
+            kbd.ClearState();
+            break;
+        case WM_ACTIVATE:
+            if (!cursorEnabled)
+            {
+                if (wParam & WA_ACTIVE)
+                {
+                    ConfineCursor();
+                    HideCursor();
+                }
+                else
+                {
+                    FreeCursor();
+                    ShowCursor();
+                }
+            }
+            break;
+        case WM_ENTERSIZEMOVE:
+            isBeingResized = true;
+            return 0;
+        case WM_SIZE:
         {
-            if (wParam & WA_ACTIVE)
+            const auto newWidth = LOWORD(lParam);
+            const auto newHeight = HIWORD(lParam);
+            if (width == newWidth && height == newHeight)
+            {
+                return 0;
+            }
+
+            if (width > 0 && height > 0)
+            {
+                width = newWidth;
+                height = newHeight;
+                events.SetEvent(width, height);
+            }
+            return 0;
+        }
+        case WM_EXITSIZEMOVE:
+            isBeingResized = false;
+            return 0;
+            /*********** KEYBOARD MESSAGES ***********/
+        case WM_KEYDOWN:
+        case WM_SYSKEYDOWN:
+            if (imGuiIO.WantCaptureKeyboard)
+            {
+                break;
+            }
+            if (!(lParam & 0x40000000))
+            {
+                kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
+            }
+            break;
+        case WM_KEYUP:
+        case WM_SYSKEYUP:
+            if (imGuiIO.WantCaptureKeyboard)
+            {
+                break;
+            }
+            kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
+            break;
+            /*********** END KEYBOARD MESSAGES ***********/
+
+            /************* MOUSE MESSAGES ****************/
+        case WM_MOUSEMOVE:
+        {
+            const POINTS pt = MAKEPOINTS(lParam);
+            if (!cursorEnabled)
+            {
+                if (!mouse.IsInWindow())
+                {
+                    SetCapture(hWnd);
+                    mouse.OnMouseEnter();
+                    HideCursor();
+                }
+                break;
+            }
+            if (imGuiIO.WantCaptureMouse)
+            {
+                break;
+            }
+            if (pt.x >= 0 && pt.x < width && pt.y >= 0 && pt.y < height)
+            {
+                mouse.OnMouseMove(pt.x, pt.y);
+                if (!mouse.IsInWindow())
+                {
+                    SetCapture(hWnd);
+                    mouse.OnMouseEnter();
+                }
+            }
+            else
+            {
+                ReleaseCapture();
+                mouse.OnMouseLeave();
+            }
+            break;
+        }
+        case WM_LBUTTONDOWN:
+        {
+            SetForegroundWindow(hWnd);
+            if (!cursorEnabled)
             {
                 ConfineCursor();
                 HideCursor();
             }
-            else
+            if (imGuiIO.WantCaptureMouse)
             {
-                FreeCursor();
-                ShowCursor();
+                break;
             }
-        }
-        break;
-    case WM_ENTERSIZEMOVE:
-        isBeingResized = true;
-        return 0;
-    case WM_SIZE:
-    {
-        const auto newWidth = LOWORD(lParam);
-        const auto newHeight = HIWORD(lParam);
-        if (width == newWidth && height == newHeight)
-        {
-            return 0;
-        }
-
-        if (width > 0 && height > 0)
-        {
-            width = newWidth;
-            height = newHeight;
-            events.SetEvent(width, height);
-        }
-        return 0;
-    }
-    case WM_EXITSIZEMOVE:
-        isBeingResized = false;
-        return 0;
-        /*********** KEYBOARD MESSAGES ***********/
-    case WM_KEYDOWN:
-    case WM_SYSKEYDOWN:
-        if (imGuiIO.WantCaptureKeyboard)
-        {
+            const POINTS pt = MAKEPOINTS(lParam);
             break;
         }
-        if (!(lParam & 0x40000000) )
+        case WM_RBUTTONDOWN:
         {
-            kbd.OnKeyPressed(static_cast<unsigned char>(wParam));
-        }
-        break;
-    case WM_KEYUP:
-    case WM_SYSKEYUP:
-        if (imGuiIO.WantCaptureKeyboard)
-        {
-            break;
-        }
-        kbd.OnKeyReleased(static_cast<unsigned char>(wParam));
-        break;
-        /*********** END KEYBOARD MESSAGES ***********/
-
-        /************* MOUSE MESSAGES ****************/
-    case WM_MOUSEMOVE:
-    {
-        const POINTS pt = MAKEPOINTS(lParam);
-        if (!cursorEnabled)
-        {
-            if (!mouse.IsInWindow())
+            if (imGuiIO.WantCaptureMouse)
             {
-                SetCapture(hWnd);
-                mouse.OnMouseEnter();
-                HideCursor();
+                break;
+            }
+            const POINTS pt = MAKEPOINTS(lParam);
+            break;
+        }
+        case WM_LBUTTONUP:
+        {
+            if (imGuiIO.WantCaptureMouse)
+            {
+                break;
+            }
+            const POINTS pt = MAKEPOINTS(lParam);
+            if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
+            {
+                ReleaseCapture();
+                mouse.OnMouseLeave();
             }
             break;
         }
-        if (imGuiIO.WantCaptureMouse)
+        case WM_RBUTTONUP:
         {
-            break;
-        }
-        if (pt.x >= 0 && pt.x < width && pt.y >= 0 && pt.y < height)
-        {
-            mouse.OnMouseMove(pt.x, pt.y);
-            if (!mouse.IsInWindow())
+            if (imGuiIO.WantCaptureMouse)
             {
-                SetCapture(hWnd);
-                mouse.OnMouseEnter();
+                break;
             }
-        }
-        else
-        {
-            ReleaseCapture();
-            mouse.OnMouseLeave();
-        }
-        break;
-    }
-    case WM_LBUTTONDOWN:
-    {
-        SetForegroundWindow(hWnd);
-        if (!cursorEnabled)
-        {
-            ConfineCursor();
-            HideCursor();
-        }
-        if (imGuiIO.WantCaptureMouse)
-        {
+            const POINTS pt = MAKEPOINTS(lParam);
+            if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
+            {
+                ReleaseCapture();
+                mouse.OnMouseLeave();
+            }
             break;
         }
-        const POINTS pt = MAKEPOINTS(lParam);
-        break;
-    }
-    case WM_RBUTTONDOWN:
-    {
-        if (imGuiIO.WantCaptureMouse)
-        {
-            break;
-        }
-        const POINTS pt = MAKEPOINTS(lParam);
-        break;
-    }
-    case WM_LBUTTONUP:
-    {
-        if (imGuiIO.WantCaptureMouse)
-        {
-            break;
-        }
-        const POINTS pt = MAKEPOINTS(lParam);
-        if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
-        {
-            ReleaseCapture();
-            mouse.OnMouseLeave();
-        }
-        break;
-    }
-    case WM_RBUTTONUP:
-    {
-        if (imGuiIO.WantCaptureMouse)
-        {
-            break;
-        }
-        const POINTS pt = MAKEPOINTS(lParam);
-        if (pt.x < 0 || pt.x >= width || pt.y < 0 || pt.y >= height)
-        {
-            ReleaseCapture();
-            mouse.OnMouseLeave();
-        }
-        break;
-    }
-    /************** END MOUSE MESSAGES **************/
+        /************** END MOUSE MESSAGES **************/
 
-    /************** RAW MOUSE MESSAGES **************/
-    case WM_INPUT:
-    {
-        if (!mouse.RawEnabled())
+        /************** RAW MOUSE MESSAGES **************/
+        case WM_INPUT:
         {
+            if (!mouse.RawEnabled())
+            {
+                break;
+            }
+            UINT size = 0;
+            if (GetRawInputData(reinterpret_cast<HRAWINPUT>(lParam), RID_INPUT, nullptr, &size, sizeof(RAWINPUTHEADER))
+                == -1)
+            {
+                break;
+            }
+            rawBuffer.resize(size);
+            if (GetRawInputData(
+                    reinterpret_cast<HRAWINPUT>(lParam),
+                    RID_INPUT,
+                    rawBuffer.data(),
+                    &size,
+                    sizeof(RAWINPUTHEADER)
+                )
+                != size)
+            {
+                break;
+            }
+            auto& ri = reinterpret_cast<const RAWINPUT&>(*rawBuffer.data());
+            if (ri.header.dwType == RIM_TYPEMOUSE && (ri.data.mouse.lLastX != 0 || ri.data.mouse.lLastY != 0))
+            {
+                mouse.OnRawDelta(ri.data.mouse.lLastX, ri.data.mouse.lLastY);
+            }
             break;
         }
-        UINT size = 0;
-        if (GetRawInputData(
-            reinterpret_cast<HRAWINPUT>(lParam),
-            RID_INPUT,
-            nullptr,
-            &size,
-            sizeof(RAWINPUTHEADER)) == -1)
-        {
-            break;
-        }
-        rawBuffer.resize(size);
-        if (GetRawInputData(
-            reinterpret_cast<HRAWINPUT>(lParam),
-            RID_INPUT,
-            rawBuffer.data(),
-            &size,
-            sizeof(RAWINPUTHEADER)) != size)
-        {
-            break;
-        }
-        auto& ri = reinterpret_cast<const RAWINPUT&>(*rawBuffer.data());
-        if (ri.header.dwType == RIM_TYPEMOUSE &&
-            (ri.data.mouse.lLastX != 0 || ri.data.mouse.lLastY != 0))
-        {
-            mouse.OnRawDelta(ri.data.mouse.lLastX, ri.data.mouse.lLastY);
-        }
-        break;
-    }
-    /************** END RAW MOUSE MESSAGES **************/
+            /************** END RAW MOUSE MESSAGES **************/
     }
 
     return DefWindowProc(hWnd, msg, wParam, lParam);
@@ -347,7 +343,6 @@ void Window::ConfineCursor() noexcept
     ClipCursor(&rect);
 }
 
-
 void Window::FreeCursor() noexcept
 {
     ClipCursor(nullptr);
@@ -355,12 +350,14 @@ void Window::FreeCursor() noexcept
 
 void Window::HideCursor() noexcept
 {
-    while (::ShowCursor(FALSE) >= 0);
+    while (::ShowCursor(FALSE) >= 0)
+        ;
 }
 
 void Window::ShowCursor() noexcept
 {
-    while (::ShowCursor(TRUE) < 0);
+    while (::ShowCursor(TRUE) < 0)
+        ;
 }
 
 void Window::EnableImGuiMouse() noexcept
@@ -374,10 +371,11 @@ void Window::DisableImGuiMouse() noexcept
 }
 
 #pragma region Window Class
+
 Window::WindowClass::WindowClass() noexcept
     : hInst(GetModuleHandle(nullptr))
 {
-    WNDCLASSEX wc = { 0 };
+    WNDCLASSEX wc = {0};
     wc.cbSize = sizeof(wc);
     wc.style = CS_OWNDC;
     wc.lpfnWndProc = SetupMessageHandler;

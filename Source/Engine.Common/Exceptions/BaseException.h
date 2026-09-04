@@ -4,7 +4,7 @@
 
 class BaseException : public std::exception
 {
-public:
+  public:
     BaseException(int line, const char* file) noexcept;
     const char* what() const noexcept override;
     virtual const char* GetType() const noexcept;
@@ -12,11 +12,10 @@ public:
     const std::string& GetFile() const noexcept;
     std::string GetOriginString() const noexcept;
 
-protected:
+  protected:
     mutable std::string WhatBuffer;
 
-private:
+  private:
     int line;
     std::string file;
 };
-

@@ -4,12 +4,10 @@ using namespace std::chrono;
 
 namespace Engine
 {
-
     Timer::Timer() noexcept
     {
         last = steady_clock::now();
         start = steady_clock::now();
-
     }
 
     float Timer::Mark() noexcept
@@ -29,4 +27,4 @@ namespace Engine
     {
         return duration<float>(steady_clock::now() - start).count();
     }
-}
+} // namespace Engine

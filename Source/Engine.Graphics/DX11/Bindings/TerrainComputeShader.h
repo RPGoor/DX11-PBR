@@ -1,14 +1,13 @@
 #pragma once
 #include "../Bindable.h"
-#include "ConstantBuffers.h"
-#include <functional>
-#include "Sampler.h"
 #include "ComputeTexture.h"
+#include "ConstantBuffers.h"
+#include "Sampler.h"
+#include <functional>
 
 class TerrainComputeShader : public Bindable
 {
-
-public:
+  public:
     TerrainComputeShader(Graphics& gfx);
     void Generate(Graphics& gfx, ComputeTexture& heightmap, ComputeTexture& normalmap, DirectX::XMFLOAT2 position);
     void Bind(Graphics& gfx) noexcept override;
@@ -19,7 +18,7 @@ public:
 
     std::function<void()> regenCallback;
 
-protected:
+  protected:
     struct alignas(16) TerrainConstants
     {
         UINT textureDimensions;

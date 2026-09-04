@@ -4,7 +4,7 @@
 
 class FrameCbuf : public Bindable
 {
-public:
+  public:
     FrameCbuf(Graphics& gfx);
 
     void Update(
@@ -12,11 +12,12 @@ public:
         DirectX::FXMMATRIX view,
         DirectX::FXMMATRIX projection,
         const DirectX::XMFLOAT3& cameraPosition,
-        float time);
+        float time
+    );
 
     void Bind(Graphics& gfx) noexcept override;
 
-private:
+  private:
     struct alignas(16) FrameConstants
     {
         DirectX::XMMATRIX view;
@@ -29,5 +30,4 @@ private:
 
     VertexConstantBuffer<FrameConstants> bufferVS;
     PixelConstantBuffer<FrameConstants> bufferPS;
-
 };

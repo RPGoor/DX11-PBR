@@ -4,8 +4,8 @@
 
 class Controller
 {
-public:
+  public:
     void Update(Window& wnd, Camera& cam, float dt);
 
-private:
+  private:
 };

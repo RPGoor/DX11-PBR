@@ -2,8 +2,10 @@
 #include <sstream>
 
 BaseException::BaseException(int line, const char* file) noexcept
-    : line(line), file(file)
-{}
+    : line(line),
+      file(file)
+{
+}
 
 const char* BaseException::what() const noexcept
 {
@@ -34,4 +36,3 @@ std::string BaseException::GetOriginString() const noexcept
     oss << "[File] " << file << std::endl << "[Line] " << line;
     return oss.str();
 }
-

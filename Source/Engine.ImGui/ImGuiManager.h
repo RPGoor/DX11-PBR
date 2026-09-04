@@ -1,8 +1,8 @@
 #pragma once
+
 class ImGuiManager
 {
-public:
+  public:
     ImGuiManager();
     ~ImGuiManager();
 };
-

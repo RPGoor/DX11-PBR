@@ -3,7 +3,7 @@
 
 class VertexShader : public Bindable
 {
-public:
+  public:
     VertexShader(Graphics& gfx, const std::string& path);
     void Bind(Graphics& gfx) noexcept override;
     ID3DBlob* GetBytecode() const noexcept;
@@ -12,7 +12,7 @@ public:
     static std::string GenerateUID(const std::string& path);
     std::string GetUID() const noexcept override;
 
-protected:
+  protected:
     std::string path;
     Microsoft::WRL::ComPtr<ID3DBlob> pBytecodeBlob;
     Microsoft::WRL::ComPtr<ID3D11VertexShader> pVertexShader;

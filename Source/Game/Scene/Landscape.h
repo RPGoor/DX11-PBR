@@ -1,23 +1,22 @@
 #pragma once
-#include <Graphics.h>
+#include "Chunk.h"
 #include "Grass.h"
 #include "Terrain.h"
-#include <Bindings/TerrainComputeShader.h>
 #include <Bindings/GrassComputeShader.h>
-#include "Chunk.h"
+#include <Bindings/TerrainComputeShader.h>
 #include <Camera.h>
+#include <Graphics.h>
 
 class Landscape
 {
-public:
+  public:
     Landscape(Graphics& gfx);
     void SpawnControlWindows() noexcept;
 
     void Draw(Graphics& gfx, Camera& cam) const;
     void GenerateTerrain(Graphics& gfx);
 
-private:
-
+  private:
     std::unique_ptr<TerrainComputeShader> terrainShader;
     std::unique_ptr<GrassComputeShader> grassShader;
 

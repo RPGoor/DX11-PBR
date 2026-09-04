@@ -1,10 +1,9 @@
-#include <MinWindows.h>
 #include "Mouse.h"
-
+#include <MinWindows.h>
 
 std::pair<int, int> Mouse::GetPos() const noexcept
 {
-    return { x,y };
+    return {x, y};
 }
 
 std::optional<Mouse::RawDelta> Mouse::ReadRawDelta() noexcept
@@ -63,7 +62,7 @@ void Mouse::OnMouseEnter() noexcept
 
 void Mouse::OnRawDelta(int dx, int dy) noexcept
 {
-    rawDeltaBuffer.push({ dx,dy });
+    rawDeltaBuffer.push({dx, dy});
     TrimRawInputBuffer();
 }
 

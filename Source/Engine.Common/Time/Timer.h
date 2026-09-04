@@ -5,15 +5,14 @@ namespace Engine
 {
     class Timer
     {
-    public:
+      public:
         Timer() noexcept;
         float Mark() noexcept;
         float Peek() const noexcept;
         float Elapsed() const noexcept;
-    private:
+
+      private:
         std::chrono::steady_clock::time_point last;
         std::chrono::steady_clock::time_point start;
-
     };
-}
-
+} // namespace Engine

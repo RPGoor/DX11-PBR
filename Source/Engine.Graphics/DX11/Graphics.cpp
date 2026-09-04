@@ -1,8 +1,8 @@
 #include "Graphics.h"
-#include <sstream>
 #include "GraphicsExceptionsMacros.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
+#include <sstream>
 
 namespace wrl = Microsoft::WRL;
 
@@ -10,7 +10,6 @@ namespace dx = DirectX;
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
-
 
 Graphics::Graphics(HWND hWnd)
 {
@@ -36,7 +35,6 @@ Graphics::Graphics(HWND hWnd)
     swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-
     HRESULT hr;
 
     GFX_THROW_INFO(D3D11CreateDeviceAndSwapChain(
@@ -51,9 +49,9 @@ Graphics::Graphics(HWND hWnd)
         &pSwap,
         &pDevice,
         nullptr,
-        &pContext));
+        &pContext
+    ));
 
-   
     D3D11_DEPTH_STENCIL_DESC dsDesc = {};
     dsDesc.DepthEnable = TRUE;
     dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
@@ -124,7 +122,7 @@ void Graphics::BeginFrame(float r, float g, float b) noexcept
         ImGui::NewFrame();
     }
 
-    const float color[] = { r, g, b, 1.0 };
+    const float color[] = {r, g, b, 1.0};
     pContext->ClearRenderTargetView(pTarget.Get(), color);
     pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
 }
@@ -133,24 +131,12 @@ void Graphics::Resize(unsigned int width, unsigned int height) noexcept
 {
     HRESULT hr;
 
-    pContext->OMSetRenderTargets(
-        0u,
-        nullptr,
-        nullptr
-    );
+    pContext->OMSetRenderTargets(0u, nullptr, nullptr);
 
     pTarget.Reset();
     pDSV.Reset();
 
-    GFX_THROW_INFO(
-        pSwap->ResizeBuffers(
-            0u,
-            width,
-            height,
-            DXGI_FORMAT_UNKNOWN,
-            0u
-        )
-    );
+    GFX_THROW_INFO(pSwap->ResizeBuffers(0u, width, height, DXGI_FORMAT_UNKNOWN, 0u));
 
     CreateTargetAndDepthStencil(width, height);
     CreateViewport(width, height);
@@ -160,7 +146,6 @@ void Graphics::Dispatch(UINT groupCountX, UINT groupCountY, UINT groupCountZ) no
 {
     pContext->Dispatch(groupCountX, groupCountY, groupCountZ);
 }
-
 
 void Graphics::EnableImGui() noexcept
 {
@@ -195,7 +180,6 @@ void Graphics::CreateTargetAndDepthStencil(unsigned int width, unsigned int heig
     wrl::ComPtr<ID3D11Resource> pBackBuffer;
     GFX_THROW_INFO(pSwap->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
     GFX_THROW_INFO(pDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &pTarget));
-
 
     wrl::ComPtr<ID3D11Texture2D> pDepthStencil;
     D3D11_TEXTURE2D_DESC descDepth = {};

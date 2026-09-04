@@ -1,12 +1,8 @@
 #include "Material.h"
 
-Material::Material(
-    Graphics& gfx,
-    std::string materialName,
-    const MaterialConstants& constants)
+Material::Material(Graphics& gfx, std::string materialName, const MaterialConstants& constants)
     : materialName(materialName)
 {
-
     pConstant = std::make_unique<PixelConstantBuffer<MaterialConstants>>(gfx, constants, 2u);
 }
 
@@ -30,4 +26,3 @@ std::string Material::GetUID() const noexcept
 {
     return GenerateUID_(materialName);
 }
-

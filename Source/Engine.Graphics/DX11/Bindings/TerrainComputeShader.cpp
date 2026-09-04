@@ -3,18 +3,25 @@
 #include "imgui.h"
 
 TerrainComputeShader::TerrainComputeShader(Graphics& gfx)
-    :cbuf(gfx, 0u), cbData(512u, 1.0f, 4.0f, 2.0f, 0.5f, 8u, { }, 0u, { })
+    : cbuf(gfx, 0u),
+      cbData(512u, 1.0f, 4.0f, 2.0f, 0.5f, 8u, {}, 0u, {})
 {
     INFOMAN(gfx);
     terrainSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_CLAMP);
 
     Microsoft::WRL::ComPtr<ID3DBlob> pBlob;
-    GFX_THROW_INFO(D3DReadFileToBlob(std::wstring{ path.begin(),path.end() }.c_str(), &pBlob));
-    GFX_THROW_INFO(GetDevice(gfx)->CreateComputeShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pComputeShader));
+    GFX_THROW_INFO(D3DReadFileToBlob(std::wstring{path.begin(), path.end()}.c_str(), &pBlob));
+    GFX_THROW_INFO(
+        GetDevice(gfx)->CreateComputeShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pComputeShader)
+    );
 }
 
-
-void TerrainComputeShader::Generate(Graphics& gfx, ComputeTexture& heightmap, ComputeTexture& normalmap, DirectX::XMFLOAT2 position)
+void TerrainComputeShader::Generate(
+    Graphics& gfx,
+    ComputeTexture& heightmap,
+    ComputeTexture& normalmap,
+    DirectX::XMFLOAT2 position
+)
 {
     cbData.chunkPosition = position;
     heightmap.BindUAV(gfx);
@@ -23,15 +30,9 @@ void TerrainComputeShader::Generate(Graphics& gfx, ComputeTexture& heightmap, Co
 
     constexpr UINT threadGroupSize = 8u;
 
-    const UINT groupCount =
-        (HeightmapResolution + threadGroupSize - 1u) /
-        threadGroupSize;
+    const UINT groupCount = (HeightmapResolution + threadGroupSize - 1u) / threadGroupSize;
 
-    gfx.Dispatch(
-        groupCount,
-        groupCount,
-        1u
-    );
+    gfx.Dispatch(groupCount, groupCount, 1u);
 
     heightmap.UnbindUAV(gfx);
     normalmap.UnbindUAV(gfx);
@@ -54,7 +55,6 @@ void TerrainComputeShader::BindVS(Graphics& gfx) noexcept
 
 void TerrainComputeShader::Unbind(Graphics& gfx) noexcept
 {
-
     GetContext(gfx)->CSSetShader(nullptr, nullptr, 0u);
 }
 

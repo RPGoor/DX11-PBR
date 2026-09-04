@@ -4,11 +4,11 @@
 
 class Camera
 {
-public:
+  public:
     Camera() noexcept;
     DirectX::XMMATRIX GetMatrix() const noexcept;
-    void Rotate( float dx,float dy ) noexcept;
-    void Translate( DirectX::XMFLOAT3 translation ) noexcept;
+    void Rotate(float dx, float dy) noexcept;
+    void Translate(DirectX::XMFLOAT3 translation) noexcept;
 
     DirectX::BoundingFrustum GetFrustum() const;
 
@@ -16,7 +16,8 @@ public:
     DirectX::XMMATRIX GetProjection() const noexcept;
 
     DirectX::XMFLOAT3 pos;
-private:
+
+  private:
     float pitch;
     float yaw;
     static constexpr float travelSpeed = 12.0f;
