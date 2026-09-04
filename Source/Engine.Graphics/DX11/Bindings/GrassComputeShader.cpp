@@ -3,7 +3,7 @@
 #include "imgui.h"
 
 GrassComputeShader::GrassComputeShader(Graphics& gfx)
-    :cbuf(gfx, 0u), cbData(400000u, 20.0f, {0.0f, 0.0f})
+    :cbuf(gfx, 0u), cbData(0u, 20.0f, {0.0f, 0.0f})
 {
     INFOMAN(gfx);
     terrainSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_CLAMP);
@@ -17,6 +17,7 @@ GrassComputeShader::GrassComputeShader(Graphics& gfx)
 void GrassComputeShader::Generate(Graphics& gfx, InstanceBuffer& instanceBuffer, IndirectArgsBuffer& indirectArgs, DirectX::XMFLOAT2 chunkPosition, ComputeTexture& normalmap)
 {
     cbData.chunkPosition = chunkPosition;
+    cbData.candidateCount = instanceBuffer.GetCount();
     Bind(gfx);
     normalmap.BindCS(gfx);
     terrainSampler->BindCS(gfx);
