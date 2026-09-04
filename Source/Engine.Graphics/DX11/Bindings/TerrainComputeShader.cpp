@@ -3,7 +3,7 @@
 #include "imgui.h"
 
 TerrainComputeShader::TerrainComputeShader(Graphics& gfx)
-    :cbuf(gfx, 0u), cbData( 512u, 1.0f, 4.0f, 2.0f, 0.5f, 8u)
+    :cbuf(gfx, 0u), cbData(512u, 1.0f, 4.0f, 2.0f, 0.5f, 8u, { }, 0u, { })
 {
     INFOMAN(gfx);
     terrainSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_CLAMP);
@@ -71,6 +71,12 @@ void TerrainComputeShader::SpawnControlWindow() noexcept
         if (ImGui::SliderInt("Iterations", &iterations, 1, 128))
         {
             cbData.iterations = static_cast<UINT>(iterations);
+        }
+
+        int seed = static_cast<int>(cbData.seed);
+        if (ImGui::SliderInt("Seed", &seed, 0, 1024))
+        {
+            cbData.seed = static_cast<UINT>(seed);
         }
 
         if (ImGui::Button("Generate"))

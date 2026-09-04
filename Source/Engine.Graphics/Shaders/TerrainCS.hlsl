@@ -12,6 +12,7 @@ cbuffer TerrainGenerationCBuf : register(b0)
     float amplitudeFactor;
     uint iterations;
     float2 chunkPosition;
+    uint seed;
 };
 
 [numthreads(8, 8, 1)]
@@ -34,7 +35,7 @@ void main(uint3 dispatchThreadID : SV_DispatchThreadID)
     for (int i = 0; i < iterations; i++)
     {
         float2 noisePos = (uv + chunkOffset) * freq;
-        ValueNoiseResult noise = ValueNoise(noisePos);
+        ValueNoiseResult noise = ValueNoise(noisePos, seed);
         noise.value = noise.value * 2.0f - 1.0f;
         
         height += noise.value * amp;

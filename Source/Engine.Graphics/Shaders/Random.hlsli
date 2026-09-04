@@ -8,9 +8,12 @@
 
 uint Combine(uint2 input)
 {
-    return
-        input.x * 73856093u ^
-        input.y * 19349663u;
+    return input.x * 73856093u ^ input.y * 19349663u;
+}
+
+uint2 Split(uint input)
+{
+    return uint2(input * 73856093u, input * 19349663u);
 }
 
 uint Hash(uint input)
@@ -41,20 +44,19 @@ float NormalizedHash(uint input)
     return NormalizeUint(Hash(input));
 }
 
-ValueNoiseResult ValueNoise(float2 position)
+ValueNoiseResult ValueNoise(float2 position, uint seed)
 {
     ValueNoiseResult result;
     uint2 corner = floor(position);
     float2 local = frac(position);
-    
+    uint2 splitSeed = Split(seed);
     float corners[4] =
     {
-        NormalizedHash(corner),
-        NormalizedHash(corner + uint2(1, 0)),
-        NormalizedHash(corner + uint2(0, 1)),
-        NormalizedHash(corner + uint2(1, 1)),
+        NormalizedHash(corner ^ seed),
+        NormalizedHash((corner + uint2(1, 0)) ^ seed),
+        NormalizedHash((corner + uint2(0, 1)) ^ seed),
+        NormalizedHash((corner + uint2(1, 1)) ^ seed),
     };
-
 
     float2 t = local * local * (3.0f - 2.0f * local);
     float2 dt = 6.0f * local * (1.0f - local);

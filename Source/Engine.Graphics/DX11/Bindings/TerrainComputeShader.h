@@ -29,6 +29,8 @@ protected:
         float amplitudeFactor;
         UINT iterations;
         DirectX::XMFLOAT2 chunkPosition;
+        UINT seed;
+        UINT padding[3];
     };
 
     std::string path = "TerrainCS.cso";
