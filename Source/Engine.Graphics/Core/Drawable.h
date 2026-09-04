@@ -1,38 +1,38 @@
 #pragma once
-#include "../DX11/Graphics.h"
 #include "../DX11/Bindable.h"
-#include <memory>
-#include <vector>
 #include "../DX11/Bindings/IndexBuffer.h"
-#include "../DX11/Bindings/TransformCbuf.h"
+#include "../DX11/Bindings/Material.h"
 #include "../DX11/Bindings/Mesh.h"
 #include "../DX11/Bindings/PipelineSettings.h"
-#include "../DX11/Bindings/Material.h"
+#include "../DX11/Bindings/TransformCbuf.h"
+#include "../DX11/Graphics.h"
+#include <memory>
+#include <vector>
 
 class Drawable
 {
-public:
+  public:
     Drawable(const Drawable&) = delete;
     virtual ~Drawable() = default;
 
-public:
+  public:
     void Draw(Graphics& gfx) const;
     void Draw(Graphics& gfx, UINT instanceCount) const;
     void Draw(Graphics& gfx, ID3D11Buffer* indirectArgs) const;
     void Bind(Graphics& gfx) const;
 
-protected:
+  protected:
     Drawable();
 
     virtual void DrawCall(Graphics& gfx) const;
     virtual void DrawCall(Graphics& gfx, UINT instanceCount) const;
     virtual void DrawCall(Graphics& gfx, ID3D11Buffer* indirectArgs) const;
 
+  protected:
     std::shared_ptr<Mesh> mesh;
     std::shared_ptr<Material> material;
     std::shared_ptr<PipelineSettings> pipeline;
     std::unique_ptr<TransformCbuf> transform;
 
-private:
-
+  private:
 };

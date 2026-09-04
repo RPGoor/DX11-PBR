@@ -1,24 +1,25 @@
 #pragma once
 
-#include <Bindings/InstanceBuffer.h>
-#include <Bindings/Texture.h>
-#include <Bindings/Sampler.h>
+#include "Chunk.h"
 #include <Bindings/ConstantBuffers.h>
+#include <Bindings/InstanceBuffer.h>
+#include <Bindings/Material.h>
 #include <Bindings/Mesh.h>
 #include <Bindings/PipelineSettings.h>
-#include <Bindings/Material.h>
+#include <Bindings/Sampler.h>
+#include <Bindings/Texture.h>
 #include <Drawable.h>
-#include "Chunk.h"
 
 class Grass : public Drawable
 {
-public:
+  public:
     Grass(Graphics& gfx);
     void Bind(Graphics& gfx) const;
     void SpawnControlWindow() noexcept;
     UINT GetIndexCount() noexcept;
     void DrawChunk(Graphics& gfx, const Chunk& chunk) const;
-private:
+
+  private:
     struct alignas(16) GrassConstants
     {
         float bendStrength;

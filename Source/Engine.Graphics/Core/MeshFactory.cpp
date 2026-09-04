@@ -1,8 +1,8 @@
 #include "MeshFactory.h"
-#include <assimp/postprocess.h>
-#include <assimp/Importer.hpp>
-#include <assimp/scene.h>
 #include "ModelException.h"
+#include <assimp/Importer.hpp>
+#include <assimp/postprocess.h>
+#include <assimp/scene.h>
 #include <string>
 
 MeshData MeshFactory::Load(const std::string& path)
@@ -11,9 +11,7 @@ MeshData MeshFactory::Load(const std::string& path)
 
     const aiScene* scene = importer.ReadFile(
         path,
-        aiProcess_Triangulate |
-        aiProcess_JoinIdenticalVertices |
-        aiProcess_GenSmoothNormals
+        aiProcess_Triangulate | aiProcess_JoinIdenticalVertices | aiProcess_GenSmoothNormals
     );
 
     if (!scene || !scene->HasMeshes())
@@ -27,12 +25,13 @@ MeshData MeshFactory::Load(const std::string& path)
 
     for (unsigned int i = 0; i < mesh.mNumVertices; i++)
     {
-        vertices.push_back(Vertex::Standard
-        {
-            *reinterpret_cast<DirectX::XMFLOAT3*>(&mesh.mVertices[i]),
-            * reinterpret_cast<DirectX::XMFLOAT3*>(&mesh.mNormals[i]),
-            * reinterpret_cast<DirectX::XMFLOAT2*>(&mesh.mTextureCoords[0][i])
-        });
+        vertices.push_back(
+            Vertex::Standard{
+                *reinterpret_cast<DirectX::XMFLOAT3*>(&mesh.mVertices[i]),
+                *reinterpret_cast<DirectX::XMFLOAT3*>(&mesh.mNormals[i]),
+                *reinterpret_cast<DirectX::XMFLOAT2*>(&mesh.mTextureCoords[0][i])
+            }
+        );
     }
 
     std::vector<unsigned int> indices;
@@ -48,11 +47,7 @@ MeshData MeshFactory::Load(const std::string& path)
         indices.push_back(face.mIndices[1]);
         indices.push_back(face.mIndices[2]);
     }
-    return MeshData{
-        std::string("load#") + mesh.mName.C_Str(),
-        std::move(vertices),
-        std::move(indices)
-    };
+    return MeshData{std::string("load#") + mesh.mName.C_Str(), std::move(vertices), std::move(indices)};
 }
 
 MeshData MeshFactory::Grid(UINT64 resolution, float size)
@@ -66,9 +61,7 @@ MeshData MeshFactory::Grid(UINT64 resolution, float size)
     {
         for (UINT x = 0; x < resolution; x++)
         {
-            vertices.push_back(Vertex::Standard{
-                { -halfSize + x * spacing, 0.0f, -halfSize + z * spacing}
-            });
+            vertices.push_back(Vertex::Standard{{-halfSize + x * spacing, 0.0f, -halfSize + z * spacing}});
         }
     }
 
@@ -95,7 +88,7 @@ MeshData MeshFactory::Grid(UINT64 resolution, float size)
     }
 
     return MeshData{
-        std::string("generateGrid#") + std::to_string(resolution) + "#"  + std::to_string(size),
+        std::string("generateGrid#") + std::to_string(resolution) + "#" + std::to_string(size),
         std::move(vertices),
         std::move(indices)
     };

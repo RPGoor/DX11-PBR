@@ -4,18 +4,19 @@
 
 class TransformCbuf : public Bindable
 {
-private:
+  private:
     struct alignas(16) ObjectConstants
     {
         DirectX::XMMATRIX model;
         DirectX::XMMATRIX modelInverseTranspose;
     };
 
-public:
+  public:
     TransformCbuf(Graphics& gfx, UINT slot = 1u);
     void Bind(Graphics& gfx) noexcept override;
     void SetTransform(DirectX::XMMATRIX transformMatrix);
-private:
+
+  private:
     VertexConstantBuffer<ObjectConstants> vbuf;
     DirectX::XMFLOAT4X4 transform;
 };

@@ -1,18 +1,19 @@
 #pragma once
 
-#include "../Bindable.h"
 #include "../../Core/Vertex.h"
+#include "../Bindable.h"
 
 class InstanceBuffer : public Bindable
 {
-public:
+  public:
     InstanceBuffer(Graphics& gfx, UINT maxCount);
 
     void Bind(Graphics& gfx) noexcept override;
 
     UINT GetCount() const noexcept;
     ID3D11UnorderedAccessView* GetUAV() const noexcept;
-private:
+
+  private:
     Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> pUnorderedAccessView;
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pShaderResourceView;
     Microsoft::WRL::ComPtr<ID3D11Buffer> pBuffer;

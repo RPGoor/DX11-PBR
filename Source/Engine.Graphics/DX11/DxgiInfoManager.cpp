@@ -1,6 +1,6 @@
 #include "DxgiInfoManager.h"
-#include "GraphicsExceptionsMacros.h"
 #include "Graphics.h"
+#include "GraphicsExceptionsMacros.h"
 #include <dxgidebug.h>
 #include <memory>
 
@@ -8,7 +8,7 @@
 
 DxgiInfoManager::DxgiInfoManager()
 {
-    typedef HRESULT(WINAPI* DXGIGetDebugInterface)(REFIID, void**);
+    typedef HRESULT(WINAPI * DXGIGetDebugInterface)(REFIID, void**);
 
     const auto hModDxgiDebug = LoadLibraryEx(L"dxgidebug.dll", nullptr, LOAD_LIBRARY_SEARCH_SYSTEM32);
     if (hModDxgiDebug == nullptr)
@@ -18,7 +18,7 @@ DxgiInfoManager::DxgiInfoManager()
 
     const auto DxgiGetDebugInterface = reinterpret_cast<DXGIGetDebugInterface>(
         reinterpret_cast<void*>(GetProcAddress(hModDxgiDebug, "DXGIGetDebugInterface"))
-        );
+    );
     if (DxgiGetDebugInterface == nullptr)
     {
         throw GFX_LAST_EXCEPT();

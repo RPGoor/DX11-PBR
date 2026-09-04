@@ -1,18 +1,18 @@
 #pragma once
 #include "Landscape.h"
-#include <DirectionalLight.h>
 #include <Camera.h>
+#include <DirectionalLight.h>
 
 class Scene
 {
-public:
+  public:
     Scene(Graphics& gfx);
     void Update(float dt);
     void Draw(Graphics& gfx);
     Camera& GetCamera() noexcept;
-private:
+
+  private:
     Landscape landscape;
     DirectionalLight pointLight;
     Camera camera;
-
 };

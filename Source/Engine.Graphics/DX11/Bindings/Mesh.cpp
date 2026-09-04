@@ -36,4 +36,3 @@ const UINT& Mesh::GetCount() const noexcept
 {
     return indexBuffer->GetCount();
 }
-

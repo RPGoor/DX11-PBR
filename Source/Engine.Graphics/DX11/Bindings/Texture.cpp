@@ -1,6 +1,6 @@
 #include "Texture.h"
-#include "../GraphicsExceptionsMacros.h"
 #include "../BindableCodex.h"
+#include "../GraphicsExceptionsMacros.h"
 
 #include <directxtk/WICTextureLoader.h>
 #include <filesystem>
@@ -8,9 +8,8 @@
 namespace wrl = Microsoft::WRL;
 
 Texture::Texture(Graphics& gfx, const std::string& path, UINT slot)
-    :
-    path(path),
-    slot(slot)
+    : path(path),
+      slot(slot)
 {
     INFOMAN(gfx);
 
@@ -25,7 +24,6 @@ Texture::Texture(Graphics& gfx, const std::string& path, UINT slot)
             pTextureView.GetAddressOf()
         )
     );
-
 }
 
 void Texture::Bind(Graphics& gfx) noexcept
@@ -42,11 +40,13 @@ std::shared_ptr<Texture> Texture::Resolve(Graphics& gfx, const std::string& path
 {
     return Codex::Resolve<Texture>(gfx, path, slot);
 }
+
 std::string Texture::GenerateUID(const std::string& path, UINT slot)
 {
     using namespace std::string_literals;
     return typeid(Texture).name() + "#"s + path + "#" + std::to_string(slot);
 }
+
 std::string Texture::GetUID() const noexcept
 {
     return GenerateUID(path, slot);

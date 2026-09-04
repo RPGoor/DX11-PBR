@@ -2,20 +2,17 @@
 #include <sstream>
 
 Win32HrException::Win32HrException(int line, const char* file, HRESULT hr) noexcept
-    : Win32Exception(line, file), hr(hr)
-{}
+    : Win32Exception(line, file),
+      hr(hr)
+{
+}
 
 const char* Win32HrException::what() const noexcept
 {
     std::ostringstream oss;
-    oss << GetType()
-        << std::endl
-        << "[Error Code] "
-        << GetErrorCode()
-        << std::endl
-        << "[Description] "
-        << GetErrorDescription()
-        << std::endl
+    oss << GetType() << std::endl
+        << "[Error Code] " << GetErrorCode() << std::endl
+        << "[Description] " << GetErrorDescription() << std::endl
         << GetOriginString();
 
     WhatBuffer = oss.str();
@@ -30,13 +27,15 @@ const char* Win32HrException::GetType() const noexcept
 std::string Win32Exception::TranslateErrorCode(HRESULT hr) noexcept
 {
     char* pMsgBuf = nullptr;
-    DWORD nMsgLen = FormatMessage(FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+    DWORD nMsgLen = FormatMessage(
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
         nullptr,
         hr,
         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
         reinterpret_cast<LPWSTR>(&pMsgBuf),
         0,
-        nullptr);
+        nullptr
+    );
 
     if (nMsgLen == 0)
     {

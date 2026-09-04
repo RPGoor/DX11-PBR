@@ -1,7 +1,8 @@
 #include "Landscape.h"
 
 Landscape::Landscape(Graphics& gfx)
-    : grass(gfx), terrain(gfx)
+    : grass(gfx),
+      terrain(gfx)
 {
     terrainShader = std::make_unique<TerrainComputeShader>(gfx);
     grassShader = std::make_unique<GrassComputeShader>(gfx);
@@ -13,14 +14,13 @@ Landscape::Landscape(Graphics& gfx)
     {
         for (int j = 0; j < 8; j++)
         {
-            chunks.emplace_back(Chunk(gfx, { (float)i, (float)j }, *terrainShader, *grassShader, grass.GetIndexCount()));
+            chunks.emplace_back(Chunk(gfx, {(float)i, (float)j}, *terrainShader, *grassShader, grass.GetIndexCount()));
         }
     }
 }
 
 void Landscape::SpawnControlWindows() noexcept
 {
-
     grass.SpawnControlWindow();
     terrainShader->SpawnControlWindow();
 }

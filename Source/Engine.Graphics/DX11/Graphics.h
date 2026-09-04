@@ -1,21 +1,22 @@
 #pragma once
-#include <MinWindows.h>
+#include "DxgiInfoManager.h"
 #include <DirectXMath.h>
+#include <MinWindows.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
-#include <wrl.h>
-#include "DxgiInfoManager.h"
 #include <memory>
+#include <wrl.h>
 
 using namespace Microsoft::WRL;
 
 class Graphics
 {
     friend class Bindable;
-public:
+
+  public:
     Graphics(HWND hWnd);
     Graphics(const Graphics&) = delete;
-    Graphics& operator =(const Graphics&) = delete;
+    Graphics& operator=(const Graphics&) = delete;
     ~Graphics();
 
     void DrawIndexed(UINT count);
@@ -33,10 +34,11 @@ public:
     void DisableImGui() noexcept;
     bool IsImGuiEnabled() const noexcept;
 
-private:
+  private:
     void CreateViewport(unsigned int width, unsigned int height);
     void CreateTargetAndDepthStencil(unsigned int width, unsigned int height);
-private:
+
+  private:
     bool imGuiEnabled = true;
 #ifndef NDEBUG
     DxgiInfoManager infoManager;
@@ -47,5 +49,4 @@ private:
     ComPtr<ID3D11DeviceContext> pContext = nullptr;
     ComPtr<ID3D11RenderTargetView> pTarget = nullptr;
     ComPtr<ID3D11DepthStencilView> pDSV = nullptr;
-
 };

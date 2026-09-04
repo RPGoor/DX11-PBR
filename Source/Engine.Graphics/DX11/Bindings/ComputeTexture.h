@@ -4,7 +4,7 @@
 
 class ComputeTexture : public Bindable
 {
-public:
+  public:
     ComputeTexture(
         Graphics& gfx,
         UINT width,
@@ -30,7 +30,7 @@ public:
     ID3D11ShaderResourceView* GetSRV() const noexcept;
     ID3D11UnorderedAccessView* GetUAV() const noexcept;
 
-private:
+  private:
     UINT width;
     UINT height;
     UINT shaderResourceSlot;

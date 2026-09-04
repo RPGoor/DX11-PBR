@@ -3,18 +3,26 @@
 #include "imgui.h"
 
 GrassComputeShader::GrassComputeShader(Graphics& gfx)
-    :cbuf(gfx, 0u), cbData(0u, 20.0f, {0.0f, 0.0f})
+    : cbuf(gfx, 0u),
+      cbData(0u, 20.0f, {0.0f, 0.0f})
 {
     INFOMAN(gfx);
     terrainSampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_CLAMP);
 
     Microsoft::WRL::ComPtr<ID3DBlob> pBlob;
-    GFX_THROW_INFO(D3DReadFileToBlob(std::wstring{ path.begin(),path.end() }.c_str(), &pBlob));
-    GFX_THROW_INFO(GetDevice(gfx)->CreateComputeShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pComputeShader));
+    GFX_THROW_INFO(D3DReadFileToBlob(std::wstring{path.begin(), path.end()}.c_str(), &pBlob));
+    GFX_THROW_INFO(
+        GetDevice(gfx)->CreateComputeShader(pBlob->GetBufferPointer(), pBlob->GetBufferSize(), nullptr, &pComputeShader)
+    );
 }
 
-
-void GrassComputeShader::Generate(Graphics& gfx, InstanceBuffer& instanceBuffer, IndirectArgsBuffer& indirectArgs, DirectX::XMFLOAT2 chunkPosition, ComputeTexture& normalmap)
+void GrassComputeShader::Generate(
+    Graphics& gfx,
+    InstanceBuffer& instanceBuffer,
+    IndirectArgsBuffer& indirectArgs,
+    DirectX::XMFLOAT2 chunkPosition,
+    ComputeTexture& normalmap
+)
 {
     cbData.chunkPosition = chunkPosition;
     cbData.candidateCount = instanceBuffer.GetCount();
@@ -41,8 +49,6 @@ void GrassComputeShader::Bind(Graphics& gfx) noexcept
     cbuf.Bind(gfx);
     GetContext(gfx)->CSSetShader(pComputeShader.Get(), nullptr, 0u);
 }
-
-
 
 void GrassComputeShader::Unbind(Graphics& gfx) noexcept
 {

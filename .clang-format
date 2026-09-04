@@ -1,0 +1,99 @@
+Language: Cpp
+BasedOnStyle: LLVM
+
+Standard: Latest
+
+IndentWidth: 4
+ContinuationIndentWidth: 4
+TabWidth: 4
+UseTab: Never
+
+ColumnLimit: 120
+Cpp11BracedListStyle: Block
+
+BreakAfterOpenBracketBracedList: true
+BreakBeforeCloseBracketBracedList: true
+BinPackLongBracedList: false
+
+BracedInitializerIndentWidth: 4
+
+BreakBeforeBraces: Allman
+
+AllowShortBlocksOnASingleLine: Never
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: false
+AllowShortEnumsOnASingleLine: false
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortLambdasOnASingleLine: Empty
+
+AlignAfterOpenBracket: false
+
+BreakAfterOpenBracketFunction: true
+BreakBeforeCloseBracketFunction: true
+
+BinPackArguments: false
+AllowAllArgumentsOnNextLine: false
+
+BinPackParameters: OnePerLine
+AllowAllParametersOfDeclarationOnNextLine: false
+
+BreakConstructorInitializers: BeforeColon
+PackConstructorInitializers: Never
+ConstructorInitializerIndentWidth: 4
+
+DerivePointerAlignment: false
+PointerAlignment: Left
+ReferenceAlignment: Left
+SpaceAroundPointerQualifiers: Default
+
+SpaceBeforeParens: ControlStatements
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCpp11BracedList: false
+
+
+
+SpacesInAngles: Never
+SpacesInSquareBrackets: false
+
+SpacesBeforeTrailingComments: 1
+AlignTrailingComments: Never
+
+BreakBeforeBinaryOperators: NonAssignment
+BreakBeforeTernaryOperators: true
+AlignOperands: Align
+
+IndentCaseLabels: true
+IndentCaseBlocks: false
+
+MaxEmptyLinesToKeep: 1
+
+KeepEmptyLines:
+  AtStartOfFile: false
+  AtStartOfBlock: false
+  AtEndOfFile: false
+
+SeparateDefinitionBlocks: Always
+
+EmptyLineBeforeAccessModifier: LogicalBlock
+EmptyLineAfterAccessModifier: Never
+
+NamespaceIndentation: All
+CompactNamespaces: false
+FixNamespaceComments: true
+
+SortIncludes: CaseSensitive
+IncludeBlocks: Preserve
+SortUsingDeclarations: LexicographicNumeric
+
+IndentPPDirectives: AfterHash
+
+ReflowComments: true
+InsertNewlineAtEOF: true
+
+InsertBraces: false
+RemoveBracesLLVM: false
+
+PenaltyBreakAssignment: 1000
+PenaltyBreakBeforeFirstCallParameter: 1
+PenaltyBreakOpenParenthesis: 0

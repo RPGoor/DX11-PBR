@@ -1,10 +1,18 @@
 #include "FrameCBuf.h"
 
 FrameCbuf::FrameCbuf(Graphics& gfx)
-    : bufferVS(gfx, 0u), bufferPS(gfx, 0u)
-{}
+    : bufferVS(gfx, 0u),
+      bufferPS(gfx, 0u)
+{
+}
 
-void FrameCbuf::Update(Graphics & gfx, DirectX::FXMMATRIX view, DirectX::FXMMATRIX projection, const DirectX::XMFLOAT3 & cameraPosition, float time)
+void FrameCbuf::Update(
+    Graphics& gfx,
+    DirectX::FXMMATRIX view,
+    DirectX::FXMMATRIX projection,
+    const DirectX::XMFLOAT3& cameraPosition,
+    float time
+)
 {
     FrameConstants data{};
 
@@ -19,7 +27,7 @@ void FrameCbuf::Update(Graphics & gfx, DirectX::FXMMATRIX view, DirectX::FXMMATR
     Bind(gfx);
 }
 
-void FrameCbuf::Bind(Graphics & gfx) noexcept
+void FrameCbuf::Bind(Graphics& gfx) noexcept
 {
     bufferVS.Bind(gfx);
     bufferPS.Bind(gfx);

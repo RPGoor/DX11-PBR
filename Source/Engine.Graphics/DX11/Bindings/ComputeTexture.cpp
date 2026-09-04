@@ -9,11 +9,10 @@ ComputeTexture::ComputeTexture(
     UINT unorderedAccessSlot,
     DXGI_FORMAT format
 )
-    :
-    width(width),
-    height(height),
-    shaderResourceSlot(shaderResourceSlot),
-    unorderedAccessSlot(unorderedAccessSlot)
+    : width(width),
+      height(height),
+      shaderResourceSlot(shaderResourceSlot),
+      unorderedAccessSlot(unorderedAccessSlot)
 {
     INFOMAN(gfx);
 
@@ -27,20 +26,12 @@ ComputeTexture::ComputeTexture(
     textureDesc.SampleDesc.Quality = 0u;
     textureDesc.Usage = D3D11_USAGE_DEFAULT;
 
-    textureDesc.BindFlags =
-        D3D11_BIND_SHADER_RESOURCE |
-        D3D11_BIND_UNORDERED_ACCESS;
+    textureDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE | D3D11_BIND_UNORDERED_ACCESS;
 
     textureDesc.CPUAccessFlags = 0u;
     textureDesc.MiscFlags = 0u;
 
-    GFX_THROW_INFO(
-        GetDevice(gfx)->CreateTexture2D(
-            &textureDesc,
-            nullptr,
-            &pTexture
-        )
-    );
+    GFX_THROW_INFO(GetDevice(gfx)->CreateTexture2D(&textureDesc, nullptr, &pTexture));
 
     D3D11_SHADER_RESOURCE_VIEW_DESC srvDesc = {};
     srvDesc.Format = format;
@@ -48,26 +39,14 @@ ComputeTexture::ComputeTexture(
     srvDesc.Texture2D.MostDetailedMip = 0u;
     srvDesc.Texture2D.MipLevels = 1u;
 
-    GFX_THROW_INFO(
-        GetDevice(gfx)->CreateShaderResourceView(
-            pTexture.Get(),
-            &srvDesc,
-            &pTextureView
-        )
-    );
+    GFX_THROW_INFO(GetDevice(gfx)->CreateShaderResourceView(pTexture.Get(), &srvDesc, &pTextureView));
 
     D3D11_UNORDERED_ACCESS_VIEW_DESC uavDesc = {};
     uavDesc.Format = format;
     uavDesc.ViewDimension = D3D11_UAV_DIMENSION_TEXTURE2D;
     uavDesc.Texture2D.MipSlice = 0u;
 
-    GFX_THROW_INFO(
-        GetDevice(gfx)->CreateUnorderedAccessView(
-            pTexture.Get(),
-            &uavDesc,
-            &pUnorderedAccessView
-        )
-    );
+    GFX_THROW_INFO(GetDevice(gfx)->CreateUnorderedAccessView(pTexture.Get(), &uavDesc, &pUnorderedAccessView));
 }
 
 void ComputeTexture::Bind(Graphics& gfx) noexcept
@@ -77,16 +56,12 @@ void ComputeTexture::Bind(Graphics& gfx) noexcept
 
 void ComputeTexture::BindVS(Graphics& gfx) noexcept
 {
-    GetContext(gfx)->VSSetShaderResources( shaderResourceSlot, 1u, pTextureView.GetAddressOf());
+    GetContext(gfx)->VSSetShaderResources(shaderResourceSlot, 1u, pTextureView.GetAddressOf());
 }
 
 void ComputeTexture::BindPS(Graphics& gfx) noexcept
 {
-    GetContext(gfx)->PSSetShaderResources(
-        shaderResourceSlot,
-        1u,
-        pTextureView.GetAddressOf()
-    );
+    GetContext(gfx)->PSSetShaderResources(shaderResourceSlot, 1u, pTextureView.GetAddressOf());
 }
 
 void ComputeTexture::BindCS(Graphics& gfx) noexcept
@@ -96,39 +71,23 @@ void ComputeTexture::BindCS(Graphics& gfx) noexcept
 
 void ComputeTexture::BindUAV(Graphics& gfx) noexcept
 {
-    ID3D11UnorderedAccessView* const uav =
-        pUnorderedAccessView.Get();
+    ID3D11UnorderedAccessView* const uav = pUnorderedAccessView.Get();
 
-    GetContext(gfx)->CSSetUnorderedAccessViews(
-        unorderedAccessSlot,
-        1u,
-        &uav,
-        nullptr
-    );
+    GetContext(gfx)->CSSetUnorderedAccessViews(unorderedAccessSlot, 1u, &uav, nullptr);
 }
-
 
 void ComputeTexture::UnbindCSResource(Graphics& gfx) noexcept
 {
     ID3D11ShaderResourceView* nullSRV = nullptr;
 
-    GetContext(gfx)->CSSetShaderResources(
-        shaderResourceSlot,
-        1u,
-        &nullSRV
-    );
+    GetContext(gfx)->CSSetShaderResources(shaderResourceSlot, 1u, &nullSRV);
 }
 
 void ComputeTexture::UnbindUAV(Graphics& gfx) noexcept
 {
     ID3D11UnorderedAccessView* nullUAV = nullptr;
 
-    GetContext(gfx)->CSSetUnorderedAccessViews(
-        unorderedAccessSlot,
-        1u,
-        &nullUAV,
-        nullptr
-    );
+    GetContext(gfx)->CSSetUnorderedAccessViews(unorderedAccessSlot, 1u, &nullUAV, nullptr);
 }
 
 UINT ComputeTexture::GetWidth() const noexcept

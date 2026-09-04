@@ -5,9 +5,7 @@
 
 struct alignas(16) MaterialConstants
 {
-    DirectX::XMFLOAT3 baseColor = {
-        0.85f, 0.11f, 0.85f
-    };
+    DirectX::XMFLOAT3 baseColor = {0.85f, 0.11f, 0.85f};
 
     float metallic = 0.1f;
     float roughness = 0.5f;
@@ -17,19 +15,21 @@ struct alignas(16) MaterialConstants
 
 class Material : public Bindable
 {
-public:
-    Material(Graphics& gfx, std::string materialName, const MaterialConstants& constants = { });
+  public:
+    Material(Graphics& gfx, std::string materialName, const MaterialConstants& constants = {});
 
     void Bind(Graphics& gfx) noexcept override;
-    static std::shared_ptr<Material> Resolve(Graphics& gfx, std::string materialName, const MaterialConstants& constants = { });
-    template<typename...Ignore>
-    static std::string GenerateUID(const std::string& tag, Ignore&&...ignore)
+    static std::shared_ptr<Material>
+    Resolve(Graphics& gfx, std::string materialName, const MaterialConstants& constants = {});
+
+    template <typename... Ignore> static std::string GenerateUID(const std::string& tag, Ignore&&... ignore)
     {
         return GenerateUID_(tag);
     }
+
     std::string GetUID() const noexcept override;
 
-private:
+  private:
     static std::string GenerateUID_(const std::string& tag);
 
     std::string materialName;

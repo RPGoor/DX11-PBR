@@ -1,7 +1,7 @@
 #include "PipelineSettings.h"
-#include "VertexShader.h"
-#include "PixelShader.h"
 #include "InputLayout.h"
+#include "PixelShader.h"
+#include "VertexShader.h"
 
 PipelineSettings::PipelineSettings(
     Graphics& gfx,

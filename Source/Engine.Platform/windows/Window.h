@@ -1,20 +1,20 @@
-#pragma once 
-#include <MinWindows.h>
-#include <string>
-#include <optional>
+#pragma once
 #include "../Input/Keyboard.h"
 #include "../Input/Mouse.h"
 #include "WindowEvents.h"
+#include <MinWindows.h>
+#include <optional>
+#include <string>
 
 class Window
 {
-public:
+  public:
     Window(int width, int height, LPCWSTR name);
     ~Window();
     Window(const Window&) = delete;
     Window& operator=(const Window&) = delete;
 
-public:
+  public:
     void SetTitle(const std::string& title);
     static std::optional<int> ProcessMessagePump();
     HWND GetHWND() const;
@@ -22,19 +22,18 @@ public:
     void DisableCursor() noexcept;
     bool CursorEnabled() const noexcept;
 
-public:
+  public:
     Mouse mouse;
     Keyboard kbd;
     WindowEvents events;
 
-private:
+  private:
     int width;
     int height;
     HWND hWnd;
     bool cursorEnabled = true;
     std::vector<BYTE> rawBuffer;
     bool isBeingResized = false;
-
 
     static LRESULT CALLBACK SetupMessageHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
     static LRESULT CALLBACK PassMessageHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam) noexcept;
@@ -46,20 +45,21 @@ private:
     void HideCursor() noexcept;
     void EnableImGuiMouse() noexcept;
     void DisableImGuiMouse() noexcept;
-private:
+
+  private:
     class WindowClass
     {
-    private:
+      private:
         WindowClass() noexcept;
         ~WindowClass();
         WindowClass(const WindowClass&) = delete;
         WindowClass& operator=(const WindowClass&) = delete;
 
-    public:
+      public:
         static LPCWSTR GetName() noexcept;
         static HINSTANCE GetInstance() noexcept;
 
-    private:
+      private:
         static constexpr const wchar_t* wndClassName = L"Solorn Engine Window";
         static WindowClass wndClass;
         HINSTANCE hInst;
