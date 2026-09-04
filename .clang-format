@@ -9,7 +9,7 @@ TabWidth: 4
 UseTab: Never
 
 ColumnLimit: 120
-Cpp11BracedListStyle: Block
+Cpp11BracedListStyle: FunctionCall
 
 BreakAfterOpenBracketBracedList: true
 BreakBeforeCloseBracketBracedList: true
