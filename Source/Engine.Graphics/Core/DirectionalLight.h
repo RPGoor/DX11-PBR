@@ -1,7 +1,6 @@
 #pragma once
 #include "../DX11/Graphics.h"
 #include "../DX11/Bindings/ConstantBuffers.h"
-#include <ConditionalNoexcept.h>
 
 class DirectionalLight
 {

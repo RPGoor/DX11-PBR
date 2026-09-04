@@ -1,6 +1,5 @@
 #pragma once
 
-#include <ConditionalNoexcept.h>
 #include "../Bindable.h"
 #include "Topology.h"
 #include "VertexBuffer.h"

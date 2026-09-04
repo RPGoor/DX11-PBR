@@ -16,7 +16,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Exceptions\BaseException.h" />
-    <ClInclude Include="Exceptions\ConditionalNoexcept.h" />
     <ClInclude Include="Time\Timer.h" />
     <ClInclude Include="Win32\MinWindows.h" />
   </ItemGroup>

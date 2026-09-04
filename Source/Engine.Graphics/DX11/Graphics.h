@@ -4,7 +4,6 @@
 #include <d3d11.h>
 #include <d3dcompiler.h>
 #include <wrl.h>
-#include <ConditionalNoexcept.h>
 #include "DxgiInfoManager.h"
 #include <memory>
 
@@ -19,9 +18,9 @@ public:
     Graphics& operator =(const Graphics&) = delete;
     ~Graphics();
 
-    void DrawIndexed(UINT count) conexcept;
-    void DrawIndexed(UINT count, UINT instanceCount) conexcept;
-    void DrawIndexed(ID3D11Buffer* indirectArgs) conexcept;
+    void DrawIndexed(UINT count);
+    void DrawIndexed(UINT count, UINT instanceCount);
+    void DrawIndexed(ID3D11Buffer* indirectArgs);
 
     void EndFrame();
     void BeginFrame(float r, float g, float b) noexcept;

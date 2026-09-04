@@ -74,17 +74,17 @@ Graphics::~Graphics()
     ImGui_ImplDX11_Shutdown();
 }
 
-void Graphics::DrawIndexed(UINT count) conexcept
+void Graphics::DrawIndexed(UINT count)
 {
     GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
 }
 
-void Graphics::DrawIndexed(UINT count, UINT instanceCount) conexcept
+void Graphics::DrawIndexed(UINT count, UINT instanceCount)
 {
     GFX_THROW_INFO_ONLY(pContext->DrawIndexedInstanced(count, instanceCount, 0u, 0u, 0u));
 }
 
-void Graphics::DrawIndexed(ID3D11Buffer* indirectArgs) conexcept
+void Graphics::DrawIndexed(ID3D11Buffer* indirectArgs)
 {
     GFX_THROW_INFO_ONLY(pContext->DrawIndexedInstancedIndirect(indirectArgs, 0u));
 }

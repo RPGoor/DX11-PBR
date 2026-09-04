@@ -36,9 +36,6 @@
     <ClInclude Include="Win32\MinWindows.h">
       <Filter>Win32\public</Filter>
     </ClInclude>
-    <ClInclude Include="Exceptions\ConditionalNoexcept.h">
-      <Filter>Exceptions\public</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Exceptions\BaseException.cpp">
