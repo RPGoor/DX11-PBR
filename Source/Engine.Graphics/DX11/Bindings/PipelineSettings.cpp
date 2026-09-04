@@ -1,5 +1,5 @@
-#include "PipelineSettings.h"
 #include "InputLayout.h"
+#include "PipelineSettings.h"
 #include "PixelShader.h"
 #include "VertexShader.h"
 

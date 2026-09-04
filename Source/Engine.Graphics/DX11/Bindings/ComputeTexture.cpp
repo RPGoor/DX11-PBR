@@ -1,5 +1,5 @@
-#include "ComputeTexture.h"
 #include "../GraphicsExceptionsMacros.h"
+#include "ComputeTexture.h"
 
 ComputeTexture::ComputeTexture(
     Graphics& gfx,

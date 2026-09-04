@@ -1,10 +1,9 @@
 #pragma once
 
-#include <Graphics.h>
-
 #include "Chunk.h"
 #include "Grass.h"
 #include <Bindings/Sampler.h>
+#include <Graphics.h>
 
 class Terrain : public Drawable
 {

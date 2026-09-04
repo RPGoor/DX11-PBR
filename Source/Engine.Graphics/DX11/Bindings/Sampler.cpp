@@ -1,6 +1,6 @@
-#include "Sampler.h"
 #include "../BindableCodex.h"
 #include "../GraphicsExceptionsMacros.h"
+#include "Sampler.h"
 
 Sampler::Sampler(Graphics& gfx, D3D11_TEXTURE_ADDRESS_MODE mode, UINT slot)
     : slot(slot)

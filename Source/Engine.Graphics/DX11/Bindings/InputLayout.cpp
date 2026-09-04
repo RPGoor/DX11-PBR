@@ -1,6 +1,6 @@
-#include "InputLayout.h"
 #include "../BindableCodex.h"
 #include "../GraphicsExceptionsMacros.h"
+#include "InputLayout.h"
 
 InputLayout::InputLayout(
     Graphics& gfx,

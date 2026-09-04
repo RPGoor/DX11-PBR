@@ -1,6 +1,6 @@
-#include "IndexBuffer.h"
 #include "../BindableCodex.h"
 #include "../GraphicsExceptionsMacros.h"
+#include "IndexBuffer.h"
 #include "InputLayout.h"
 
 IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<unsigned int>& indices)

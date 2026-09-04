@@ -1,10 +1,10 @@
 #pragma once
 #include "DxgiInfoManager.h"
-#include <DirectXMath.h>
-#include <MinWindows.h>
 #include <d3d11.h>
 #include <d3dcompiler.h>
+#include <DirectXMath.h>
 #include <memory>
+#include <MinWindows.h>
 #include <wrl.h>
 
 using namespace Microsoft::WRL;
