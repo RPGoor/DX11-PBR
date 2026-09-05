@@ -1,63 +1,74 @@
 #pragma once
-#include <queue>
 #include <optional>
+#include <queue>
 
 class Mouse
 {
     friend class Window;
-public:
+
+  public:
     struct RawDelta
     {
         int x, y;
     };
+
     class Event
     {
-    public:
+      public:
         enum class Type
         {
             Move,
             Enter,
             Leave,
         };
-    private:
+
+      private:
         Type type;
-        bool leftIsPressed;
-        bool rightIsPressed;
+        bool leftIsPressed = false;
+        bool rightIsPressed = false;
         int x;
         int y;
-    public:
+
+      public:
         Event(Type type, const Mouse& parent) noexcept
-            :
-            type(type),
-            x(parent.x),
-            y(parent.y)
-        {}
+            : type(type),
+              x(parent.x),
+              y(parent.y)
+        {
+        }
+
         Type GetType() const noexcept
         {
             return type;
         }
+
         std::pair<int, int> GetPos() const noexcept
         {
-            return{ x,y };
+            return {x, y};
         }
+
         int GetPosX() const noexcept
         {
             return x;
         }
+
         int GetPosY() const noexcept
         {
             return y;
         }
+
         bool LeftIsPressed() const noexcept
         {
             return leftIsPressed;
         }
+
         bool RightIsPressed() const noexcept
         {
             return rightIsPressed;
         }
     };
-public:
+
+  public:
     Mouse() = default;
     Mouse(const Mouse&) = delete;
     Mouse& operator=(const Mouse&) = delete;
@@ -68,16 +79,17 @@ public:
     void EnableRaw() noexcept;
     void DisableRaw() noexcept;
     bool RawEnabled() const noexcept;
-private:
+
+  private:
     void OnMouseMove(int x, int y) noexcept;
     void OnMouseLeave() noexcept;
     void OnMouseEnter() noexcept;
     void OnRawDelta(int dx, int dy) noexcept;
 
-
     void TrimBuffer() noexcept;
     void TrimRawInputBuffer() noexcept;
-private:
+
+  private:
     static constexpr unsigned int bufferSize = 16u;
     int x = 0;
     int y = 0;

@@ -1,16 +1,12 @@
 #include "Graphics.h"
-#include <sstream>
 #include "GraphicsExceptionsMacros.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
 
 namespace wrl = Microsoft::WRL;
 
-namespace dx = DirectX;
-
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
-
 
 Graphics::Graphics(HWND hWnd)
 {
@@ -36,7 +32,6 @@ Graphics::Graphics(HWND hWnd)
     swapCreateFlags |= D3D11_CREATE_DEVICE_DEBUG;
 #endif
 
-
     HRESULT hr;
 
     GFX_THROW_INFO(D3D11CreateDeviceAndSwapChain(
@@ -51,9 +46,9 @@ Graphics::Graphics(HWND hWnd)
         &pSwap,
         &pDevice,
         nullptr,
-        &pContext));
+        &pContext
+    ));
 
-   
     D3D11_DEPTH_STENCIL_DESC dsDesc = {};
     dsDesc.DepthEnable = TRUE;
     dsDesc.DepthWriteMask = D3D11_DEPTH_WRITE_MASK_ALL;
@@ -74,17 +69,17 @@ Graphics::~Graphics()
     ImGui_ImplDX11_Shutdown();
 }
 
-void Graphics::DrawIndexed(UINT count) conexcept
+void Graphics::DrawIndexed(UINT count)
 {
     GFX_THROW_INFO_ONLY(pContext->DrawIndexed(count, 0u, 0u));
 }
 
-void Graphics::DrawIndexed(UINT count, UINT instanceCount) conexcept
+void Graphics::DrawIndexed(UINT count, UINT instanceCount)
 {
     GFX_THROW_INFO_ONLY(pContext->DrawIndexedInstanced(count, instanceCount, 0u, 0u, 0u));
 }
 
-void Graphics::DrawIndexed(ID3D11Buffer* indirectArgs) conexcept
+void Graphics::DrawIndexed(ID3D11Buffer* indirectArgs)
 {
     GFX_THROW_INFO_ONLY(pContext->DrawIndexedInstancedIndirect(indirectArgs, 0u));
 }
@@ -124,33 +119,21 @@ void Graphics::BeginFrame(float r, float g, float b) noexcept
         ImGui::NewFrame();
     }
 
-    const float color[] = { r, g, b, 1.0 };
+    const float color[] = {r, g, b, 1.0};
     pContext->ClearRenderTargetView(pTarget.Get(), color);
     pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
 }
 
-void Graphics::Resize(unsigned int width, unsigned int height) noexcept
+void Graphics::Resize(unsigned int width, unsigned int height)
 {
     HRESULT hr;
 
-    pContext->OMSetRenderTargets(
-        0u,
-        nullptr,
-        nullptr
-    );
+    pContext->OMSetRenderTargets(0u, nullptr, nullptr);
 
     pTarget.Reset();
     pDSV.Reset();
 
-    GFX_THROW_INFO(
-        pSwap->ResizeBuffers(
-            0u,
-            width,
-            height,
-            DXGI_FORMAT_UNKNOWN,
-            0u
-        )
-    );
+    GFX_THROW_INFO(pSwap->ResizeBuffers(0u, width, height, DXGI_FORMAT_UNKNOWN, 0u));
 
     CreateTargetAndDepthStencil(width, height);
     CreateViewport(width, height);
@@ -160,7 +143,6 @@ void Graphics::Dispatch(UINT groupCountX, UINT groupCountY, UINT groupCountZ) no
 {
     pContext->Dispatch(groupCountX, groupCountY, groupCountZ);
 }
-
 
 void Graphics::EnableImGui() noexcept
 {
@@ -179,9 +161,9 @@ bool Graphics::IsImGuiEnabled() const noexcept
 
 void Graphics::CreateViewport(unsigned int width, unsigned int height)
 {
-    D3D11_VIEWPORT vp;
-    vp.Width = width;
-    vp.Height = height;
+    D3D11_VIEWPORT vp = {};
+    vp.Width = (float)width;
+    vp.Height = (float)height;
     vp.MinDepth = 0.0f;
     vp.MaxDepth = 1.0f;
     vp.TopLeftX = 0.0f;
@@ -195,7 +177,6 @@ void Graphics::CreateTargetAndDepthStencil(unsigned int width, unsigned int heig
     wrl::ComPtr<ID3D11Resource> pBackBuffer;
     GFX_THROW_INFO(pSwap->GetBuffer(0, __uuidof(ID3D11Resource), &pBackBuffer));
     GFX_THROW_INFO(pDevice->CreateRenderTargetView(pBackBuffer.Get(), nullptr, &pTarget));
-
 
     wrl::ComPtr<ID3D11Texture2D> pDepthStencil;
     D3D11_TEXTURE2D_DESC descDepth = {};

@@ -1,12 +1,14 @@
 #pragma once
-#include "../Graphics.h"
-#include "../../Core/Vertex.h"
 #include "../Bindable.h"
+#include "../Graphics.h"
+#include <d3d11.h>
+#include <memory>
 #include <span>
+#include <vector>
 
-class PipelineSettings : Bindable
+class PipelineSettings : public Bindable
 {
-public:
+  public:
     PipelineSettings(
         Graphics& gfx,
         std::span<const D3D11_INPUT_ELEMENT_DESC> layout,
@@ -16,6 +18,6 @@ public:
 
     void Bind(Graphics& gfx) noexcept override;
 
-private:
+  private:
     std::vector<std::shared_ptr<Bindable>> bindables;
 };

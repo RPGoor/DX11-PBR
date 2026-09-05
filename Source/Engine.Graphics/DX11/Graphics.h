@@ -1,43 +1,38 @@
 #pragma once
-#include <MinWindows.h>
-#include <DirectXMath.h>
-#include <d3d11.h>
-#include <d3dcompiler.h>
-#include <wrl.h>
-#include <ConditionalNoexcept.h>
 #include "DxgiInfoManager.h"
-#include <memory>
+#include <d3d11.h>
+#include <wrl/client.h>
 
 using namespace Microsoft::WRL;
 
 class Graphics
 {
     friend class Bindable;
-public:
+
+  public:
     Graphics(HWND hWnd);
     Graphics(const Graphics&) = delete;
-    Graphics& operator =(const Graphics&) = delete;
+    Graphics& operator=(const Graphics&) = delete;
     ~Graphics();
 
-    void DrawIndexed(UINT count) conexcept;
-    void DrawIndexed(UINT count, UINT instanceCount) conexcept;
-    void DrawIndexed(ID3D11Buffer* indirectArgs) conexcept;
+    void DrawIndexed(UINT count);
+    void DrawIndexed(UINT count, UINT instanceCount);
+    void DrawIndexed(ID3D11Buffer* indirectArgs);
 
     void EndFrame();
     void BeginFrame(float r, float g, float b) noexcept;
-
-    void Resize(unsigned int width, unsigned int height) noexcept;
-
+    void Resize(unsigned int width, unsigned int height);
     void Dispatch(UINT groupCountX, UINT groupCountY, UINT groupCountZ) noexcept;
 
     void EnableImGui() noexcept;
     void DisableImGui() noexcept;
     bool IsImGuiEnabled() const noexcept;
 
-private:
+  private:
     void CreateViewport(unsigned int width, unsigned int height);
     void CreateTargetAndDepthStencil(unsigned int width, unsigned int height);
-private:
+
+  private:
     bool imGuiEnabled = true;
 #ifndef NDEBUG
     DxgiInfoManager infoManager;
@@ -48,5 +43,4 @@ private:
     ComPtr<ID3D11DeviceContext> pContext = nullptr;
     ComPtr<ID3D11RenderTargetView> pTarget = nullptr;
     ComPtr<ID3D11DepthStencilView> pDSV = nullptr;
-
 };

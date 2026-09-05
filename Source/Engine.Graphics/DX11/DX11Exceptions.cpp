@@ -2,7 +2,8 @@
 #include <sstream>
 
 DX11HrException::DX11HrException(int line, const char* file, HRESULT hr, std::vector<std::string> infoMsgs) noexcept
-    : DX11Exception(line, file), hr(hr)
+    : DX11Exception(line, file),
+      hr(hr)
 {
     for (const auto& m : infoMsgs)
     {
@@ -19,8 +20,8 @@ const char* DX11HrException::what() const noexcept
 {
     std::ostringstream oss;
     oss << GetType() << std::endl
-        << "[Error Code] 0x" << std::hex << std::uppercase << GetErrorCode()
-        << std::dec << " (" << (unsigned long)GetErrorCode() << ")" << std::endl
+        << "[Error Code] 0x" << std::hex << std::uppercase << GetErrorCode() << std::dec << " ("
+        << (unsigned long)GetErrorCode() << ")" << std::endl
         << "[Error String] " << GetErrorString() << std::endl
         << "[Description] " << GetErrorDescription() << std::endl;
     if (!info.empty())
@@ -46,10 +47,7 @@ HRESULT DX11HrException::GetErrorCode() const noexcept
 std::string DX11HrException::GetErrorString() const noexcept
 {
     std::ostringstream oss;
-    oss << "0x"
-        << std::hex
-        << std::uppercase
-        << static_cast<unsigned long>(hr);
+    oss << "0x" << std::hex << std::uppercase << static_cast<unsigned long>(hr);
     return oss.str();
 }
 
@@ -58,9 +56,7 @@ std::string DX11HrException::GetErrorDescription() const noexcept
     char* pMsgBuf = nullptr;
 
     DWORD nMsgLen = FormatMessageA(
-        FORMAT_MESSAGE_ALLOCATE_BUFFER |
-        FORMAT_MESSAGE_FROM_SYSTEM |
-        FORMAT_MESSAGE_IGNORE_INSERTS,
+        FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
         nullptr,
         hr,
         MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
@@ -104,12 +100,10 @@ DX11InfoException::DX11InfoException(int line, const char* file, std::vector<std
     }
 }
 
-
 const char* DX11InfoException::what() const noexcept
 {
     std::ostringstream oss;
-    oss << GetType() << std::endl
-        << "\n[Error Info]\n" << GetErrorInfo() << std::endl << std::endl;
+    oss << GetType() << std::endl << "\n[Error Info]\n" << GetErrorInfo() << std::endl << std::endl;
     oss << GetOriginString();
     WhatBuffer = oss.str();
     return WhatBuffer.c_str();
@@ -125,18 +119,16 @@ std::string DX11InfoException::GetErrorInfo() const noexcept
     return info;
 }
 
-
 DX11SurfaceException::DX11SurfaceException(int line, const char* file, std::string note) noexcept
-    :
-    BaseException(line, file),
-    note(std::move(note))
-{}
+    : BaseException(line, file),
+      note(std::move(note))
+{
+}
 
 const char* DX11SurfaceException::what() const noexcept
 {
     std::ostringstream oss;
-    oss << BaseException::what() << std::endl
-        << "[Note] " << GetNote();
+    oss << BaseException::what() << std::endl << "[Note] " << GetNote();
     WhatBuffer = oss.str();
     return WhatBuffer.c_str();
 }

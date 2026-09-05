@@ -1,26 +1,31 @@
 #pragma once
 #include "../Bindable.h"
-#include "../../Core/Vertex.h"
+#include <d3d11.h>
+#include <d3dcommon.h>
+#include <memory>
 #include <span>
 
 class InputLayout : public Bindable
 {
-public:
-    InputLayout(Graphics& gfx,
-        std::span<const D3D11_INPUT_ELEMENT_DESC> layout,
-        ID3DBlob* pVertexShaderBytecode);
+  public:
+    InputLayout(Graphics& gfx, std::span<const D3D11_INPUT_ELEMENT_DESC> layout, ID3DBlob* pVertexShaderBytecode);
 
     void Bind(Graphics& gfx) noexcept override;
 
     static std::shared_ptr<InputLayout> Resolve(
         Graphics& gfx,
         std::span<const D3D11_INPUT_ELEMENT_DESC> layout,
-        ID3DBlob* pVertexShaderBytecode);
+        ID3DBlob* pVertexShaderBytecode
+    );
 
-    static std::string GenerateUID(std::span<const D3D11_INPUT_ELEMENT_DESC> layout, ID3DBlob* pVertexShaderBytecode = nullptr);
+    static std::string GenerateUID(
+        std::span<const D3D11_INPUT_ELEMENT_DESC> layout,
+        ID3DBlob* pVertexShaderBytecode = nullptr
+    );
 
     std::string GetUID() const noexcept override;
-protected:
+
+  protected:
     std::span<const D3D11_INPUT_ELEMENT_DESC> layout;
     Microsoft::WRL::ComPtr<ID3D11InputLayout> pInputLayout;
 };

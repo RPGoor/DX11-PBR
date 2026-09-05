@@ -1,14 +1,14 @@
 #include "VertexShader.h"
-#include "../GraphicsExceptionsMacros.h"
 #include "../BindableCodex.h"
+#include "../GraphicsExceptionsMacros.h"
+#include <d3dcompiler.h>
 
 VertexShader::VertexShader(Graphics& gfx, const std::string& path)
-    :
-    path(path)
+    : path(path)
 {
     INFOMAN(gfx);
 
-    GFX_THROW_INFO(D3DReadFileToBlob(std::wstring{ path.begin(),path.end() }.c_str(), &pBytecodeBlob));
+    GFX_THROW_INFO(D3DReadFileToBlob(std::wstring{path.begin(), path.end()}.c_str(), &pBytecodeBlob));
     GFX_THROW_INFO(GetDevice(gfx)->CreateVertexShader(
         pBytecodeBlob->GetBufferPointer(),
         pBytecodeBlob->GetBufferSize(),
@@ -26,15 +26,18 @@ ID3DBlob* VertexShader::GetBytecode() const noexcept
 {
     return pBytecodeBlob.Get();
 }
+
 std::shared_ptr<VertexShader> VertexShader::Resolve(Graphics& gfx, const std::string& path)
 {
     return Codex::Resolve<VertexShader>(gfx, path);
 }
+
 std::string VertexShader::GenerateUID(const std::string& path)
 {
     using namespace std::string_literals;
     return typeid(VertexShader).name() + "#"s + path;
 }
+
 std::string VertexShader::GetUID() const noexcept
 {
     return GenerateUID(path);

@@ -1,24 +1,33 @@
 #pragma once
 #include "../Bindable.h"
+#include <memory>
 
 class IndexBuffer : public Bindable
 {
-public:
+  public:
     IndexBuffer(Graphics& gfx, const std::vector<unsigned int>& indices);
     IndexBuffer(Graphics& gfx, std::string tag, const std::vector<unsigned int>& indices);
+
+  public:
     void Bind(Graphics& gfx) noexcept override;
     UINT GetCount() const noexcept;
-    static std::shared_ptr<IndexBuffer> Resolve(Graphics& gfx, const std::string& tag,
-        const std::vector<unsigned int>& indices);
-    template<typename...Ignore>
-    static std::string GenerateUID(const std::string& tag, Ignore&&...ignore)
+    static std::shared_ptr<IndexBuffer> Resolve(
+        Graphics& gfx,
+        const std::string& tag,
+        const std::vector<unsigned int>& indices
+    );
+
+    template <typename... Ignore> static std::string GenerateUID(const std::string& tag, Ignore&&... ignore)
     {
         return GenerateUID_(tag);
     }
+
     std::string GetUID() const noexcept override;
-private:
+
+  private:
     static std::string GenerateUID_(const std::string& tag);
-protected:
+
+  protected:
     std::string tag;
     UINT count;
     Microsoft::WRL::ComPtr<ID3D11Buffer> pIndexBuffer;

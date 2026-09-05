@@ -1,4 +1,5 @@
 #include "Bindable.h"
+#include <cassert>
 
 std::string Bindable::GetUID() const noexcept
 {
@@ -16,7 +17,7 @@ ID3D11Device* Bindable::GetDevice(Graphics& gfx) noexcept
     return gfx.pDevice.Get();
 }
 
-DxgiInfoManager& Bindable::GetInfoManager(Graphics& gfx) conexcept
+DxgiInfoManager& Bindable::GetInfoManager(Graphics& gfx)
 {
 #ifndef NDEBUG
     return gfx.infoManager;

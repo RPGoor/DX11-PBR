@@ -1,20 +1,20 @@
 #pragma once
-#include <wrl.h>
-#include <vector>
-#include <string>
 #include <dxgidebug.h>
+#include <string>
+#include <vector>
+#include <wrl.h>
 
 class DxgiInfoManager
 {
-public:
+  public:
     DxgiInfoManager();
     ~DxgiInfoManager() = default;
     DxgiInfoManager(const DxgiInfoManager&) = delete;
     DxgiInfoManager& operator=(const DxgiInfoManager&) = delete;
     void Set() noexcept;
     std::vector<std::string> GetMessages() const;
-private:
+
+  private:
     unsigned long long next = 0u;
     Microsoft::WRL::ComPtr<IDXGIInfoQueue> pDxgiInfoQueue;
 };
-

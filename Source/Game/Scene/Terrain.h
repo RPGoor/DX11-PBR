@@ -1,18 +1,17 @@
 #pragma once
 
-#include <Graphics.h>
-
-#include <Bindings/Sampler.h>
-#include "Grass.h"
 #include "Chunk.h"
+#include "Grass.h"
+#include <Bindings/Sampler.h>
+#include <Graphics.h>
 
 class Terrain : public Drawable
 {
-
-public:
+  public:
     Terrain(Graphics& gfx);
     void DrawChunk(Graphics& gfx, const Chunk& chunk) const;
-private:
+
+  private:
     std::unique_ptr<Texture> rockTexture;
     std::unique_ptr<Texture> dirtTexture;
     std::unique_ptr<Sampler> sampler;

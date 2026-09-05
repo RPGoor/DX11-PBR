@@ -1,23 +1,23 @@
 #pragma once
-#include "Window.h"
-#include <Time/Timer.h>
-#include <ImGuiManager.h>
-#include <Graphics.h>
-#include <Bindings/FrameCBuf.h>
-#include "Controller.h"
 #include "../Scene/Scene.h"
-
+#include "Controller.h"
+#include "Window.h"
+#include <Bindings/FrameCBuf.h>
+#include <Graphics.h>
+#include <ImGuiManager.h>
+#include <Time/Timer.h>
 
 class Game
 {
-public:
+  public:
     Game();
     ~Game();
     int Go();
-private:
+
+  private:
     void DoFrame();
 
-private:
+  private:
     ImGuiManager imgui;
     Window wnd;
     Graphics gfx;

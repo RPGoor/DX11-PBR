@@ -4,6 +4,7 @@ struct VertexInput
 {
     float3 position : POSITION;
     float3 normal : NORMAL;
+    float2 texcoord : TEXCOORD;
 };
 
 VertexToPixel main(VertexInput input)
@@ -23,6 +24,6 @@ VertexToPixel main(VertexInput input)
             modelInverseTranspose
         ).xyz
     );
-
+    output.uv = input.texcoord;
     return output;
 }

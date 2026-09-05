@@ -1,7 +1,6 @@
 #include "Drawable.h"
 
-Drawable::Drawable()
-{}
+Drawable::Drawable() {}
 
 void Drawable::Bind(Graphics& gfx) const
 {

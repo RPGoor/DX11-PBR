@@ -1,25 +1,31 @@
 #pragma once
 #include "../Bindable.h"
-#include "ConstantBuffers.h"
-#include <functional>
 #include "ComputeTexture.h"
+#include "ConstantBuffers.h"
 #include "IndirectArgsBuffer.h"
 #include "InstanceBuffer.h"
 #include "Sampler.h"
+#include <functional>
 
 class GrassComputeShader : public Bindable
 {
-
-public:
+  public:
     GrassComputeShader(Graphics& gfx);
-    void Generate(Graphics& gfx, InstanceBuffer& instanceBuffer, IndirectArgsBuffer& indirectArgs, DirectX::XMFLOAT2 chunkPosition, ComputeTexture& normalmap);
-    void Bind(Graphics& gfx) noexcept override;
 
+  public:
+    void Generate(
+        Graphics& gfx,
+        InstanceBuffer& instanceBuffer,
+        IndirectArgsBuffer& indirectArgs,
+        DirectX::XMFLOAT2 chunkPosition,
+        ComputeTexture& normalmap
+    );
+    void Bind(Graphics& gfx) noexcept override;
     void Unbind(Graphics& gfx) noexcept;
 
     std::function<void()> regenCallback;
 
-protected:
+  protected:
     struct alignas(16) GrassGenerationConstants
     {
         UINT candidateCount;
@@ -27,11 +33,9 @@ protected:
         DirectX::XMFLOAT2 chunkPosition;
     };
 
-    std::unique_ptr<Sampler> terrainSampler;
-
     std::string path = "GrassCS.cso";
+    std::unique_ptr<Sampler> terrainSampler;
     Microsoft::WRL::ComPtr<ID3D11ComputeShader> pComputeShader;
-
     GrassGenerationConstants cbData;
     mutable ComputeConstantBuffer<GrassGenerationConstants> cbuf;
 };

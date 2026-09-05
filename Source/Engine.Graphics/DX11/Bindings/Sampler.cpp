@@ -1,6 +1,6 @@
 #include "Sampler.h"
-#include "../GraphicsExceptionsMacros.h"
 #include "../BindableCodex.h"
+#include "../GraphicsExceptionsMacros.h"
 
 Sampler::Sampler(Graphics& gfx, D3D11_TEXTURE_ADDRESS_MODE mode, UINT slot)
     : slot(slot)
@@ -35,10 +35,12 @@ std::shared_ptr<Sampler> Sampler::Resolve(Graphics& gfx)
 {
     return Codex::Resolve<Sampler>(gfx);
 }
+
 std::string Sampler::GenerateUID()
 {
     return typeid(Sampler).name();
 }
+
 std::string Sampler::GetUID() const noexcept
 {
     return GenerateUID();
