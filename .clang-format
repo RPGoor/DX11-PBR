@@ -97,3 +97,5 @@ RemoveBracesLLVM: false
 PenaltyBreakAssignment: 1000
 PenaltyBreakBeforeFirstCallParameter: 1
 PenaltyBreakOpenParenthesis: 0
+PenaltyReturnTypeOnItsOwnLine: 5000
+BreakAfterReturnType: Automatic

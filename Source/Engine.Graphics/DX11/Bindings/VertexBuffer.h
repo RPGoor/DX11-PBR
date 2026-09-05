@@ -1,7 +1,7 @@
 #pragma once
 #include "../../Core/Vertex.h"
 #include "../Bindable.h"
-#include "../GraphicsExceptionsMacros.h"
+#include <memory>
 
 class VertexBuffer : public Bindable
 {
@@ -9,8 +9,11 @@ class VertexBuffer : public Bindable
     VertexBuffer(Graphics& gfx, const std::string& tag, const std::vector<Vertex::Standard>& vertices);
     VertexBuffer(Graphics& gfx, const std::vector<Vertex::Standard>& vertices);
     void Bind(Graphics& gfx) noexcept override;
-    static std::shared_ptr<VertexBuffer>
-    Resolve(Graphics& gfx, const std::string& tag, const std::vector<Vertex::Standard>& vertices);
+    static std::shared_ptr<VertexBuffer> Resolve(
+        Graphics& gfx,
+        const std::string& tag,
+        const std::vector<Vertex::Standard>& vertices
+    );
 
     template <typename... Ignore> static std::string GenerateUID(const std::string& tag, Ignore&&... ignore)
     {

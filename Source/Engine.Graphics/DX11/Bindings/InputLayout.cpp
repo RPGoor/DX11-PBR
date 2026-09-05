@@ -25,8 +25,11 @@ void InputLayout::Bind(Graphics& gfx) noexcept
     GetContext(gfx)->IASetInputLayout(pInputLayout.Get());
 }
 
-std::shared_ptr<InputLayout>
-InputLayout::Resolve(Graphics& gfx, std::span<const D3D11_INPUT_ELEMENT_DESC> layout, ID3DBlob* pVertexShaderBytecode)
+std::shared_ptr<InputLayout> InputLayout::Resolve(
+    Graphics& gfx,
+    std::span<const D3D11_INPUT_ELEMENT_DESC> layout,
+    ID3DBlob* pVertexShaderBytecode
+)
 {
     return Codex::Resolve<InputLayout>(gfx, layout, pVertexShaderBytecode);
 }

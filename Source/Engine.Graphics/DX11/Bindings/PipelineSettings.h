@@ -1,10 +1,12 @@
 #pragma once
-#include "../../Core/Vertex.h"
 #include "../Bindable.h"
 #include "../Graphics.h"
+#include <d3d11.h>
+#include <memory>
 #include <span>
+#include <vector>
 
-class PipelineSettings : Bindable
+class PipelineSettings : public Bindable
 {
   public:
     PipelineSettings(

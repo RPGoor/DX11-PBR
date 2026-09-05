@@ -50,7 +50,7 @@ MeshData MeshFactory::Load(const std::string& path)
     return MeshData{std::string("load#") + mesh.mName.C_Str(), std::move(vertices), std::move(indices)};
 }
 
-MeshData MeshFactory::Grid(UINT64 resolution, float size)
+MeshData MeshFactory::Grid(UINT resolution, float size)
 {
     std::vector<Vertex::Standard> vertices;
     vertices.reserve(resolution * resolution);

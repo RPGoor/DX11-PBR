@@ -5,6 +5,7 @@
 #include "IndexBuffer.h"
 #include "Topology.h"
 #include "VertexBuffer.h"
+#include <memory>
 
 class Mesh : public Bindable
 {
@@ -14,15 +15,13 @@ class Mesh : public Bindable
     virtual void Bind(Graphics& gfx) noexcept override;
 
     static std::shared_ptr<Mesh> Resolve(Graphics& gfx, MeshData data);
+    std::string GetUID() const noexcept override;
+    const UINT GetCount() const noexcept;
 
     template <typename... Ignore> static std::string GenerateUID(const MeshData data, Ignore&&... ignore)
     {
         return GenerateUID_(data.tag);
     }
-
-    std::string GetUID() const noexcept override;
-
-    const UINT& GetCount() const noexcept;
 
   private:
     static std::string GenerateUID_(const std::string& tag);

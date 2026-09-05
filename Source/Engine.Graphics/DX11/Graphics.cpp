@@ -2,11 +2,8 @@
 #include "GraphicsExceptionsMacros.h"
 #include "imgui_impl_dx11.h"
 #include "imgui_impl_win32.h"
-#include <sstream>
 
 namespace wrl = Microsoft::WRL;
-
-namespace dx = DirectX;
 
 #pragma comment(lib, "d3d11.lib")
 #pragma comment(lib, "D3DCompiler.lib")
@@ -127,7 +124,7 @@ void Graphics::BeginFrame(float r, float g, float b) noexcept
     pContext->ClearDepthStencilView(pDSV.Get(), D3D11_CLEAR_DEPTH, 1.0f, 0u);
 }
 
-void Graphics::Resize(unsigned int width, unsigned int height) noexcept
+void Graphics::Resize(unsigned int width, unsigned int height)
 {
     HRESULT hr;
 
@@ -164,9 +161,9 @@ bool Graphics::IsImGuiEnabled() const noexcept
 
 void Graphics::CreateViewport(unsigned int width, unsigned int height)
 {
-    D3D11_VIEWPORT vp;
-    vp.Width = width;
-    vp.Height = height;
+    D3D11_VIEWPORT vp = {};
+    vp.Width = (float)width;
+    vp.Height = (float)height;
     vp.MinDepth = 0.0f;
     vp.MaxDepth = 1.0f;
     vp.TopLeftX = 0.0f;

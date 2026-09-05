@@ -1,5 +1,4 @@
 #include "DirectionalLight.h"
-#include "imgui.h"
 
 DirectionalLight::DirectionalLight(Graphics& gfx, float radius)
     : cbuf(gfx, 3u),

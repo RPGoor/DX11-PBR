@@ -14,19 +14,18 @@ class ComputeTexture : public Bindable
         DXGI_FORMAT format = DXGI_FORMAT_R32_FLOAT
     );
 
+  public:
     void Bind(Graphics& gfx) noexcept override;
-
     void BindVS(Graphics& gfx) noexcept;
     void BindPS(Graphics& gfx) noexcept;
     void BindCS(Graphics& gfx) noexcept;
     void BindUAV(Graphics& gfx) noexcept;
-
     void UnbindCSResource(Graphics& gfx) noexcept;
     void UnbindUAV(Graphics& gfx) noexcept;
 
+  public:
     UINT GetWidth() const noexcept;
     UINT GetHeight() const noexcept;
-
     ID3D11ShaderResourceView* GetSRV() const noexcept;
     ID3D11UnorderedAccessView* GetUAV() const noexcept;
 
@@ -35,7 +34,6 @@ class ComputeTexture : public Bindable
     UINT height;
     UINT shaderResourceSlot;
     UINT unorderedAccessSlot;
-
     Microsoft::WRL::ComPtr<ID3D11Texture2D> pTexture;
     Microsoft::WRL::ComPtr<ID3D11ShaderResourceView> pTextureView;
     Microsoft::WRL::ComPtr<ID3D11UnorderedAccessView> pUnorderedAccessView;

@@ -6,6 +6,8 @@ class BaseException : public std::exception
 {
   public:
     BaseException(int line, const char* file) noexcept;
+
+  public:
     const char* what() const noexcept override;
     virtual const char* GetType() const noexcept;
     int GetLine() const noexcept;

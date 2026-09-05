@@ -7,6 +7,8 @@ namespace Engine
     {
       public:
         Timer() noexcept;
+
+      public:
         float Mark() noexcept;
         float Peek() const noexcept;
         float Elapsed() const noexcept;

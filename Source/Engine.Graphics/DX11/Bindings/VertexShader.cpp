@@ -1,6 +1,7 @@
 #include "VertexShader.h"
 #include "../BindableCodex.h"
 #include "../GraphicsExceptionsMacros.h"
+#include <d3dcompiler.h>
 
 VertexShader::VertexShader(Graphics& gfx, const std::string& path)
     : path(path)

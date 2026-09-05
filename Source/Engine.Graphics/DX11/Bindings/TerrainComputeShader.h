@@ -3,6 +3,7 @@
 #include "ComputeTexture.h"
 #include "ConstantBuffers.h"
 #include "Sampler.h"
+#include <DirectXMath.h>
 #include <functional>
 
 class TerrainComputeShader : public Bindable
@@ -10,11 +11,12 @@ class TerrainComputeShader : public Bindable
   public:
     TerrainComputeShader(Graphics& gfx);
     void Generate(Graphics& gfx, ComputeTexture& heightmap, ComputeTexture& normalmap, DirectX::XMFLOAT2 position);
+    void SpawnControlWindow() noexcept;
+
+  public:
     void Bind(Graphics& gfx) noexcept override;
     void BindVS(Graphics& gfx) noexcept;
-
     void Unbind(Graphics& gfx) noexcept;
-    void SpawnControlWindow() noexcept;
 
     std::function<void()> regenCallback;
 

@@ -1,5 +1,4 @@
 #include "Game.h"
-#include <MinWindows.h>
 
 int CALLBACK
 WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR lpCmdLine, _In_ int nCmdShow)
@@ -16,4 +15,5 @@ WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _In_ LPSTR l
     {
         MessageBoxA(nullptr, e.what(), "Standard Exception", MB_OK | MB_ICONERROR);
     }
+    return -1;
 }

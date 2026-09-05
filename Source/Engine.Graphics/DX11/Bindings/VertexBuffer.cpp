@@ -1,5 +1,6 @@
 #include "VertexBuffer.h"
 #include "../BindableCodex.h"
+#include "../GraphicsExceptionsMacros.h"
 
 VertexBuffer::VertexBuffer(Graphics& gfx, const std::vector<Vertex::Standard>& vertices)
     : VertexBuffer(gfx, "?", vertices)
@@ -30,8 +31,11 @@ void VertexBuffer::Bind(Graphics& gfx) noexcept
     GetContext(gfx)->IASetVertexBuffers(0u, 1u, pVertexBuffer.GetAddressOf(), &stride, &offset);
 }
 
-std::shared_ptr<VertexBuffer>
-VertexBuffer::Resolve(Graphics& gfx, const std::string& tag, const std::vector<Vertex::Standard>& vertices)
+std::shared_ptr<VertexBuffer> VertexBuffer::Resolve(
+    Graphics& gfx,
+    const std::string& tag,
+    const std::vector<Vertex::Standard>& vertices
+)
 {
     assert(tag != "?");
     return Codex::Resolve<VertexBuffer>(gfx, tag, vertices);

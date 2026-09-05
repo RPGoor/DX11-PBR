@@ -1,10 +1,13 @@
 #pragma once
 #include "../Bindable.h"
+#include <memory>
 
 class Sampler : public Bindable
 {
   public:
     Sampler(Graphics& gfx, D3D11_TEXTURE_ADDRESS_MODE mode = D3D11_TEXTURE_ADDRESS_WRAP, UINT slot = 0u);
+
+  public:
     void Bind(Graphics& gfx) noexcept override;
     void BindVS(Graphics& gfx) noexcept;
     void BindCS(Graphics& gfx) noexcept;

@@ -1,6 +1,7 @@
 #include "TerrainComputeShader.h"
 #include "../GraphicsExceptionsMacros.h"
 #include "imgui.h"
+#include <d3dcompiler.h>
 
 TerrainComputeShader::TerrainComputeShader(Graphics& gfx)
     : cbuf(gfx, 0u),
@@ -63,9 +64,9 @@ void TerrainComputeShader::SpawnControlWindow() noexcept
     if (ImGui::Begin("Terrain"))
     {
         ImGui::SliderFloat("Frequency", &cbData.frequency, 0.01f, 25.0f, "%.02f");
-        ImGui::SliderFloat("Frequency Factor", &cbData.frequencyFactor, 1.0, 1.99f, "%.02f");
-        ImGui::SliderFloat("Height Factor", &cbData.heightFactor, 0.01, 25.0f, "%.02f");
-        ImGui::SliderFloat("Amplitude Factor", &cbData.amplitudeFactor, 0.01, 0.99f, "%.02f");
+        ImGui::SliderFloat("Frequency Factor", &cbData.frequencyFactor, 1.0f, 1.99f, "%.02f");
+        ImGui::SliderFloat("Height Factor", &cbData.heightFactor, 0.01f, 25.0f, "%.02f");
+        ImGui::SliderFloat("Amplitude Factor", &cbData.amplitudeFactor, 0.01f, 0.99f, "%.02f");
 
         int iterations = static_cast<int>(cbData.iterations);
         if (ImGui::SliderInt("Iterations", &iterations, 1, 128))

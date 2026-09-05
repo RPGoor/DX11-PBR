@@ -105,7 +105,7 @@ PositionalData CalculatePositionWS(VSInput input, GrassInstance instance)
 
     float3 bladeOriginWS = mul(float4(instance.position.x, terrainHeight, instance.position.y, 1.0f), model).xyz;
     
-    float2 noiseUV = position.xz * uvScale / 100.0f + direction * time * speed / 100.0f;
+    float2 noiseUV = positionWS.xz * uvScale / 100.0f + direction * time * speed / 100.0f;
     float noise = windNoise.SampleLevel(windSampler, noiseUV, 0.0f).r * 2.0f - 1.0f;
 
     float bendAngle = noise * bendMask * radians(45.0f) * bendStrength;

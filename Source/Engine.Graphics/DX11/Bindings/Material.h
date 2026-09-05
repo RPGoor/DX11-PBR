@@ -19,8 +19,11 @@ class Material : public Bindable
     Material(Graphics& gfx, std::string materialName, const MaterialConstants& constants = {});
 
     void Bind(Graphics& gfx) noexcept override;
-    static std::shared_ptr<Material>
-    Resolve(Graphics& gfx, std::string materialName, const MaterialConstants& constants = {});
+    static std::shared_ptr<Material> Resolve(
+        Graphics& gfx,
+        std::string materialName,
+        const MaterialConstants& constants = {}
+    );
 
     template <typename... Ignore> static std::string GenerateUID(const std::string& tag, Ignore&&... ignore)
     {

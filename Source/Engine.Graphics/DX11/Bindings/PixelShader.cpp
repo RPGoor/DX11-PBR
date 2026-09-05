@@ -1,6 +1,7 @@
 #include "PixelShader.h"
 #include "../BindableCodex.h"
 #include "../GraphicsExceptionsMacros.h"
+#include <d3dcompiler.h>
 
 PixelShader::PixelShader(Graphics& gfx, const std::string& path)
     : path(path)

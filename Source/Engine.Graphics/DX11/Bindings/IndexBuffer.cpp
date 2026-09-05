@@ -1,7 +1,7 @@
 #include "IndexBuffer.h"
 #include "../BindableCodex.h"
 #include "../GraphicsExceptionsMacros.h"
-#include "InputLayout.h"
+#include <cassert>
 
 IndexBuffer::IndexBuffer(Graphics& gfx, const std::vector<unsigned int>& indices)
     : IndexBuffer(gfx, "?", indices)
@@ -36,8 +36,11 @@ UINT IndexBuffer::GetCount() const noexcept
     return count;
 }
 
-std::shared_ptr<IndexBuffer>
-IndexBuffer::Resolve(Graphics& gfx, const std::string& tag, const std::vector<unsigned int>& indices)
+std::shared_ptr<IndexBuffer> IndexBuffer::Resolve(
+    Graphics& gfx,
+    const std::string& tag,
+    const std::vector<unsigned int>& indices
+)
 {
     assert(tag != "?");
     return Codex::Resolve<IndexBuffer>(gfx, tag, indices);

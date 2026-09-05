@@ -32,7 +32,7 @@ void main(uint3 dispatchThreadID : SV_DispatchThreadID)
     float freq = frequency;
     float amp = 1.0f;
     float amplitudeSum = 0.0f;
-    for (int i = 0; i < iterations; i++)
+    for (uint i = 0; i < iterations; i++)
     {
         float2 noisePos = (uv + chunkOffset) * freq;
         ValueNoiseResult noise = ValueNoise(noisePos, seed);

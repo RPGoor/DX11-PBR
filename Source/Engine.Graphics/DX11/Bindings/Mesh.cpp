@@ -32,7 +32,7 @@ std::string Mesh::GetUID() const noexcept
     return GenerateUID_(tag);
 }
 
-const UINT& Mesh::GetCount() const noexcept
+const UINT Mesh::GetCount() const noexcept
 {
     return indexBuffer->GetCount();
 }

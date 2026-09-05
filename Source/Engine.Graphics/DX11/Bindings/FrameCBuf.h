@@ -1,12 +1,14 @@
 #pragma once
 #include "../Bindable.h"
 #include "ConstantBuffers.h"
+#include <DirectXMath.h>
 
 class FrameCbuf : public Bindable
 {
   public:
     FrameCbuf(Graphics& gfx);
 
+  public:
     void Update(
         Graphics& gfx,
         DirectX::FXMMATRIX view,
@@ -14,7 +16,6 @@ class FrameCbuf : public Bindable
         const DirectX::XMFLOAT3& cameraPosition,
         float time
     );
-
     void Bind(Graphics& gfx) noexcept override;
 
   private:
@@ -23,7 +24,6 @@ class FrameCbuf : public Bindable
         DirectX::XMMATRIX view;
         DirectX::XMMATRIX projection;
         DirectX::XMMATRIX viewProjection;
-
         DirectX::XMFLOAT3 cameraPositionWS;
         float time;
     };

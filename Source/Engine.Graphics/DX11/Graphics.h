@@ -1,11 +1,7 @@
 #pragma once
 #include "DxgiInfoManager.h"
-#include <DirectXMath.h>
-#include <MinWindows.h>
 #include <d3d11.h>
-#include <d3dcompiler.h>
-#include <memory>
-#include <wrl.h>
+#include <wrl/client.h>
 
 using namespace Microsoft::WRL;
 
@@ -25,9 +21,7 @@ class Graphics
 
     void EndFrame();
     void BeginFrame(float r, float g, float b) noexcept;
-
-    void Resize(unsigned int width, unsigned int height) noexcept;
-
+    void Resize(unsigned int width, unsigned int height);
     void Dispatch(UINT groupCountX, UINT groupCountY, UINT groupCountZ) noexcept;
 
     void EnableImGui() noexcept;

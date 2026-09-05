@@ -1,6 +1,6 @@
 #include "GrassComputeShader.h"
 #include "../GraphicsExceptionsMacros.h"
-#include "imgui.h"
+#include <d3dcompiler.h>
 
 GrassComputeShader::GrassComputeShader(Graphics& gfx)
     : cbuf(gfx, 0u),

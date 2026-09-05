@@ -11,6 +11,8 @@ class GrassComputeShader : public Bindable
 {
   public:
     GrassComputeShader(Graphics& gfx);
+
+  public:
     void Generate(
         Graphics& gfx,
         InstanceBuffer& instanceBuffer,
@@ -19,7 +21,6 @@ class GrassComputeShader : public Bindable
         ComputeTexture& normalmap
     );
     void Bind(Graphics& gfx) noexcept override;
-
     void Unbind(Graphics& gfx) noexcept;
 
     std::function<void()> regenCallback;
@@ -32,11 +33,9 @@ class GrassComputeShader : public Bindable
         DirectX::XMFLOAT2 chunkPosition;
     };
 
-    std::unique_ptr<Sampler> terrainSampler;
-
     std::string path = "GrassCS.cso";
+    std::unique_ptr<Sampler> terrainSampler;
     Microsoft::WRL::ComPtr<ID3D11ComputeShader> pComputeShader;
-
     GrassGenerationConstants cbData;
     mutable ComputeConstantBuffer<GrassGenerationConstants> cbuf;
 };

@@ -1,15 +1,21 @@
 #pragma once
 #include "../Bindable.h"
+#include <memory>
 
 class IndexBuffer : public Bindable
 {
   public:
     IndexBuffer(Graphics& gfx, const std::vector<unsigned int>& indices);
     IndexBuffer(Graphics& gfx, std::string tag, const std::vector<unsigned int>& indices);
+
+  public:
     void Bind(Graphics& gfx) noexcept override;
     UINT GetCount() const noexcept;
-    static std::shared_ptr<IndexBuffer>
-    Resolve(Graphics& gfx, const std::string& tag, const std::vector<unsigned int>& indices);
+    static std::shared_ptr<IndexBuffer> Resolve(
+        Graphics& gfx,
+        const std::string& tag,
+        const std::vector<unsigned int>& indices
+    );
 
     template <typename... Ignore> static std::string GenerateUID(const std::string& tag, Ignore&&... ignore)
     {

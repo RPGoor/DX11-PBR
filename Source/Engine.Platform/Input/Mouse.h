@@ -24,8 +24,8 @@ class Mouse
 
       private:
         Type type;
-        bool leftIsPressed;
-        bool rightIsPressed;
+        bool leftIsPressed = false;
+        bool rightIsPressed = false;
         int x;
         int y;
 

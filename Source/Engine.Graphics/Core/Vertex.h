@@ -21,8 +21,10 @@ namespace Vertex
         float scale;
     };
 
-    inline std::vector<D3D11_INPUT_ELEMENT_DESC>
-    CombineLayouts(std::vector<D3D11_INPUT_ELEMENT_DESC> a, std::vector<D3D11_INPUT_ELEMENT_DESC> b)
+    inline std::vector<D3D11_INPUT_ELEMENT_DESC> CombineLayouts(
+        std::vector<D3D11_INPUT_ELEMENT_DESC> a,
+        std::vector<D3D11_INPUT_ELEMENT_DESC> b
+    )
     {
         std::vector<D3D11_INPUT_ELEMENT_DESC> result;
         result.reserve(a.size() + b.size());

@@ -1,5 +1,4 @@
 #include "Camera.h"
-#include "imgui.h"
 #include <algorithm>
 
 namespace dx = DirectX;
@@ -15,10 +14,10 @@ Camera::Camera() noexcept
     yaw = 0.0f;
 }
 
-float wrap_angle(float theta)
+static float wrap_angle(float theta)
 {
-    const float modded = fmod(theta, 2.0 * PI_D);
-    return (modded > PI_D) ? (modded - 2.0 * PI_D) : modded;
+    const float modded = fmodf(theta, 2.0f * PI);
+    return (modded > PI) ? (modded - 2.0f * PI) : modded;
 }
 
 DirectX::XMMATRIX Camera::GetMatrix() const noexcept
