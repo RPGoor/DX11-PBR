@@ -2,6 +2,8 @@
 #include "Landscape.h"
 #include <Camera.h>
 #include <DirectionalLight.h>
+#include <memory>
+#include <vector>
 
 class Scene
 {
@@ -12,7 +14,14 @@ class Scene
     Camera& GetCamera() noexcept;
 
   private:
-    Landscape landscape;
+    // Landscape landscape;
+    class Sphere : public Drawable
+    {
+      public:
+        Sphere(Graphics& gfx, DirectX::XMFLOAT3 position, float metallic, float roughness);
+    };
+
+    std::vector<std::unique_ptr<Sphere>> spheres;
     DirectionalLight pointLight;
     Camera camera;
 };
