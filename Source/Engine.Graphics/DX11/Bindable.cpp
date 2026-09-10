@@ -1,5 +1,6 @@
 #include "Bindable.h"
 #include <cassert>
+#include <stdexcept>
 
 std::string Bindable::GetUID() const noexcept
 {

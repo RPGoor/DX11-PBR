@@ -6,9 +6,9 @@ Grass::Grass(Graphics& gfx)
     : cbuf(gfx, 2u),
       cbData(1.0f, 1.5f, 5.0f, 0.0f, {1.0f, 1.0f}, 8.0f, 0.0f)
 {
-    noiseTexture = std::make_unique<Texture>(gfx, "..\\..\\Assets\\Textures\\noise2.png", 1u);
+    noiseTexture = std::make_unique<Texture>(gfx, "Assets\\Textures\\noise2.png", 1u);
 
-    MeshData data = MeshFactory::Load("..\\..\\Assets\\Models\\grass.obj");
+    MeshData data = MeshFactory::Load("Assets\\Models\\grass.obj");
     pipeline = std::make_unique<PipelineSettings>(
         gfx,
         Vertex::CombineLayouts(VertexLayout<Vertex::Standard>::elements, VertexLayout<Vertex::Instance>::elements),

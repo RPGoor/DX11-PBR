@@ -3,8 +3,8 @@
 
 Terrain::Terrain(Graphics& gfx)
 {
-    rockTexture = std::make_unique<Texture>(gfx, "..\\..\\Assets\\Textures\\rock_diff.jpg", 0u);
-    dirtTexture = std::make_unique<Texture>(gfx, "..\\..\\Assets\\Textures\\dirt_diff.jpg", 1u);
+    rockTexture = std::make_unique<Texture>(gfx, "Assets\\Textures\\rock_diff.jpg", 0u);
+    dirtTexture = std::make_unique<Texture>(gfx, "Assets\\Textures\\dirt_diff.jpg", 1u);
     sampler = std::make_unique<Sampler>(gfx, D3D11_TEXTURE_ADDRESS_WRAP, 0u);
 
     MeshData data = MeshFactory::Grid(256, 20.0f);
